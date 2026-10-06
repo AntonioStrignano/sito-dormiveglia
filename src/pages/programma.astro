@@ -1,0 +1,47 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import EventCard from "../components/EventCard.astro";
+import { program } from "../data/programma";
+import { site } from "../data/site";
+---
+
+<BaseLayout
+  title="Programma"
+  description="Il programma del Dormiveglia Animation Film Fest, dal 12 al 15 novembre 2026 ad Andria."
+>
+  <img
+    class="poster-inline"
+    src="/images/dormiveglia-program.webp"
+    alt="Grafica del programma: quattro appuntamenti dal 12 al 15 novembre, ogni sera ingresso alle 20:00 e proiezione alle 21:00."
+    width="600"
+    height="1067"
+    fetchpriority="high"
+  />
+
+  <header>
+    <p class="eyebrow">{site.dates} · {site.venue}</p>
+    <h1>Programma</h1>
+    <p>Ogni sera: ingresso alle 20:00, proiezione alle 21:00. Ingresso gratuito fino a esaurimento posti.</p>
+  </header>
+
+  <section class="content-section" aria-label="Eventi del festival">
+    <ul class="event-list">
+      {program.map((event) => <EventCard event={event} />)}
+    </ul>
+  </section>
+
+  <section class="content-section" aria-labelledby="booking-title">
+    <h2 id="booking-title">Prenotazioni</h2>
+    {site.bookingFormUrl ? (
+      <p><a href={site.bookingFormUrl} target="_blank" rel="noreferrer">Apri il modulo di prenotazione</a></p>
+    ) : (
+      <p class="placeholder">Il modulo unico per prenotare i posti sarà collegato qui. Ingresso gratuito fino a esaurimento posti.</p>
+    )}
+    {site.programPdfUrl ? (
+      <p><a href={site.programPdfUrl} target="_blank" rel="noreferrer">Scarica il programma PDF</a></p>
+    ) : (
+      <p class="muted">Il programma PDF non è ancora disponibile.</p>
+    )}
+  </section>
+
+</BaseLayout>

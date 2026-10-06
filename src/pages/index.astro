@@ -1,0 +1,38 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import EventCard from "../components/EventCard.astro";
+import { program } from "../data/programma";
+import { site } from "../data/site";
+---
+
+<BaseLayout
+  title="Dormiveglia"
+  description="Dormiveglia Animation Film Fest, seconda edizione, dal 12 al 15 novembre 2026 ad Andria."
+>
+  <section class="hero" aria-labelledby="home-title">
+    <div class="hero-copy">
+      <p class="eyebrow">{site.edition} · {site.dates}</p>
+      <h1 id="home-title">Dormiveglia Animation Film Fest</h1>
+      <p>Quattro serate di cinema d'animazione ad Andria, al Food Policy Hub.</p>
+      <p><strong>Ingresso gratuito fino a esaurimento posti.</strong></p>
+      <p><a href="/programma/">Consulta il programma</a></p>
+    </div>
+    <img
+      class="hero-image"
+      src="/images/dormiveglia-poster.webp"
+      alt="Locandina della seconda edizione del Dormiveglia Animation Film Fest: un viandante attraversa un paesaggio post-apocalittico."
+      width="768"
+      height="1152"
+      fetchpriority="high"
+    />
+  </section>
+
+  <section class="content-section" aria-labelledby="home-program-title">
+    <p class="eyebrow">12-15 novembre 2026 · Andria</p>
+    <h2 id="home-program-title">Il programma</h2>
+    <ul class="event-list">
+      {program.map((event) => <EventCard event={event} />)}
+    </ul>
+    <p><a href="/programma/">Tutti i dettagli e le prenotazioni</a></p>
+  </section>
+</BaseLayout>

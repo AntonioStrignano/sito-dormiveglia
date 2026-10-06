@@ -1,0 +1,35 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { site } from "../data/site";
+---
+
+<BaseLayout
+  title="Info e contatti"
+  description="Informazioni e contatti del Dormiveglia Animation Film Fest e del collettivo KA-POW! ad Andria."
+>
+  <p class="eyebrow">{site.dates}</p>
+  <h1>Info e contatti</h1>
+
+  <section class="content-section" aria-labelledby="where-title">
+    <h2 id="where-title">Dove</h2>
+    <address>
+      {site.venue}<br />
+      {site.address}
+    </address>
+    <p>Ingresso gratuito fino a esaurimento posti. Le proiezioni iniziano alle 21:00.</p>
+    <p class="muted">Indicazioni e mappa: da aggiungere.</p>
+  </section>
+
+  <section class="content-section" aria-labelledby="contact-title">
+    <h2 id="contact-title">Contatti</h2>
+    {site.contacts.email ? (
+      <p><a href={`mailto:${site.contacts.email}`}>{site.contacts.email}</a></p>
+    ) : (
+      <p class="placeholder">Indirizzo email: da aggiungere.</p>
+    )}
+    <ul class="social-list">
+      <li><a href={site.contacts.instagram} target="_blank" rel="noreferrer">Instagram Dormiveglia</a></li>
+      <li><a href={site.contacts.collectiveInstagram} target="_blank" rel="noreferrer">Instagram collettivo KA-POW!</a></li>
+    </ul>
+  </section>
+</BaseLayout>

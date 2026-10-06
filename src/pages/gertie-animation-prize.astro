@@ -1,0 +1,52 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { gertie } from "../data/gertie";
+import { site } from "../data/site";
+---
+
+<BaseLayout
+  title="Gertie Animation Prize"
+  description="Gertie Animation Prize, premio dedicato al cinema d'animazione nell'ambito del Dormiveglia Animation Film Fest."
+>
+  <header>
+    <p class="eyebrow">{gertie.edition}</p>
+    <h1>{gertie.title}</h1>
+    <p>Il premio dedicato al cinema d'animazione del Dormiveglia Animation Film Fest.</p>
+  </header>
+
+  <img
+    class="poster-inline"
+    src="/images/gertie-deadline-story.webp"
+    alt="Grafica verticale del Gertie Animation Prize 2026: Gertie, la mascotte del premio, e deadline del 25 settembre 2026."
+    fetchpriority="high"
+  />
+
+  <section class="content-section" aria-labelledby="edition-title">
+    <h2 id="edition-title">Edizione 2026</h2>
+    <p>Le candidature si sono chiuse il {gertie.deadline}.</p>
+    {gertie.regulationUrl ? (
+      <p><a href={gertie.regulationUrl} target="_blank" rel="noreferrer">Consulta il regolamento</a></p>
+    ) : (
+      <p class="placeholder">Link al regolamento: da aggiungere.</p>
+    )}
+    {gertie.applicationUrl ? (
+      <p><a href={gertie.applicationUrl} target="_blank" rel="noreferrer">Informazioni sulla candidatura</a></p>
+    ) : (
+      <p class="muted">Il link informativo alla candidatura sarà aggiunto quando disponibile. Le candidature per il 2026 sono chiuse.</p>
+    )}
+    <p><a href={site.contacts.instagram} target="_blank" rel="noreferrer">Segui gli aggiornamenti su Instagram</a></p>
+  </section>
+
+  <section class="content-section" aria-labelledby="history-title">
+    <h2 id="history-title">Edizioni precedenti</h2>
+    {gertie.history.map((edition) => (
+      <article aria-labelledby={`edition-${edition.year}`}>
+        <h3 id={`edition-${edition.year}`}>{edition.year}</h3>
+        <p class="placeholder">
+          Vincitore, locandina e menzioni dell'edizione {edition.year}: informazioni in aggiornamento.
+        </p>
+        {edition.link && <p><a href={edition.link}>Guarda i contenuti dell'edizione {edition.year}</a></p>}
+      </article>
+    ))}
+  </section>
+</BaseLayout>

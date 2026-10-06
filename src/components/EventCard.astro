@@ -1,0 +1,29 @@
+---
+import type { ProgramEvent } from "../data/programma";
+import { site } from "../data/site";
+
+interface Props {
+  event: ProgramEvent;
+}
+
+const { event } = Astro.props;
+---
+
+<li class="event-item">
+  <div>
+    <p class="eyebrow">{event.day}</p>
+    <p class="event-meta">Ingresso {event.doors} · Proiezione {event.screening}</p>
+  </div>
+  <div>
+    <h3 class="event-title">{event.title}</h3>
+    <p class="muted">{event.kind} · {site.venue}, {site.address}</p>
+  </div>
+  <div>
+    {site.bookingFormUrl ? (
+      <a href={site.bookingFormUrl} target="_blank" rel="noreferrer">Prenota un posto</a>
+    ) : (
+      <p class="muted">Prenotazione online in aggiornamento</p>
+    )}
+    <p class="event-meta">Ingresso gratuito fino a esaurimento posti</p>
+  </div>
+</li>

@@ -1,0 +1,39 @@
+---
+import { navigation, site } from "../data/site";
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand" href="/" aria-label={`${site.name}, homepage`}>
+      <img src="/images/dormiveglia-profile.webp" alt="" width="44" height="44" />
+      <span>Dormiveglia</span>
+    </a>
+    <nav class="desktop-nav" aria-label="Navigazione principale">
+      <ul class="nav-list">
+        {navigation.map((item) => (
+          <li>
+            <a href={item.href} aria-current={currentPath === item.href ? "page" : undefined}>
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <details class="mobile-nav">
+      <summary aria-label="Apri navigazione">Menu</summary>
+      <nav aria-label="Navigazione principale">
+        <ul class="nav-list">
+          {navigation.map((item) => (
+            <li>
+              <a href={item.href} aria-current={currentPath === item.href ? "page" : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </details>
+  </div>
+</header>

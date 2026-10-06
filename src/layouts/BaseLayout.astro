@@ -1,0 +1,33 @@
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const pageTitle = title === "Dormiveglia" ? title : `${title} | Dormiveglia`;
+---
+
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#000000" />
+    <link rel="icon" type="image/webp" href="/images/dormiveglia-profile.webp" />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Salta al contenuto</a>
+    <Header />
+    <main id="main-content" class="page-shell">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
