@@ -58,6 +58,11 @@ Da raccogliere solo se approvati per la pubblicazione:
 
 - [ ] Avvisare l'autore (nal@nalgames.com) dell'uso non-profit di Italipixel nel sito, come indicato nel file di licenza. La donazione è facoltativa.
 
+## Feed Instagram
+
+- [ ] In fase finale, verificare se l'account Dormiveglia è Business o Creator e scegliere tra API ufficiale e widget esterno per aggiornare automaticamente l'anteprima in homepage.
+- [ ] Se si usa un'integrazione autenticata, autorizzarla dall'account amministratore e configurare le credenziali come variabili protette su Netlify; non inviare password o token in chat.
+
 ## Da non richiedere di nuovo
 
 - Sede: Andria Food Policy Hub, Via S. Francesco 12.
