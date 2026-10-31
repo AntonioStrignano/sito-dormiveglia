@@ -7,11 +7,16 @@ interface Props {
 }
 
 const { event } = Astro.props;
+const dateParts = event.day.match(/^(.*?)(\d+)(.*)$/);
 ---
 
 <li class="event-item">
   <div>
-    <p class="eyebrow">{event.day}</p>
+    <p class="eyebrow event-day">
+      {dateParts ? (
+        <span>{dateParts[1]}<span class="date-number">{dateParts[2]}</span>{dateParts[3]}</span>
+      ) : event.day}
+    </p>
     <p class="event-meta">Ingresso {event.doors} · Proiezione {event.screening}</p>
   </div>
   <div>

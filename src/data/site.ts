@@ -5,7 +5,7 @@ export const site = {
   dates: "12-15 novembre 2026",
   venue: "Andria Food Policy Hub",
   address: "Via S. Francesco 12, Andria",
-  bookingFormUrl: null as string | null,
+  bookingFormUrl: "https://docs.google.com/forms/d/e/1FAIpQLSfI1VOVHssCPffh-5QUyfCbDpSE4CCnBCPYM8RZESXiJ0dzaw/viewform" as string | null,
   programPdfUrl: null as string | null,
   contacts: {
     email: null as string | null,
