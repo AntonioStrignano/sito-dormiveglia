@@ -730,6 +730,11 @@ html.typewriter-ready .typewriter-wrap.is-typed [data-typewriter] {
   padding-block: 0.75rem;
 }
 
+.preview-carousel[data-edge-bands] {
+  width: min(calc(100% - 2rem), var(--content-width));
+  margin-inline: auto;
+}
+
 .preview-carousel-edge {
   position: absolute;
   top: 0;
@@ -755,6 +760,10 @@ html.typewriter-ready .typewriter-wrap.is-typed [data-typewriter] {
   width: 100%;
   margin: 0;
   padding-inline: 0;
+}
+
+.preview-carousel[data-edge-bands] .preview-carousel-viewport:focus-visible {
+  outline-offset: -3px;
 }
 
 .preview-carousel-viewport::-webkit-scrollbar {
@@ -1313,9 +1322,9 @@ html.typewriter-ready .typewriter-wrap.is-typed [data-typewriter] {
   }
 
   .preview-carousel[data-edge-bands] .preview-carousel-viewport {
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
-    padding-inline: max(1rem, calc((100vw - var(--content-width)) / 2));
+    width: 100%;
+    margin: 0;
+    padding: 0;
   }
 
   .gertie-teaser {
