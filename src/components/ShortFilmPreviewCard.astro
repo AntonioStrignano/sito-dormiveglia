@@ -1,0 +1,81 @@
+---
+import { Image } from "astro:assets";
+import type { GertiePreviewItem } from "../data/gertie";
+
+interface Props {
+  item: GertiePreviewItem;
+  dialogId: string;
+  isClone?: boolean;
+}
+
+const { item, dialogId, isClone = false } = Astro.props;
+---
+
+<li
+  class="preview-carousel-slide"
+  data-carousel-clone={isClone ? "" : undefined}
+  aria-hidden={isClone ? "true" : undefined}
+  inert={isClone || undefined}
+>
+  <button
+    class="preview-card preview-card-link jury-preview-card"
+    type="button"
+    aria-haspopup="dialog"
+    aria-controls={dialogId}
+    data-terminal-dialog-trigger={!isClone ? "" : undefined}
+    tabindex={isClone ? -1 : undefined}
+  >
+    {item.image && <Image class="preview-image preview-image--short" src={item.image} alt="" loading="lazy" />}
+    <span class="preview-card-copy">
+      <span class="preview-card-title">{item.title}</span>
+      <span class="preview-card-details">{item.details}</span>
+      <span class="preview-card-cta">Leggi la sinossi <span aria-hidden="true">&#8594;</span></span>
+    </span>
+  </button>
+
+  {!isClone && (
+    <dialog
+      class="screening-dialog jury-dialog short-film-dialog"
+      id={dialogId}
+      aria-labelledby={`${dialogId}-title`}
+      data-terminal-dialog
+    >
+      <button class="dialog-close" type="button" aria-label={`Chiudi la scheda di ${item.title}`}>&times;</button>
+      <div class="dialog-content jury-dialog-content screening-dialog-content">
+        <header class="jury-dialog-heading screening-dialog-heading">
+          {item.image && (
+            <Image
+              class="screening-dialog-poster"
+              src={item.image}
+              alt={`Immagine dal corto ${item.title}`}
+              loading="lazy"
+            />
+          )}
+          <div class="jury-dialog-identity">
+            <p class="eyebrow" data-dossier-typewriter>Corto selezionato // Gertie 2026</p>
+            <h2 id={`${dialogId}-title`} data-dossier-typewriter>{item.title}</h2>
+            <p data-dossier-typewriter>{item.details}</p>
+          </div>
+        </header>
+        <section class="jury-dialog-bio screening-dialog-details" aria-label={`Sinossi di ${item.title}`}>
+          <p class="eyebrow" data-dossier-typewriter>LOG // SINOSSI</p>
+          <p data-dossier-typewriter>{item.synopsis}</p>
+        </section>
+        <nav class="dialog-actions" aria-label={`Link per ${item.title}`}>
+          <a class="button button-primary" href="/gertie-animation-prize/">Scopri Gertie</a>
+          {item.authorLinks?.map((authorLink) => (
+            <a class="button button-secondary" href={authorLink.href} target="_blank" rel="noreferrer">
+              {authorLink.label}
+            </a>
+          ))}
+        </nav>
+      </div>
+    </dialog>
+  )}
+</li>
+
+<script>
+  import { initializeTerminalDialogs } from "../scripts/terminalDialogs";
+
+  initializeTerminalDialogs();
+</script>

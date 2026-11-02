@@ -1,19 +1,8 @@
 ---
 import { Image } from "astro:assets";
 import JuryPreviewCard from "./JuryPreviewCard.astro";
-
-interface PreviewItem {
-  id: string;
-  title: string;
-  details: string;
-  href: string;
-  linkLabel: string;
-  image?: import("astro").ImageMetadata;
-  imageAlt?: string;
-  placeholderLabel?: string;
-  external?: boolean;
-  variant?: "jury" | "short";
-}
+import ShortFilmPreviewCard from "./ShortFilmPreviewCard.astro";
+import type { GertiePreviewItem as PreviewItem } from "../data/gertie";
 
 interface Props {
   id: string;
@@ -65,6 +54,8 @@ const isResponsive = mode === "responsive";
         {items.map((item) => (
           item.variant === "jury" ? (
             <JuryPreviewCard item={item} dialogId={`${id}-dialog-${item.id}`} isClone />
+          ) : item.variant === "short" ? (
+            <ShortFilmPreviewCard item={item} dialogId={`${id}-dialog-${item.id}`} isClone />
           ) : (
           <li class="preview-carousel-slide" data-carousel-clone aria-hidden="true" inert>
             <a
@@ -101,6 +92,8 @@ const isResponsive = mode === "responsive";
         {items.map((item) => (
           item.variant === "jury" ? (
             <JuryPreviewCard item={item} dialogId={`${id}-dialog-${item.id}`} />
+          ) : item.variant === "short" ? (
+            <ShortFilmPreviewCard item={item} dialogId={`${id}-dialog-${item.id}`} />
           ) : (
           <li class="preview-carousel-slide">
             <a
@@ -138,6 +131,8 @@ const isResponsive = mode === "responsive";
         {items.map((item) => (
           item.variant === "jury" ? (
             <JuryPreviewCard item={item} dialogId={`${id}-dialog-${item.id}`} isClone />
+          ) : item.variant === "short" ? (
+            <ShortFilmPreviewCard item={item} dialogId={`${id}-dialog-${item.id}`} isClone />
           ) : (
           <li class="preview-carousel-slide" data-carousel-clone aria-hidden="true" inert>
             <a
@@ -177,6 +172,9 @@ const isResponsive = mode === "responsive";
   {mode === "grid" && (
     <ul class:list={["preview-card-list", "preview-card-grid", { "preview-card-grid-responsive": isResponsive }]} aria-label={`${title}, ${items.length} schede`}>
       {items.map((item) => (
+        item.variant === "short" ? (
+          <ShortFilmPreviewCard item={item} dialogId={`${id}-dialog-${item.id}`} />
+        ) : (
         <li class="preview-carousel-slide">
           <a
             class="preview-card preview-card-link"
@@ -208,6 +206,7 @@ const isResponsive = mode === "responsive";
             </span>
           </a>
         </li>
+        )
       ))}
     </ul>
   )}

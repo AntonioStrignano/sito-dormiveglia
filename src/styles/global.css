@@ -999,6 +999,10 @@ html.typewriter-ready .typewriter-wrap.is-typed [data-typewriter] {
   margin-top: auto;
 }
 
+.short-film-dialog .dialog-actions {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
+}
+
 .preview-image--short {
   aspect-ratio: 448 / 251;
 }

@@ -7,76 +7,47 @@ Compila i dati disponibili; per quelli mancanti scrivi `da definire`. I percorsi
 Le immagini numerate sono in `Grafiche dormiveglia/cards corti/` e sono già associate ai rispettivi corti nell'ordine 1–8.
 
 ### Corto 1
-- Titolo:
-- Regia:
-- Anno:
-- Durata:
-- Paese:
-- Sinossi breve:
-- Trailer o link esterno (facoltativo):
+"La Cattiva Strada" - Giacomo Calderoni (@boyz_jiek)
+Il mondo è finito: l'abbiamo consumato. Partiamo per colonizzarne uno nuovo, lanciando bombe di pace. Questa è una storia d'amore che nasce da una storia di guerra: l'odio è il primo sentimento, l'amore viene dopo. Con l'odio il mondo è esploso, ma spero che dal nostro amore possiamo crearne uno nuovo. Il mondo sta finendo; almeno viviamone insieme la fine.
+https://www.instagram.com/boyz_jiek/
 
 ### Corto 2
-- Titolo:
-- Regia:
-- Anno:
-- Durata:
-- Paese:
-- Sinossi breve:
-- Trailer o link esterno (facoltativo):
+"Rita" - Francesca Colombara (@francesca_colombara)
+Rita era mia nonna, una grande lumaca che si muoveva con un girello. È morta nel 2024, e questo cortometraggio racconta la storia del legame che ci univa. Rita ha vissuto una vita piena, circondata da molte persone che le volevano bene, e aveva una grande passione per la cucina, in particolare per le cozze.
+https://www.instagram.com/francesca_colombara/
 
 ### Corto 3
-- Titolo:
-- Regia:
-- Anno:
-- Durata:
-- Paese:
-- Sinossi breve:
-- Trailer o link esterno (facoltativo):
+"Acceleration" - Stepan Crani (@stepancrani)
+In un giorno nevoso d'inverno, un ragazzo riceve una nuova bicicletta e non riesce a resistere alla tentazione di usarla. Mentre pedala, la sua immaginazione lo porta ben oltre il cortile, trasformando la corsa in una serie di avventure sempre più sfrenate. La realtà attende silenziosamente il momento in cui la fantasia raggiunge il suo limite.
+https://www.instagram.com/stepancrani/
 
 ### Corto 4
-- Titolo:
-- Regia:
-- Anno:
-- Durata:
-- Paese:
-- Sinossi breve:
-- Trailer o link esterno (facoltativo):
+"Pedro Hermano" - Bessufekad G. Moretti (@bessuanimations)
+Pedro Hermano è un barbone che, spinto da un'infanzia da fanatico di supereroi e libero da beni frivoli, dedica la vita a combattere il crimine e aiutare il prossimo, ignorando la propria incolumità...anche a rischio della vita!
+https://www.instagram.com/bessuanimations/
 
 ### Corto 5
-- Titolo:
-- Regia:
-- Anno:
-- Durata:
-- Paese:
-- Sinossi breve:
-- Trailer o link esterno (facoltativo):
+"Le Case di Achille" - Nespy 5euro (@nespy5euro)
+Questo cortometraggio è nato in modo spontaneo, in un solo pomeriggio. Un giorno d’estate, mentre io e mio nipote Achille cercavamo rifugio dal caldo, lui ha iniziato a raccontarmi una dopo l’altra le sue infinite storie fantastiche. Ho deciso di registrarlo, lasciando che la sua immaginazione scorresse libera.
+https://www.instagram.com/nespy5euro/
 
 ### Corto 6
-- Titolo:
-- Regia:
-- Anno:
-- Durata:
-- Paese:
-- Sinossi breve:
-- Trailer o link esterno (facoltativo):
+"Sotto i Pini" - Noctu Animation (@noctu.animation)
+Tra lo starnazzare dei gabbiani e il frusciare delle fronde della pineta si muove qualcosa. Sotto l’ombra dei pini si materializzano le vite delle persone che hanno vissuto la storia antica d’Italia. I loro destini, le loro fortune, le loro tragedie.
+https://www.instagram.com/noctu.animation/
 
 ### Corto 7
-- Titolo:
-- Regia:
-- Anno:
-- Durata:
-- Paese:
-- Sinossi breve:
-- Trailer o link esterno (facoltativo):
+"A Perfect Storm" - A. Zonca e G. Cecini (@anna.by.art @gretisvibes)
+La storia segue la routine quotidiana di una cassiera che si ritroverà ad affrontare una serie di fastidiosi inconvenienti durante la sua giornata. Questi eventi minano il suo equilibrio emotivo e solo l'intervento della figlia riuscirà a calmare la situazione.
+https://www.instagram.com/anna.by.art/
+https://www.instagram.com/gretisvibes/
 
 ### Corto 8
-- Titolo:
-- Regia:
-- Anno:
-- Durata:
-- Paese:
-- Sinossi breve:
-- Trailer o link esterno (facoltativo):
+"Antonio" - Studio Creatura (@studio_creatura)
+Durante un rito arboreo il gioco di un bambino si rivela essere una profonda riflessione sull’esistenza: in un piccolo villaggio ai margini del bosco si celebra il matrimonio degli alberi, simbolo di unione tra la terra e il cielo. Attraverso il gioco infantile di Antonio, con la sua scatola di formiche, viviamo una semplice storia di equilibrio tra uomini, animali e natura che ci porta a interrogarci sull'esistenza del
+divino.
+https://www.instagram.com/studio_creatura/
+
 
 ## Film in programma
 

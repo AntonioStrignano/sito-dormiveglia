@@ -17,6 +17,8 @@ export interface GertiePreviewItem {
   title: string;
   details: string;
   bio?: string;
+  synopsis?: string;
+  authorLinks?: { label: string; href: string }[];
   href: string;
   linkLabel: string;
   external?: boolean;
@@ -106,17 +108,69 @@ const shortFilmImages = [
   shortFilmImage08,
 ];
 
-export const shortFilmPreviews: GertiePreviewItem[] = shortFilmImages.map((image, index) => {
-  const number = String(index + 1).padStart(2, "0");
+const shortFilmDetails = [
+  {
+    title: "La Cattiva Strada",
+    creator: "Giacomo Calderoni",
+    synopsis: "Il mondo è finito: l'abbiamo consumato. Partiamo per colonizzarne uno nuovo, lanciando bombe di pace. Questa è una storia d'amore che nasce da una storia di guerra: l'odio è il primo sentimento, l'amore viene dopo. Con l'odio il mondo è esploso, ma spero che dal nostro amore possiamo crearne uno nuovo. Il mondo sta finendo; almeno viviamone insieme la fine.",
+    authorLinks: [{ label: "Instagram @boyz_jiek", href: "https://www.instagram.com/boyz_jiek/" }],
+  },
+  {
+    title: "Rita",
+    creator: "Francesca Colombara",
+    synopsis: "Rita era mia nonna, una grande lumaca che si muoveva con un girello. È morta nel 2024, e questo cortometraggio racconta la storia del legame che ci univa. Rita ha vissuto una vita piena, circondata da molte persone che le volevano bene, e aveva una grande passione per la cucina, in particolare per le cozze.",
+    authorLinks: [{ label: "Instagram @francesca_colombara", href: "https://www.instagram.com/francesca_colombara/" }],
+  },
+  {
+    title: "Acceleration",
+    creator: "Stepan Crani",
+    synopsis: "In un giorno nevoso d'inverno, un ragazzo riceve una nuova bicicletta e non riesce a resistere alla tentazione di usarla. Mentre pedala, la sua immaginazione lo porta ben oltre il cortile, trasformando la corsa in una serie di avventure sempre più sfrenate. La realtà attende silenziosamente il momento in cui la fantasia raggiunge il suo limite.",
+    authorLinks: [{ label: "Instagram @stepancrani", href: "https://www.instagram.com/stepancrani/" }],
+  },
+  {
+    title: "Pedro Hermano",
+    creator: "Bessufekad G. Moretti",
+    synopsis: "Pedro Hermano è un barbone che, spinto da un'infanzia da fanatico di supereroi e libero da beni frivoli, dedica la vita a combattere il crimine e aiutare il prossimo, ignorando la propria incolumità...anche a rischio della vita!",
+    authorLinks: [{ label: "Instagram @bessuanimations", href: "https://www.instagram.com/bessuanimations/" }],
+  },
+  {
+    title: "Le Case di Achille",
+    creator: "Nespy 5euro",
+    synopsis: "Questo cortometraggio è nato in modo spontaneo, in un solo pomeriggio. Un giorno d’estate, mentre io e mio nipote Achille cercavamo rifugio dal caldo, lui ha iniziato a raccontarmi una dopo l’altra le sue infinite storie fantastiche. Ho deciso di registrarlo, lasciando che la sua immaginazione scorresse libera.",
+    authorLinks: [{ label: "Instagram @nespy5euro", href: "https://www.instagram.com/nespy5euro/" }],
+  },
+  {
+    title: "Sotto i Pini",
+    creator: "Noctu Animation",
+    synopsis: "Tra lo starnazzare dei gabbiani e il frusciare delle fronde della pineta si muove qualcosa. Sotto l’ombra dei pini si materializzano le vite delle persone che hanno vissuto la storia antica d’Italia. I loro destini, le loro fortune, le loro tragedie.",
+    authorLinks: [{ label: "Instagram @noctu.animation", href: "https://www.instagram.com/noctu.animation/" }],
+  },
+  {
+    title: "A Perfect Storm",
+    creator: "A. Zonca e G. Cecini",
+    synopsis: "La storia segue la routine quotidiana di una cassiera che si ritroverà ad affrontare una serie di fastidiosi inconvenienti durante la sua giornata. Questi eventi minano il suo equilibrio emotivo e solo l'intervento della figlia riuscirà a calmare la situazione.",
+    authorLinks: [
+      { label: "Instagram @anna.by.art", href: "https://www.instagram.com/anna.by.art/" },
+      { label: "Instagram @gretisvibes", href: "https://www.instagram.com/gretisvibes/" },
+    ],
+  },
+  {
+    title: "Antonio",
+    creator: "Studio Creatura",
+    synopsis: "Durante un rito arboreo il gioco di un bambino si rivela essere una profonda riflessione sull’esistenza: in un piccolo villaggio ai margini del bosco si celebra il matrimonio degli alberi, simbolo di unione tra la terra e il cielo. Attraverso il gioco infantile di Antonio, con la sua scatola di formiche, viviamo una semplice storia di equilibrio tra uomini, animali e natura che ci porta a interrogarci sull'esistenza del divino.",
+    authorLinks: [{ label: "Instagram @studio_creatura", href: "https://www.instagram.com/studio_creatura/" }],
+  },
+];
 
-  return {
-    id: `corto-${number}`,
-    title: `Corto selezionato ${number}`,
-    details: "Titolo, regia, anno e durata in aggiornamento.",
-    href: `/gertie-animation-prize/corti/corto-${number}/`,
-    linkLabel: "Apri scheda",
-    image,
-    imageAlt: `Immagine segnaposto del corto selezionato ${number}.`,
-    variant: "short",
-  };
-});
+export const shortFilmPreviews: GertiePreviewItem[] = shortFilmDetails.map((film, index) => ({
+  id: `corto-${String(index + 1).padStart(2, "0")}`,
+  title: film.title,
+  details: film.creator,
+  synopsis: film.synopsis,
+  authorLinks: film.authorLinks,
+  href: "/gertie-animation-prize/",
+  linkLabel: "Scopri Gertie",
+  image: shortFilmImages[index],
+  imageAlt: `Immagine dal corto ${film.title}.`,
+  variant: "short",
+}));
