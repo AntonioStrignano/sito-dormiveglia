@@ -423,7 +423,7 @@ html.typewriter-ready .typewriter-wrap.is-typed [data-typewriter] {
 
 .program-item {
   position: relative;
-  scroll-margin-top: 1.5rem;
+  scroll-margin-top: 7rem;
 }
 
 .program-item::before {

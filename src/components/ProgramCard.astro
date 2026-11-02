@@ -63,9 +63,6 @@ const titleId = `${event.id}-title`;
               </>
             )}
           </dl>
-          {details.trailerUrl && (
-            <p><a href={details.trailerUrl} target="_blank" rel="noreferrer">Guarda il trailer</a></p>
-          )}
         </div>
       </details>
 
@@ -79,6 +76,11 @@ const titleId = `${event.id}-title`;
         )}
         {event.pageHref && (
           <a class="button button-secondary" href={event.pageHref}>Scopri Gertie</a>
+        )}
+        {details.trailerUrl && (
+          <a class="button button-secondary" href={details.trailerUrl} target="_blank" rel="noreferrer">
+            Guarda il trailer<span class="sr-only"> di {event.title}</span>
+          </a>
         )}
       </div>
     </div>

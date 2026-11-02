@@ -67,7 +67,7 @@ const { event, poster, dialogId } = Astro.props;
             target={site.bookingFormUrl ? "_blank" : undefined}
             rel={site.bookingFormUrl ? "noreferrer" : undefined}
           >Prenota un posto</a>
-          <a class="button button-secondary" href="/programma/">Consulta il programma</a>
+          <a class="button button-secondary" href={`/programma/#${event.id}`}>Consulta il programma</a>
         </nav>
       </div>
     </div>
