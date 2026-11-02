@@ -897,6 +897,58 @@ html.typewriter-ready .typewriter-wrap.is-typed [data-typewriter] {
   overflow: hidden;
 }
 
+.screening-dialog-content {
+  gap: 0;
+  padding: 1.25rem 2rem;
+}
+
+.screening-dialog-heading {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.75rem;
+  padding-bottom: 1rem;
+  text-align: left;
+}
+
+.screening-dialog-heading h2 {
+  margin: 0;
+  padding: 0 2.5rem 0 0;
+  text-transform: uppercase;
+}
+
+.screening-dialog-poster {
+  width: 100%;
+  max-width: none;
+  max-height: min(30vh, 15rem);
+  aspect-ratio: 16 / 9;
+  background: var(--color-surface);
+  object-fit: contain;
+}
+
+.screening-dialog-info {
+  padding-block: 0.5rem;
+}
+
+.screening-dialog-info .screening-dialog-meta {
+  margin-block: 0 0.4rem;
+  color: var(--color-muted);
+  text-align: left;
+}
+
+.screening-dialog-footer {
+  flex: 0 0 auto;
+  margin-top: auto;
+}
+
+.screening-dialog-footer > p {
+  margin-block: 0;
+  padding-top: 0.75rem;
+}
+
+.screening-dialog .dialog-actions {
+  position: relative;
+}
+
 .jury-dialog-identity {
   min-width: 0;
   padding: 0.5rem 3rem 0 1rem;
@@ -1014,6 +1066,22 @@ html.typewriter-ready .typewriter-wrap.is-typed [data-typewriter] {
 
 .event-title {
   font-size: 1.25rem;
+}
+
+.program-event-details {
+  margin-top: 0.75rem;
+}
+
+.program-event-details > * {
+  margin-block: 0 0.75rem;
+}
+
+.program-event-credits {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .muted,
@@ -1236,6 +1304,32 @@ html.typewriter-ready .typewriter-wrap.is-typed [data-typewriter] {
 
   .jury-dialog .jury-dialog-content {
     padding: 1rem;
+  }
+
+  .screening-dialog-content {
+    gap: 0;
+  }
+
+  .screening-dialog-heading {
+    gap: 0.5rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .screening-dialog-heading h2 {
+    padding-right: 2rem;
+  }
+
+  .screening-dialog-poster {
+    max-height: min(25vh, 10rem);
+  }
+
+  .screening-dialog-info {
+    padding-block: 0.35rem;
+  }
+
+  .screening-dialog-footer > p {
+    padding-top: 0.5rem;
+    font-size: 0.8rem;
   }
 
   .jury-dialog .dialog-close {

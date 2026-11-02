@@ -34,25 +34,32 @@ const { event, poster, dialogId } = Astro.props;
   </button>
 
   <dialog
-    class="screening-dialog"
+    class="screening-dialog jury-dialog"
     id={dialogId}
     aria-labelledby={`${dialogId}-title`}
     data-terminal-dialog
   >
     <button class="dialog-close" type="button" aria-label="Chiudi dettagli">&times;</button>
-    <div class="dialog-content">
-      <Image
-        class="dialog-poster"
-        src={poster}
-        alt={`Immagine del film ${event.title}`}
-        loading="lazy"
-      />
-      <div class="dialog-copy">
-        <p class="eyebrow">{event.day}</p>
-        <h2 id={`${dialogId}-title`}>{event.title}</h2>
-        <p class="event-meta">Porte {event.doors} · Proiezione {event.screening}</p>
-        <p>{site.venue}<br />{site.address}</p>
-        <p>Ingresso gratuito fino a esaurimento posti.</p>
+    <div class="dialog-content jury-dialog-content screening-dialog-content">
+      <header class="jury-dialog-heading screening-dialog-heading">
+        <Image
+          class="screening-dialog-poster"
+          src={poster}
+          alt={`Immagine del film ${event.title}`}
+          loading="lazy"
+        />
+        <h2 id={`${dialogId}-title`} data-dossier-typewriter>{event.title}</h2>
+      </header>
+      <section class="screening-dialog-info" aria-label={`Informazioni sulla proiezione di ${event.title}`}>
+        <p class="screening-dialog-meta" data-dossier-typewriter>{event.details.year} · {event.details.duration}</p>
+        <p class="screening-dialog-meta" data-dossier-typewriter>{event.day} · Proiezione {event.screening}</p>
+      </section>
+      <section class="jury-dialog-bio screening-dialog-details" aria-label={`Sinossi di ${event.title}`}>
+        <p class="eyebrow" data-dossier-typewriter>LOG // SINOSSI</p>
+        <p data-dossier-typewriter>{event.details.synopsis}</p>
+      </section>
+      <div class="screening-dialog-footer">
+        <p class="event-meta">{site.venue} · {site.address}<br />Ingresso gratuito fino a esaurimento posti.</p>
         <nav class="dialog-actions" aria-label={`Azioni per ${event.title}`}>
           <a
             class="button button-primary"
