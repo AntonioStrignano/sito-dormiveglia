@@ -661,7 +661,9 @@ html.typewriter-ready .typewriter-wrap.is-typed [data-typewriter] {
 
 .gertie-previews {
   display: grid;
+  width: min(calc(100% - 2rem), var(--content-width));
   gap: clamp(2rem, 5vw, 3.5rem);
+  margin-inline: auto;
 }
 
 .preview-carousel {
@@ -723,47 +725,6 @@ html.typewriter-ready .typewriter-wrap.is-typed [data-typewriter] {
   -ms-overflow-style: none;
   cursor: grab;
   touch-action: auto;
-}
-
-.preview-carousel-frame--edge-bands {
-  position: relative;
-  padding-block: 0.75rem;
-}
-
-.preview-carousel[data-edge-bands] {
-  width: min(calc(100% - 2rem), var(--content-width));
-  margin-inline: auto;
-}
-
-.preview-carousel-edge {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  z-index: 1;
-  width: clamp(2rem, 4vw, 3rem);
-  background:
-    repeating-linear-gradient(to bottom, rgba(0, 245, 143, 0.65) 0 0.375rem, transparent 0.375rem 0.75rem),
-    linear-gradient(to right, var(--color-accent) 0 0.5rem, rgba(0, 245, 143, 0.8) 0.5rem 1rem, rgba(0, 245, 143, 0.55) 1rem 1.5rem, rgba(0, 245, 143, 0.25) 1.5rem 2rem, transparent 2rem);
-  pointer-events: none;
-}
-
-.preview-carousel-edge--start {
-  left: 0;
-}
-
-.preview-carousel-edge--end {
-  right: 0;
-  transform: scaleX(-1);
-}
-
-.preview-carousel[data-edge-bands] .preview-carousel-viewport {
-  width: 100%;
-  margin: 0;
-  padding-inline: 0;
-}
-
-.preview-carousel[data-edge-bands] .preview-carousel-viewport:focus-visible {
-  outline-offset: -3px;
 }
 
 .preview-carousel-viewport::-webkit-scrollbar {
@@ -1019,9 +980,9 @@ html.typewriter-ready .typewriter-wrap.is-typed [data-typewriter] {
   box-sizing: border-box;
   min-height: 0;
   flex: 1;
-  max-height: 38vh;
   overflow-y: auto;
   overscroll-behavior: contain;
+  scroll-behavior: auto;
   padding-block: 1.25rem 0.5rem;
   text-align: left;
 }
@@ -1046,6 +1007,11 @@ html.typewriter-ready .typewriter-wrap.is-typed [data-typewriter] {
 
 .preview-image--short {
   aspect-ratio: 448 / 251;
+}
+
+.preview-carousel[data-responsive-carousel] .preview-image--short {
+  box-sizing: border-box;
+  padding: 8px;
 }
 
 .preview-card-copy {
@@ -1281,9 +1247,9 @@ html.typewriter-ready .typewriter-wrap.is-typed [data-typewriter] {
   }
 
   .preview-carousel[data-responsive-carousel] .preview-carousel-viewport {
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
-    padding-inline: max(1rem, calc((100vw - var(--content-width)) / 2));
+    width: 100%;
+    margin: 0;
+    padding: 0;
     overflow-x: auto;
     overflow-y: hidden;
     cursor: grab;
@@ -1311,20 +1277,6 @@ html.typewriter-ready .typewriter-wrap.is-typed [data-typewriter] {
 
   .preview-carousel-track .preview-carousel-slide {
     width: min(78vw, 24rem);
-  }
-
-  .preview-carousel-frame--edge-bands {
-    padding-block: 0;
-  }
-
-  .preview-carousel-edge {
-    display: none;
-  }
-
-  .preview-carousel[data-edge-bands] .preview-carousel-viewport {
-    width: 100%;
-    margin: 0;
-    padding: 0;
   }
 
   .gertie-teaser {
@@ -1359,6 +1311,7 @@ html.typewriter-ready .typewriter-wrap.is-typed [data-typewriter] {
 
   .jury-dialog[open] {
     height: min(90vh, 52rem);
+    max-height: min(90vh, 52rem);
   }
 
   .jury-dialog .jury-dialog-content {

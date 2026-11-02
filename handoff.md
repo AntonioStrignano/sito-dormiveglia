@@ -6,7 +6,7 @@ Progetto Astro statico in italiano, con anteprima locale e hosting scelto su Net
 
 Pagine: Home, Programma, Gertie Animation Prize, Archivio placeholder, Info/Contatti. Nella pagina Programma la grafica precede i contenuti testuali, che restano trascritti in HTML; placeholder visibili per i dati e i link non ancora forniti.
 
-Homepage: rimossa l'etichetta "In aggiornamento" dalla giuria, i cui profili sono completi. Il carosello dei corti Gertie resta scrollabile e limitato alla larghezza di pagina; una dissolvenza pixel verde ai bordi copre progressivamente le card che entrano/escono senza lasciare gap nero o generare overflow. Su mobile conserva la larghezza del contenuto e lo scroll.
+Homepage: rimossa l'etichetta "In aggiornamento" dalla giuria, i cui profili sono completi. Le anteprime Gertie restano entro il contenitore di pagina: su desktop la giuria è una griglia a 4 colonne e i corti sono una griglia 4x2 con immagini inset di 8px; su mobile entrambe diventano caroselli scrollabili. Il dialog giuria ha altezza fissa nel viewport, intestazione e azioni restano ferme, e la bio usa lo spazio residuo senza limite `max-height` aggiuntivo; lo scroll segue ogni carattere digitato quando il testo supera lo spazio visibile.
 
 ## Piano di bonifica
 

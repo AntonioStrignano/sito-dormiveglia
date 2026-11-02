@@ -10,10 +10,9 @@ interface Props {
   title: string;
   items: PreviewItem[];
   mode?: "grid" | "scroll" | "responsive";
-  edgeBands?: boolean;
 }
 
-const { id, eyebrow, title, items, mode = "scroll", edgeBands = false } = Astro.props;
+const { id, eyebrow, title, items, mode = "scroll" } = Astro.props;
 const isCarousel = mode !== "grid";
 const isResponsive = mode === "responsive";
 ---
@@ -22,7 +21,6 @@ const isResponsive = mode === "responsive";
   id={id}
   class="preview-carousel"
   aria-labelledby={`${id}-title`}
-  data-edge-bands={edgeBands ? "" : undefined}
   data-carousel-autoplay={isCarousel ? "" : undefined}
   data-responsive-carousel={isResponsive ? "" : undefined}
 >
@@ -51,10 +49,8 @@ const isResponsive = mode === "responsive";
     )}
   </header>
   {isCarousel && (
-    <div class:list={["preview-carousel-frame", { "preview-carousel-frame--edge-bands": edgeBands }]}>
-      {edgeBands && <span class="preview-carousel-edge preview-carousel-edge--start" aria-hidden="true" />}
-      <div class="preview-carousel-viewport" id={`${id}-viewport`} tabindex="0">
-        <ul class="preview-card-list preview-carousel-track" data-carousel-track aria-label={`${title}, ${items.length} schede`}>
+    <div class="preview-carousel-viewport" id={`${id}-viewport`} tabindex="0">
+      <ul class="preview-card-list preview-carousel-track" data-carousel-track aria-label={`${title}, ${items.length} schede`}>
         {items.map((item) => (
           item.variant === "jury" ? (
             <JuryPreviewCard item={item} dialogId={`${id}-dialog-${item.id}`} isClone />
@@ -170,9 +166,7 @@ const isResponsive = mode === "responsive";
           </li>
           )
         ))}
-        </ul>
-      </div>
-      {edgeBands && <span class="preview-carousel-edge preview-carousel-edge--end" aria-hidden="true" />}
+      </ul>
     </div>
   )}
   {mode === "grid" && (
