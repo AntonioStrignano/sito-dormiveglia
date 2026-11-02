@@ -47,6 +47,7 @@ export const program: ProgramEvent[] = [
           value: "Universal Pictures, Sullivan Bluth Studios, Amblin Entertainment",
         },
       ],
+      trailerUrl: "https://www.youtube.com/watch?v=Hmrx8luoec0",
       sourceUrl: "https://andriasmart.fivelab.it/template-detail/65",
     },
   },
@@ -71,6 +72,7 @@ export const program: ProgramEvent[] = [
         { label: "Produzione", value: "Dolce Vita Films, Palosanto Films" },
       ],
       award: "Premio César 2024 per il miglior film d’animazione",
+      trailerUrl: "https://www.youtube.com/watch?v=xcQdO5371R4",
       sourceUrl: "https://andriasmart.fivelab.it/template-detail/66",
     },
   },
@@ -92,9 +94,8 @@ export const program: ProgramEvent[] = [
         "Animazione indipendente",
         "Cortometraggi d’autore",
       ],
-      // Placeholder: sostituire con il copy definitivo della serata Gertie.
       synopsis:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "Sul grande schermo vi aspettano i corti selezionati per il Gertie Animation Prize 2026, il concorso che celebra la forza e la creatività dell’animazione in tutte le sue forme.\n\nStili diversi, voci nuove, storie sorprendenti: un viaggio unico dentro l’immaginario animato contemporaneo creato da animatori e collettivi indipendenti.\n\nDurante la serata sarà svelato il vincitore della prima edizione! Chi porterà a casa il premio Gertie? Venite a scoprirlo insieme a noi.",
       credits: [
         { label: "Regia", value: "Animatori e Collettivi indipendenti" },
         { label: "Produzione", value: "Animatori e Collettivi indipendenti" },
@@ -127,6 +128,7 @@ export const program: ProgramEvent[] = [
         { label: "Protagonista", value: "Kikuko, Nikuko" },
         { label: "Produzione", value: "Studio 4°C, Yoshimoto Kogyo" },
       ],
+      trailerUrl: "https://www.youtube.com/watch?v=RMlzh3bDZd4",
       sourceUrl: "https://andriasmart.fivelab.it/template-detail/68",
     },
   },

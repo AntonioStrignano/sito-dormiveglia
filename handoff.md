@@ -8,7 +8,7 @@ Pagine: Home, Programma, Gertie Animation Prize, Archivio placeholder, Info/Cont
 
 Homepage: chiusa per il momento.
 
-Pagina Programma: timeline di 4 card (`src/components/ProgramCard.astro`) con locandina 2:3 a sinistra e info a destra, senza dialog né typewriter. Da tablet in su le info sono sempre aperte; su mobile stanno dietro `[+] Altre info` (`<details>`). Serata Gertie con copy lorem ipsum, prenotazione e link alla pagina Gertie. Locandine film provvisorie (verticali in arrivo), poster Gertie dalla story; `trailerUrl` opzionale in `programma.ts`; JSON-LD `ScreeningEvent` per serata. `EventCard.astro` non è più usato.
+Pagina Programma: timeline di 4 card (`src/components/ProgramCard.astro`) con locandina 2:3 a sinistra e info a destra, senza dialog né typewriter. Da tablet in su le info sono sempre aperte; su mobile stanno dietro `[+] Altre info` (`<details>`). Copy Gertie definitivo inserito; tre trailer collegati tramite `trailerUrl` in `programma.ts`. Locandine verticali definitive in arrivo a breve; al momento sono usate le grafiche disponibili. Prenotazione e link alla pagina Gertie presenti. JSON-LD `ScreeningEvent` per serata. `EventCard.astro` non è più usato.
 
 Homepage: rimossa l'etichetta "In aggiornamento" dalla giuria, i cui profili sono completi. Le anteprime Gertie restano entro il contenitore di pagina: su desktop la giuria è una griglia a 4 colonne e i corti sono una griglia 4x2 con immagini inset di 8px; su mobile entrambe diventano caroselli scrollabili. Il dialog giuria ha altezza fissa nel viewport, intestazione e azioni restano ferme, e la bio usa lo spazio residuo senza limite `max-height` aggiuntivo; lo scroll segue ogni carattere digitato quando il testo supera lo spazio visibile.
 
@@ -32,7 +32,8 @@ Piano in `docs/piano-bonifica.md` (fasi 0-9). Hosting scelto: Netlify, non GitHu
 
 - Capienza, email/contatto ufficiale, informazioni di accessibilità e indicazioni per raggiungere la sede.
 - Richiedere al reparto grafico la hero homepage finale, con immagine, logo e testi già impaginati in versioni desktop e mobile; l'illustrazione AndriaSmart è già disponibile.
-- Schede dei tre film: sinossi, crediti essenziali, lingua/sottotitoli, età consigliata e trailer.
+- Schede dei tre film: lingua/sottotitoli ed età consigliata.
+- Locandine verticali definitive dei film e di Gertie 2026 (attese a breve).
 - Programma dettagliato, giuria e corti selezionati Gertie 2026; candidature già chiuse.
 - Dati e tempi di conservazione raccolti dal Google Form; URL già inserito nel sito.
 - Storico Gertie 2025: vincitore, menzioni, poster e link/video.

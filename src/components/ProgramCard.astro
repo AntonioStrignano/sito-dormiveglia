@@ -48,7 +48,7 @@ const titleId = `${event.id}-title`;
         </summary>
         <div class="program-more-body">
           <p class="eyebrow">LOG // SINOSSI</p>
-          <p>{details.synopsis}</p>
+          {details.synopsis.split(/\n\n+/).map((paragraph) => <p>{paragraph}</p>)}
           <dl class="program-credits">
             {details.credits.map((credit) => (
               <>
