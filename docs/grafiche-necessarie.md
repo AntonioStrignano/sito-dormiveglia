@@ -12,7 +12,7 @@ Servono due versioni per ogni hero, servite con `<picture>`. Soggetto nella zona
 | 1 | Hero home finale, con immagine, logo e testi già impaginati | Home | 21:9 · 2400×1000 | 4:3 · 1200×900 | Due composizioni WebP/AVIF; usare l'illustrazione AndriaSmart già fornita come base |
 | 2 | Hero programma | Programma | 21:9 · 2400×900 | 16:9 · 1200×675 | WebP/AVIF |
 | 3 | Hero Gertie | Gertie | 21:9 · 2400×1000 | 4:3 · 1200×900 | WebP/AVIF |
-| 4 | Hero info/sede | Info | 21:9 · 2400×800 | 16:9 · 1200×675 | WebP/AVIF |
+| 4 | Hero contatti/sede | Contatti | 21:9 · 2400×800 | 16:9 · 1200×675 | WebP/AVIF |
 
 ## Identità
 
@@ -49,8 +49,7 @@ Enti presenti in locandina: Andria Food Policy Hub, Spazio Terre, Regione Puglia
 
 | # | Asset | Dove | Misure | Formato |
 |---|---|---|---|---|
-| 14 | Foto della sede | Info | 3:2 · 1600×1067 | WebP |
-| 15 | Mappa (immagine o embed) | Info | 16:9 · 1280×720 | WebP o embed |
+| 14 | Foto della facciata con frecce che indicano l'ingresso (ricevuta: `public/images/Ingresso -.png`) | Contatti | 16:9 · 1920×1080 | PNG |
 
 ## Gertie (storico)
 

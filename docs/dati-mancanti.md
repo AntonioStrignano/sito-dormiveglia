@@ -18,13 +18,13 @@ Serata del 14 novembre (Gertie): programma, ospiti, durata.
 
 ## Festival
 
-- [ ] Indirizzo completo e indicazioni per raggiungere la sede.
-- [ ] Capienza o limite di prenotazione.
-- [ ] Email ufficiale e telefono.
-- [ ] URL del Google Form e campi richiesti.
+- [x] Indirizzo completo e link Google Maps per raggiungere la sede.
+- [x] Capienza indicativa di circa 40 posti per serata; prenotazione consigliata.
+- [x] Email ufficiali del festival e del collettivo; telefono facoltativo.
+- [x] URL del Google Form inserito; campi e gestione dei dati ancora da verificare.
 - [ ] PDF del programma, se verrà pubblicato.
 - [ ] Presentazione del collettivo KA-POW!.
-- [ ] Mappa e informazioni di accessibilità.
+- [x] Link a Google Maps e informazioni di accessibilità (rampa per carrozzine, bagno accessibile).
 
 ## Gertie
 

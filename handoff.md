@@ -4,7 +4,9 @@
 
 Progetto Astro statico in italiano, con anteprima locale e hosting scelto su Netlify. Build verificata in precedenza con `npm run build`. Server di sviluppo avviato su `http://localhost:4321/`. Palette corrente: fondo nero e testo verde fluorescente. Le immagini mantengono il rapporto d'aspetto anche su mobile; la pagina Gertie usa la grafica verticale della story.
 
-Pagine: Home, Programma, Gertie Animation Prize, Archivio placeholder, Info/Contatti. Nella pagina Programma la grafica precede i contenuti testuali, che restano trascritti in HTML; placeholder visibili per i dati e i link non ancora forniti.
+Pagine: Home, Programma, Gertie Animation Prize, Archivio placeholder e Contatti (`/contatti/`; il vecchio `/info/` reindirizza). Nella pagina Programma la grafica precede i contenuti testuali, che restano trascritti in HTML; placeholder visibili per i dati e i link non ancora forniti.
+
+Pagina Contatti: foto della facciata a sinistra e informazioni pratiche a destra su desktop; su mobile i dati e le CTA precedono la foto. Accessibilità e contatti sono affiancati da tablet in su, con divisori e senza card. Sede e orari (porte 20:00, proiezioni 21:00), ingresso gratuito con prenotazione consigliata e circa 40 posti per serata. CTA “Indicazioni” con icona pixel-art per il link Google Maps e “Prenota un posto”; email festival e collettivo, Instagram, rampa per carrozzine e bagno accessibile. Foto della facciata 16:9 in `public/images/Ingresso -.png`; evitare embed Google Maps.
 
 Homepage: chiusa per il momento.
 
@@ -30,7 +32,6 @@ Piano in `docs/piano-bonifica.md` (fasi 0-9). Hosting scelto: Netlify, non GitHu
 
 ## Da completare
 
-- Capienza, email/contatto ufficiale, informazioni di accessibilità e indicazioni per raggiungere la sede.
 - Richiedere al reparto grafico la hero homepage finale, con immagine, logo e testi già impaginati in versioni desktop e mobile; l'illustrazione AndriaSmart è già disponibile.
 - Schede dei tre film: lingua/sottotitoli ed età consigliata.
 - Locandine verticali definitive dei film e di Gertie 2026 (attese a breve).

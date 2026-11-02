@@ -4,10 +4,10 @@ Lista operativa da inoltrare ai referenti. Le informazioni non ancora disponibil
 
 ## Festival e sede
 
-- [ ] Capienza della sala e limite di prenotazioni per serata.
-- [ ] Email o contatto ufficiale da pubblicare.
-- [ ] Indicazioni per raggiungere Andria Food Policy Hub, Via S. Francesco 12.
-- [ ] Informazioni pratiche sull'accessibilità della sede.
+- [x] Capienza indicativa: circa 40 posti per serata; prenotazione consigliata.
+- [x] Email ufficiali: festival e collettivo KA-POW!.
+- [x] Indicazioni per raggiungere Andria Food Policy Hub, Via S. Francesco 12; link Google Maps fornito.
+- [x] Informazioni pratiche sull'accessibilità: rampa per carrozzine e bagno accessibile.
 - [ ] Breve presentazione del collettivo KA-POW!.
 
 ## Film
