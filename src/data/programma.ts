@@ -6,10 +6,13 @@ export type ProgramDetails = {
   synopsis: string;
   credits: { label: string; value: string }[];
   award?: string;
+  trailerUrl?: string;
   sourceUrl: string;
 };
 
 export type ProgramEvent = {
+  id: string;
+  pageHref?: string;
   date: string;
   day: string;
   title: string;
@@ -21,6 +24,7 @@ export type ProgramEvent = {
 
 export const program: ProgramEvent[] = [
   {
+    id: "giovedi-12",
     date: "2026-11-12",
     day: "Giovedì 12 novembre",
     title: "Alla ricerca della valle incantata",
@@ -47,6 +51,7 @@ export const program: ProgramEvent[] = [
     },
   },
   {
+    id: "venerdi-13",
     date: "2026-11-13",
     day: "Venerdì 13 novembre",
     title: "Linda e il pollo",
@@ -70,6 +75,8 @@ export const program: ProgramEvent[] = [
     },
   },
   {
+    id: "sabato-14",
+    pageHref: "/gertie-animation-prize/",
     date: "2026-11-14",
     day: "Sabato 14 novembre",
     title: "Gertie Animation Prize",
@@ -85,8 +92,9 @@ export const program: ProgramEvent[] = [
         "Animazione indipendente",
         "Cortometraggi d’autore",
       ],
+      // Placeholder: sostituire con il copy definitivo della serata Gertie.
       synopsis:
-        "Sul grande schermo i corti selezionati per il Gertie Animation Prize 2026, il concorso che celebra la forza e la creatività dell’animazione in tutte le sue forme. Stili diversi, voci nuove, storie sorprendenti: un viaggio unico dentro l’immaginario animato contemporaneo creato da animatori e collettivi indipendenti. Durante la serata sarà svelato il vincitore della prima edizione!",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
       credits: [
         { label: "Regia", value: "Animatori e Collettivi indipendenti" },
         { label: "Produzione", value: "Animatori e Collettivi indipendenti" },
@@ -96,6 +104,7 @@ export const program: ProgramEvent[] = [
     },
   },
   {
+    id: "domenica-15",
     date: "2026-11-15",
     day: "Domenica 15 novembre",
     title: "La fortuna di Nikuko",

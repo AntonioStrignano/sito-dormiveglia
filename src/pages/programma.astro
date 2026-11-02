@@ -1,47 +1,70 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import EventCard from "../components/EventCard.astro";
+import ProgramCard from "../components/ProgramCard.astro";
+import type { ImageMetadata } from "astro";
 import { program } from "../data/programma";
 import { site } from "../data/site";
+import valleyPoster from "../../Grafiche dormiveglia/locandine film/Film_Valle incantata.png";
+import lindaPoster from "../../Grafiche dormiveglia/locandine film/Film_ Linda e il Pollo.png";
+import nikukoPoster from "../../Grafiche dormiveglia/locandine film/Film_ Nikuko.png";
+import gertiePoster from "../../Grafiche gertie/Gertie_Storia deadline.webp";
+
+// Locandine provvisorie: sostituire con le versioni verticali definitive.
+const posters: Record<string, ImageMetadata> = {
+  "giovedi-12": valleyPoster,
+  "venerdi-13": lindaPoster,
+  "sabato-14": gertiePoster,
+  "domenica-15": nikukoPoster,
+};
+
+const eventsJsonLd = program.map((event) => ({
+  "@context": "https://schema.org",
+  "@type": "ScreeningEvent",
+  name: event.title,
+  startDate: `${event.date}T${event.screening}:00+01:00`,
+  doorTime: event.doors,
+  eventStatus: "https://schema.org/EventScheduled",
+  eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+  isAccessibleForFree: true,
+  inLanguage: "it",
+  location: {
+    "@type": "Place",
+    name: site.venue,
+    address: { "@type": "PostalAddress", streetAddress: "Via S. Francesco 12", addressLocality: "Andria", addressCountry: "IT" },
+  },
+  description: event.details.synopsis,
+}));
 ---
 
 <BaseLayout
   title="Programma"
-  description="Il programma del Dormiveglia Animation Film Fest, dal 12 al 15 novembre 2026 ad Andria."
+  description="Il programma del Dormiveglia Animation Film Fest, dal 12 al 15 novembre 2026 ad Andria: tre film d'animazione e la serata del Gertie Animation Prize."
 >
-  <img
-    class="poster-inline"
-    src="/images/dormiveglia-program.webp"
-    alt="Grafica del programma: quattro appuntamenti dal 12 al 15 novembre, ogni sera ingresso alle 20:00 e proiezione alle 21:00."
-    width="600"
-    height="1067"
-    fetchpriority="high"
-  />
-
   <header>
     <p class="eyebrow">{site.dates} · {site.venue}</p>
     <h1>Programma</h1>
     <p>Ogni sera: ingresso alle 20:00, proiezione alle 21:00. Ingresso gratuito fino a esaurimento posti.</p>
   </header>
 
-  <section class="content-section" aria-label="Eventi del festival">
-    <ul class="event-list">
-      {program.map((event) => <EventCard event={event} />)}
-    </ul>
+  <section class="content-section" aria-label="Serate del festival">
+    <ol class="program-timeline">
+      {program.map((event) => <ProgramCard event={event} poster={posters[event.id]} />)}
+    </ol>
   </section>
 
   <section class="content-section" aria-labelledby="booking-title">
-    <h2 id="booking-title">Prenotazioni</h2>
+    <h2 id="booking-title">Prenotazioni e info pratiche</h2>
+    <p>{site.venue} · {site.address}</p>
+    <p class="muted">Ingresso 20:00, proiezione 21:00. Ingresso gratuito fino a esaurimento posti.</p>
     {site.bookingFormUrl ? (
-      <p><a href={site.bookingFormUrl} target="_blank" rel="noreferrer">Apri il modulo di prenotazione</a></p>
+      <p><a class="button button-primary" href={site.bookingFormUrl} target="_blank" rel="noreferrer">Apri il modulo di prenotazione</a></p>
     ) : (
-      <p class="placeholder">Il modulo unico per prenotare i posti sarà collegato qui. Ingresso gratuito fino a esaurimento posti.</p>
+      <p class="placeholder">Il modulo unico per prenotare i posti sarà collegato qui.</p>
     )}
-    {site.programPdfUrl ? (
+    {site.programPdfUrl && (
       <p><a href={site.programPdfUrl} target="_blank" rel="noreferrer">Scarica il programma PDF</a></p>
-    ) : (
-      <p class="muted">Il programma PDF non è ancora disponibile.</p>
     )}
   </section>
 
+  <script type="application/ld+json" set:html={JSON.stringify(eventsJsonLd)} />
 </BaseLayout>

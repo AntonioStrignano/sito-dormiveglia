@@ -1,0 +1,97 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import type { ProgramEvent } from "../data/programma";
+import { site } from "../data/site";
+
+interface Props {
+  event: ProgramEvent;
+  poster: ImageMetadata;
+}
+
+const { event, poster } = Astro.props;
+const { details } = event;
+const dateParts = event.day.match(/^(.*?)(\d+)(.*)$/);
+const titleId = `${event.id}-title`;
+---
+
+<li class="program-item" id={event.id}>
+  <article class="program-card" aria-labelledby={titleId}>
+    <Image
+      class="program-poster"
+      src={poster}
+      alt={`Locandina di ${event.title}`}
+      widths={[272, 544, 768]}
+      sizes="(max-width: 48rem) min(100vw, 24rem), 17rem"
+      loading="lazy"
+    />
+    <div class="program-body">
+      <header>
+        <p class="eyebrow program-day">
+          <time datetime={event.date}>
+            {dateParts ? (
+              <span>{dateParts[1]}<span class="date-number">{dateParts[2]}</span>{dateParts[3]}</span>
+            ) : event.day}
+          </time>
+        </p>
+        <h2 id={titleId} class="program-title">{event.title}</h2>
+        <p class="event-meta">
+          {event.kind !== "Proiezione" && `${event.kind} · `}Ingresso {event.doors} · Proiezione {event.screening}
+        </p>
+        <p class="event-meta">{details.country} · {details.year} · {details.duration}</p>
+      </header>
+
+      <details class="program-more" data-program-more>
+        <summary class="program-more-toggle">
+          <span class="program-more-open">[+] Altre info</span>
+          <span class="program-more-close">[−] Meno info</span>
+        </summary>
+        <div class="program-more-body">
+          <p class="eyebrow">LOG // SINOSSI</p>
+          <p>{details.synopsis}</p>
+          <dl class="program-credits">
+            {details.credits.map((credit) => (
+              <>
+                <dt>{credit.label}</dt>
+                <dd>{credit.value}</dd>
+              </>
+            ))}
+            {details.award && (
+              <>
+                <dt>Riconoscimento</dt>
+                <dd>{details.award}</dd>
+              </>
+            )}
+          </dl>
+          {details.trailerUrl && (
+            <p><a href={details.trailerUrl} target="_blank" rel="noreferrer">Guarda il trailer</a></p>
+          )}
+        </div>
+      </details>
+
+      <div class="program-actions">
+        {site.bookingFormUrl ? (
+          <a class="button button-primary" href={site.bookingFormUrl} target="_blank" rel="noreferrer">
+            Prenota un posto<span class="sr-only"> per {event.title}</span>
+          </a>
+        ) : (
+          <p class="muted">Prenotazione online in aggiornamento</p>
+        )}
+        {event.pageHref && (
+          <a class="button button-secondary" href={event.pageHref}>Scopri Gertie</a>
+        )}
+      </div>
+    </div>
+  </article>
+</li>
+
+<script>
+  const desktop = window.matchMedia("(min-width: 48rem)");
+  const sync = () => {
+    document.querySelectorAll<HTMLDetailsElement>("[data-program-more]").forEach((el) => {
+      el.open = desktop.matches;
+    });
+  };
+  sync();
+  desktop.addEventListener("change", sync);
+</script>

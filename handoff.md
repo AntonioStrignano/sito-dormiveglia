@@ -6,6 +6,10 @@ Progetto Astro statico in italiano, con anteprima locale e hosting scelto su Net
 
 Pagine: Home, Programma, Gertie Animation Prize, Archivio placeholder, Info/Contatti. Nella pagina Programma la grafica precede i contenuti testuali, che restano trascritti in HTML; placeholder visibili per i dati e i link non ancora forniti.
 
+Homepage: chiusa per il momento.
+
+Pagina Programma: timeline di 4 card (`src/components/ProgramCard.astro`) con locandina 2:3 a sinistra e info a destra, senza dialog né typewriter. Da tablet in su le info sono sempre aperte; su mobile stanno dietro `[+] Altre info` (`<details>`). Serata Gertie con copy lorem ipsum, prenotazione e link alla pagina Gertie. Locandine film provvisorie (verticali in arrivo), poster Gertie dalla story; `trailerUrl` opzionale in `programma.ts`; JSON-LD `ScreeningEvent` per serata. `EventCard.astro` non è più usato.
+
 Homepage: rimossa l'etichetta "In aggiornamento" dalla giuria, i cui profili sono completi. Le anteprime Gertie restano entro il contenitore di pagina: su desktop la giuria è una griglia a 4 colonne e i corti sono una griglia 4x2 con immagini inset di 8px; su mobile entrambe diventano caroselli scrollabili. Il dialog giuria ha altezza fissa nel viewport, intestazione e azioni restano ferme, e la bio usa lo spazio residuo senza limite `max-height` aggiuntivo; lo scroll segue ogni carattere digitato quando il testo supera lo spazio visibile.
 
 ## Piano di bonifica

@@ -11,7 +11,8 @@ Per ciascun film (Alla ricerca della valle incantata, Linda e il pollo, La fortu
 - [ ] Lingua e sottotitoli, età consigliata.
 - [ ] Cast o voci italiane, crediti e distribuzione (facoltativi).
 - [ ] Locandina 2:3 e still 16:9.
-- [ ] Link al trailer.
+- [ ] Link al trailer (campo `trailerUrl` in `src/data/programma.ts`, mostrato solo se compilato).
+- [ ] Locandine verticali 2:3 definitive (film e Gertie 2026): ora usate versioni provvisorie in `programma.astro`.
 
 Serata del 14 novembre (Gertie): programma, ospiti, durata.
 
