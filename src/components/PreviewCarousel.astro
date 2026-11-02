@@ -6,13 +6,14 @@ import type { GertiePreviewItem as PreviewItem } from "../data/gertie";
 
 interface Props {
   id: string;
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   items: PreviewItem[];
   mode?: "grid" | "scroll" | "responsive";
+  edgeBands?: boolean;
 }
 
-const { id, eyebrow, title, items, mode = "scroll" } = Astro.props;
+const { id, eyebrow, title, items, mode = "scroll", edgeBands = false } = Astro.props;
 const isCarousel = mode !== "grid";
 const isResponsive = mode === "responsive";
 ---
@@ -21,12 +22,13 @@ const isResponsive = mode === "responsive";
   id={id}
   class="preview-carousel"
   aria-labelledby={`${id}-title`}
+  data-edge-bands={edgeBands ? "" : undefined}
   data-carousel-autoplay={isCarousel ? "" : undefined}
   data-responsive-carousel={isResponsive ? "" : undefined}
 >
   <header class="preview-carousel-header">
     <div>
-      <p class="eyebrow">{eyebrow}</p>
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
       <h3 id={`${id}-title`}>{title}</h3>
     </div>
     {isCarousel && (
@@ -49,8 +51,10 @@ const isResponsive = mode === "responsive";
     )}
   </header>
   {isCarousel && (
-    <div class="preview-carousel-viewport" id={`${id}-viewport`} tabindex="0">
-      <ul class="preview-card-list preview-carousel-track" data-carousel-track aria-label={`${title}, ${items.length} schede`}>
+    <div class:list={["preview-carousel-frame", { "preview-carousel-frame--edge-bands": edgeBands }]}>
+      {edgeBands && <span class="preview-carousel-edge preview-carousel-edge--start" aria-hidden="true" />}
+      <div class="preview-carousel-viewport" id={`${id}-viewport`} tabindex="0">
+        <ul class="preview-card-list preview-carousel-track" data-carousel-track aria-label={`${title}, ${items.length} schede`}>
         {items.map((item) => (
           item.variant === "jury" ? (
             <JuryPreviewCard item={item} dialogId={`${id}-dialog-${item.id}`} isClone />
@@ -166,7 +170,9 @@ const isResponsive = mode === "responsive";
           </li>
           )
         ))}
-      </ul>
+        </ul>
+      </div>
+      {edgeBands && <span class="preview-carousel-edge preview-carousel-edge--end" aria-hidden="true" />}
     </div>
   )}
   {mode === "grid" && (

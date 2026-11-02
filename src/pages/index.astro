@@ -141,7 +141,6 @@ const screenings = program.filter((event) => event.kind === "Proiezione");
   <section class="content-section gertie-previews" aria-label="Anteprime del Gertie Animation Prize">
     <PreviewCarousel
       id="gertie-jury"
-      eyebrow="In aggiornamento"
       title="La giuria"
       items={juryPreviews}
       mode="responsive"
@@ -151,6 +150,7 @@ const screenings = program.filter((event) => event.kind === "Proiezione");
       eyebrow="Selezione ufficiale"
       title="I corti selezionati"
       items={shortFilmPreviews}
+      edgeBands
     />
   </section>
 
