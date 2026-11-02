@@ -1,0 +1,83 @@
+---
+import { Image } from "astro:assets";
+import type { GertiePreviewItem } from "../data/gertie";
+
+interface Props {
+  item: GertiePreviewItem;
+  dialogId: string;
+  isClone?: boolean;
+}
+
+const { item, dialogId, isClone = false } = Astro.props;
+---
+
+<li
+  class="preview-carousel-slide"
+  data-carousel-clone={isClone ? "" : undefined}
+  aria-hidden={isClone ? "true" : undefined}
+  inert={isClone || undefined}
+>
+  <button
+    class="preview-card preview-card-link jury-preview-card"
+    type="button"
+    aria-haspopup="dialog"
+    aria-controls={dialogId}
+    data-terminal-dialog-trigger={!isClone ? "" : undefined}
+    tabindex={isClone ? -1 : undefined}
+  >
+    {item.image ? (
+      <Image class="preview-image preview-image--jury" src={item.image} alt="" loading="lazy" />
+    ) : (
+      <span class="preview-image preview-image-placeholder" role="img" aria-label={item.placeholderLabel}>
+        {item.placeholderLabel}
+      </span>
+    )}
+    <span class="preview-card-copy">
+      <span class="preview-card-title preview-card-title--jury">{item.title}</span>
+      <span class="preview-card-details preview-card-details--jury"><span aria-hidden="true">&gt; </span>{item.details}</span>
+      <span class="preview-card-cta">Leggi la bio <span aria-hidden="true">&#8594;</span></span>
+    </span>
+  </button>
+
+  {!isClone && (
+    <dialog
+      class="screening-dialog jury-dialog"
+      id={dialogId}
+      aria-labelledby={`${dialogId}-title`}
+      data-terminal-dialog
+    >
+      <button class="dialog-close" type="button" aria-label={`Chiudi il profilo di ${item.title}`}>&times;</button>
+      <div class="dialog-content jury-dialog-content">
+        <header class="jury-dialog-heading">
+          {item.image && (
+            <Image
+              class="jury-dialog-portrait"
+              src={item.image}
+              alt={item.imageAlt ?? item.title}
+              loading="lazy"
+            />
+          )}
+          <div class="jury-dialog-identity">
+            <p class="eyebrow" data-dossier-typewriter>Profilo giuria // Gertie 2026</p>
+            <h2 id={`${dialogId}-title`} data-dossier-typewriter>{item.title}</h2>
+            <p class="preview-card-details--jury" data-dossier-typewriter><span aria-hidden="true">&gt; </span>{item.details}</p>
+          </div>
+        </header>
+        <section class="jury-dialog-bio" aria-label={`Biografia di ${item.title}`}>
+          <p class="eyebrow" data-dossier-typewriter>LOG // BIOGRAFIA</p>
+          {item.bio?.split("\n\n").map((paragraph) => <p data-dossier-typewriter>{paragraph}</p>)}
+        </section>
+        <nav class="dialog-actions" aria-label={`Link per ${item.title}`}>
+          <a class="button button-primary" href={item.href} target="_blank" rel="noreferrer">Instagram</a>
+          <a class="button button-secondary" href="/gertie-animation-prize/">Scopri Gertie</a>
+        </nav>
+      </div>
+    </dialog>
+  )}
+</li>
+
+<script>
+  import { initializeTerminalDialogs } from "../scripts/terminalDialogs";
+
+  initializeTerminalDialogs();
+</script>

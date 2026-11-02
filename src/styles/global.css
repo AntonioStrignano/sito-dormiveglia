@@ -438,6 +438,17 @@ html.typewriter-ready .typewriter-wrap.is-typed [data-typewriter] {
   list-style: none;
 }
 
+.screening-grid > li {
+  min-width: 0;
+}
+
+.screening-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
 .screening-card {
   display: flex;
   width: 100%;
@@ -489,18 +500,56 @@ html.typewriter-ready .typewriter-wrap.is-typed [data-typewriter] {
 
 .screening-dialog {
   position: fixed;
+  inset: 50% auto auto 50%;
   width: min(54rem, calc(100vw - 2rem));
   max-width: none;
   max-height: min(86vh, 46rem);
+  margin: 0;
   padding: 0;
   overflow: auto;
   border: 2px solid var(--color-accent);
   background: var(--color-background);
   color: var(--color-text);
+  opacity: 0;
+  transform: translate(-50%, -50%) scaleY(0.03);
+  transform-origin: top center;
+  transition: opacity 160ms ease, transform 280ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.screening-dialog[open].is-open {
+  opacity: 1;
+  transform: translate(-50%, -50%) scaleY(1);
+}
+
+.jury-dialog[open] {
+  display: flex;
+  height: min(86vh, 46rem);
+  flex-direction: column;
+  overflow: hidden;
+}
+
+@starting-style {
+  .screening-dialog[open].is-open {
+    opacity: 0;
+    transform: translate(-50%, -50%) scaleY(0.03);
+  }
+
+  .screening-dialog[open].is-open .dialog-content {
+    opacity: 0;
+  }
+
+  .screening-dialog[open].is-open::backdrop {
+    background-color: transparent;
+  }
 }
 
 .screening-dialog::backdrop {
   background: rgb(0 0 0 / 82%);
+  transition: background-color 280ms ease;
+}
+
+.screening-dialog[open]:not(.is-open)::backdrop {
+  background-color: transparent;
 }
 
 .dialog-content {
@@ -509,6 +558,13 @@ html.typewriter-ready .typewriter-wrap.is-typed [data-typewriter] {
   gap: 1.5rem;
   align-items: center;
   padding: 2rem;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.screening-dialog[open].is-open .dialog-content {
+  opacity: 1;
+  transition-delay: 100ms;
 }
 
 .dialog-poster {
@@ -596,13 +652,338 @@ html.typewriter-ready .typewriter-wrap.is-typed [data-typewriter] {
   margin-block: 0 0.5rem;
 }
 
-.gertie-link {
+.gertie-actions {
+  display: flex;
   flex: 0 0 auto;
-  padding: 0.75rem 1rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.gertie-previews {
+  display: grid;
+  gap: clamp(2rem, 5vw, 3.5rem);
+}
+
+.preview-carousel {
+  min-width: 0;
+}
+
+.preview-carousel-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.preview-carousel-header h3,
+.preview-carousel-header p {
+  margin-block: 0 0.4rem;
+}
+
+.preview-carousel-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.preview-carousel-control {
+  display: grid;
+  width: 2.75rem;
+  aspect-ratio: 1;
+  place-items: center;
   border: 2px solid var(--color-line);
+  background: var(--color-surface);
+  color: var(--color-accent);
+  font: inherit;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.preview-carousel-control:hover:not(:disabled),
+.preview-carousel-control:focus-visible {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-background);
+}
+
+.preview-carousel-control:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.preview-carousel-viewport {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  padding-inline: max(1rem, calc((100vw - var(--content-width)) / 2));
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  cursor: grab;
+  touch-action: auto;
+}
+
+.preview-carousel-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.preview-carousel-viewport:active {
+  cursor: grabbing;
+}
+
+.preview-card-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.preview-card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.preview-carousel-viewport:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+.preview-carousel-track {
+  display: flex;
+  width: max-content;
+  gap: 1rem;
+  padding-bottom: 0.25rem;
+}
+
+.preview-carousel-slide {
+  min-width: 0;
+}
+
+.preview-carousel-track .preview-carousel-slide {
+  width: clamp(20rem, 27vw, 26rem);
+  flex: 0 0 auto;
+}
+
+.preview-card {
+  display: flex;
+  height: 100%;
+  min-height: 100%;
+  flex-direction: column;
+  border: 1px solid var(--color-line);
+  background: var(--color-surface);
+}
+
+.preview-card-grid .preview-card-link {
+  height: 100%;
+}
+
+.preview-card-grid .preview-carousel-slide {
+  display: flex;
+}
+
+.preview-card-grid .preview-card-copy {
+  flex: 1;
+}
+
+.preview-carousel[data-responsive-carousel] .preview-carousel-controls {
+  display: none;
+}
+
+.preview-carousel[data-responsive-carousel] .preview-carousel-viewport {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  cursor: auto;
+}
+
+.preview-carousel[data-responsive-carousel] .preview-carousel-track {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  padding: 0;
+}
+
+.preview-carousel[data-responsive-carousel] .preview-carousel-slide {
+  width: auto;
+  min-width: 0;
+}
+
+.preview-carousel[data-responsive-carousel] .preview-carousel-slide[data-carousel-clone] {
+  display: none;
+}
+
+.preview-carousel[data-responsive-carousel] .preview-card-link {
+  height: 100%;
+}
+
+.preview-carousel[data-responsive-carousel] .preview-card-copy {
+  flex: 1;
+}
+
+.preview-card-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.jury-preview-card {
+  width: 100%;
+  padding: 0;
+  border: 1px solid var(--color-line);
+  background: var(--color-surface);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.preview-card-link:hover,
+.preview-card-link:focus-visible {
+  border-color: var(--color-accent);
+  text-decoration: none;
+}
+
+.preview-image {
+  display: grid;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  place-items: center;
+  background: var(--color-background);
+  color: var(--color-muted);
+  object-fit: cover;
+  text-align: center;
+}
+
+.preview-image-placeholder {
+  padding: 1rem;
+  background:
+    linear-gradient(90deg, transparent 49.5%, rgb(24 91 57 / 35%) 50%, transparent 50.5%),
+    linear-gradient(transparent 49.5%, rgb(24 91 57 / 35%) 50%, transparent 50.5%),
+    var(--color-background);
+  background-size: 1.5rem 1.5rem;
+  font-size: 0.9rem;
+}
+
+.preview-image--jury {
+  aspect-ratio: 48 / 65;
+}
+
+.jury-dialog-portrait {
+  width: clamp(8rem, 24%, 13rem);
+  flex: 0 0 auto;
+  aspect-ratio: 48 / 65;
+  background: var(--color-surface);
+  object-fit: cover;
+}
+
+.jury-dialog-heading {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: flex-start;
+  gap: clamp(1rem, 4vw, 2rem);
+  padding: 0 0 1.5rem;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.jury-dialog .jury-dialog-content {
+  display: flex;
+  align-items: stretch;
+  min-height: 0;
+  flex: 1;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.jury-dialog-identity {
+  min-width: 0;
+  padding: 0.5rem 3rem 0 1rem;
+  border-left: 2px solid var(--color-accent);
+}
+
+.jury-dialog-identity h2 {
+  margin-block: 0.75rem;
+  text-transform: uppercase;
+}
+
+.jury-dialog-identity .eyebrow,
+.jury-dialog-identity p {
+  margin-block: 0 0.75rem;
+}
+
+.jury-dialog-index {
+  margin-top: 1.5rem !important;
+  color: var(--color-muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+}
+
+.jury-dialog-bio {
+  align-self: stretch;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 0;
+  flex: 1;
+  max-height: 38vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-block: 1.25rem 0.5rem;
+  text-align: left;
+}
+
+.jury-dialog-bio > * {
+  text-align: left;
+}
+
+.jury-dialog-bio p {
+  margin-block: 0 1rem;
+}
+
+.jury-dialog .dialog-actions {
+  position: relative;
+  flex: 0 0 auto;
+  margin-top: auto;
+}
+
+.preview-image--short {
+  aspect-ratio: 448 / 251;
+}
+
+.preview-card-copy {
+  display: grid;
+  gap: 0.5rem;
+  padding: 1rem;
+}
+
+.preview-card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.preview-card-title--jury {
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.preview-card-details {
+  color: var(--color-muted);
+}
+
+.preview-card-details--jury {
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.preview-card-cta {
   color: var(--color-accent);
   font-weight: 700;
-  text-decoration: none;
+}
+
+.preview-card-link:hover .preview-card-cta,
+.preview-card-link:focus-visible .preview-card-cta {
+  text-decoration: underline;
 }
 
 .instagram-teaser {
@@ -773,9 +1154,59 @@ html.typewriter-ready .typewriter-wrap.is-typed [data-typewriter] {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .screening-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .preview-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .preview-carousel[data-responsive-carousel] .preview-carousel-controls {
+    display: flex;
+  }
+
+  .preview-carousel[data-responsive-carousel] .preview-carousel-viewport {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    padding-inline: max(1rem, calc((100vw - var(--content-width)) / 2));
+    overflow-x: auto;
+    overflow-y: hidden;
+    cursor: grab;
+  }
+
+  .preview-carousel[data-responsive-carousel] .preview-carousel-viewport:active {
+    cursor: grabbing;
+  }
+
+  .preview-carousel[data-responsive-carousel] .preview-carousel-track {
+    display: flex;
+    width: max-content;
+    gap: 1rem;
+    padding-bottom: 0.25rem;
+  }
+
+  .preview-carousel[data-responsive-carousel] .preview-carousel-slide {
+    width: min(78vw, 24rem);
+    flex: 0 0 auto;
+  }
+
+  .preview-carousel[data-responsive-carousel] .preview-carousel-slide[data-carousel-clone] {
+    display: block;
+  }
+
+  .preview-carousel-track .preview-carousel-slide {
+    width: min(78vw, 24rem);
+  }
+
   .gertie-teaser {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .gertie-actions {
+    width: 100%;
   }
 
   .instagram-teaser {
@@ -792,6 +1223,48 @@ html.typewriter-ready .typewriter-wrap.is-typed [data-typewriter] {
 
   .dialog-poster {
     max-height: 24vh;
+  }
+
+  .jury-dialog-heading {
+    gap: 0.85rem;
+    padding-bottom: 1rem;
+  }
+
+  .jury-dialog[open] {
+    height: min(90vh, 52rem);
+  }
+
+  .jury-dialog .jury-dialog-content {
+    padding: 1rem;
+  }
+
+  .jury-dialog .dialog-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    margin: 0;
+  }
+
+  .jury-dialog-portrait {
+    width: min(32%, 7.5rem);
+  }
+
+  .jury-dialog-identity {
+    padding: 0 2.5rem 0 0.75rem;
+  }
+
+  .jury-dialog-identity h2 {
+    margin-block: 0.4rem;
+    font-size: 1.15rem;
+  }
+
+  .jury-dialog-index {
+    margin-top: 0.75rem !important;
+    font-size: 0.65rem;
+  }
+
+  .jury-dialog-bio {
+    padding-top: 1rem;
   }
 
   .dialog-copy h2 {
@@ -845,6 +1318,12 @@ html.typewriter-ready .typewriter-wrap.is-typed [data-typewriter] {
   .typewriter-wrap.is-typing [data-typewriter] {
     width: var(--typewriter-width);
     animation: none;
+  }
+
+  .screening-dialog,
+  .screening-dialog::backdrop,
+  .dialog-content {
+    transition-duration: 1ms;
   }
 
   .typewriter-wrap.is-typing::after {

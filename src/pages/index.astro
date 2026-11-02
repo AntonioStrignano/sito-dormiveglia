@@ -2,6 +2,9 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
 import type { ImageMetadata } from "astro";
+import ScreeningCard from "../components/ScreeningCard.astro";
+import PreviewCarousel from "../components/PreviewCarousel.astro";
+import { juryPreviews, shortFilmPreviews } from "../data/gertie";
 import { program } from "../data/programma";
 import { site } from "../data/site";
 import heroArtwork from "../../Grafiche dormiveglia/heros/AndriaSmart_ Locandina Dormiveglia 26.png";
@@ -97,64 +100,23 @@ const screenings = program.filter((event) => event.kind === "Proiezione");
     <h2 id="home-program-title">Le proiezioni</h2>
     <ul class="screening-grid">
       {screenings.map((event, index) => (
-        <li>
-          <button
-            type="button"
-            class="screening-card"
-            aria-haspopup="dialog"
-            aria-controls={`screening-dialog-${index}`}
-          >
-            <Image
-              class="screening-poster"
-              src={moviePosters[event.title]}
-              alt={`Immagine del film ${event.title}`}
-              loading="lazy"
-            />
-            <span class="eyebrow">{event.day}</span>
-            <span class="screening-title">{event.title}</span>
-            <span class="event-meta">Porte {event.doors} · Proiezione {event.screening}</span>
-            <span class="screening-action">Dettagli e prenotazione</span>
-          </button>
-        </li>
+        <ScreeningCard
+          event={event}
+          poster={moviePosters[event.title]}
+          dialogId={`screening-dialog-${index}`}
+        />
       ))}
     </ul>
-    <p><a href="/programma/">Consulta il programma completo</a></p>
+    <nav class="screening-actions" aria-label="Azioni sul programma">
+      <a class="button button-secondary" href="/programma/">Consulta il programma</a>
+      <a
+        class="button button-primary"
+        href={site.bookingFormUrl ?? "/programma/"}
+        target={site.bookingFormUrl ? "_blank" : undefined}
+        rel={site.bookingFormUrl ? "noreferrer" : undefined}
+      >Prenota un posto</a>
+    </nav>
   </section>
-
-  {screenings.map((event, index) => (
-    <dialog
-      class="screening-dialog"
-      id={`screening-dialog-${index}`}
-      aria-labelledby={`screening-dialog-title-${index}`}
-    >
-      <button class="dialog-close" type="button" aria-label="Chiudi dettagli">&times;</button>
-      <div class="dialog-content">
-        <Image
-          class="dialog-poster"
-          src={moviePosters[event.title]}
-          alt={`Immagine del film ${event.title}`}
-          loading="lazy"
-        />
-        <div class="dialog-copy">
-          <p class="eyebrow">{event.day}</p>
-          <h2 id={`screening-dialog-title-${index}`}>{event.title}</h2>
-          <p class="event-meta">Porte {event.doors} · Proiezione {event.screening}</p>
-          <p>{site.venue}<br />{site.address}</p>
-          <p>Ingresso gratuito fino a esaurimento posti.</p>
-          <p class="dialog-synopsis">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae sem at justo ullamcorper facilisis. Integer vel neque ut arcu consequat feugiat.</p>
-          <nav class="dialog-actions" aria-label={`Azioni per ${event.title}`}>
-            <a
-              class="button button-primary dialog-booking"
-              href={site.bookingFormUrl ?? "/programma/"}
-              target={site.bookingFormUrl ? "_blank" : undefined}
-              rel={site.bookingFormUrl ? "noreferrer" : undefined}
-            >Prenota un posto</a>
-            <a class="button button-secondary dialog-program" href="/programma/">Vedi il programma</a>
-          </nav>
-        </div>
-      </div>
-    </dialog>
-  ))}
 
   <section class="gertie-feature" aria-labelledby="gertie-teaser-title">
     <Image
@@ -169,8 +131,27 @@ const screenings = program.filter((event) => event.kind === "Proiezione");
         <h2 id="gertie-teaser-title">Gertie Animation Prize</h2>
         <p>Una serata dedicata ai corti d'animazione in selezione.</p>
       </div>
-      <a class="gertie-link" href="/gertie-animation-prize/">Scopri Gertie</a>
+      <nav class="gertie-actions" aria-label="Esplora Gertie">
+        <a class="button button-primary" href="/gertie-animation-prize/">Scopri Gertie</a>
+        <a class="button button-secondary" href="/gertie-animation-prize/#edition-2025">Edizione 2025</a>
+      </nav>
     </div>
+  </section>
+
+  <section class="content-section gertie-previews" aria-label="Anteprime del Gertie Animation Prize">
+    <PreviewCarousel
+      id="gertie-jury"
+      eyebrow="In aggiornamento"
+      title="La giuria"
+      items={juryPreviews}
+      mode="responsive"
+    />
+    <PreviewCarousel
+      id="gertie-shorts"
+      eyebrow="Selezione ufficiale"
+      title="I corti selezionati"
+      items={shortFilmPreviews}
+    />
   </section>
 
   <section class="content-section instagram-teaser" aria-labelledby="instagram-title">
@@ -229,18 +210,4 @@ const screenings = program.filter((event) => event.kind === "Proiezione");
     }
   }
 
-  const screeningButtons = document.querySelectorAll<HTMLButtonElement>(".screening-card");
-
-  screeningButtons.forEach((button) => {
-    const dialogId = button.getAttribute("aria-controls");
-    const dialog = dialogId ? document.getElementById(dialogId) : null;
-
-    if (!(dialog instanceof HTMLDialogElement)) return;
-
-    button.addEventListener("click", () => dialog.showModal());
-    dialog.querySelector(".dialog-close")?.addEventListener("click", () => dialog.close());
-    dialog.addEventListener("click", (event) => {
-      if (event.target === dialog) dialog.close();
-    });
-  });
 </script>

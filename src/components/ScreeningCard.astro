@@ -1,0 +1,74 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import type { ProgramEvent } from "../data/programma";
+import { site } from "../data/site";
+
+interface Props {
+  event: ProgramEvent;
+  poster: ImageMetadata;
+  dialogId: string;
+}
+
+const { event, poster, dialogId } = Astro.props;
+---
+
+<li>
+  <button
+    type="button"
+    class="screening-card"
+    aria-haspopup="dialog"
+    aria-controls={dialogId}
+    data-terminal-dialog-trigger
+  >
+    <Image
+      class="screening-poster"
+      src={poster}
+      alt={`Immagine del film ${event.title}`}
+      loading="lazy"
+    />
+    <span class="eyebrow">{event.day}</span>
+    <span class="screening-title">{event.title}</span>
+    <span class="event-meta">Porte {event.doors} · Proiezione {event.screening}</span>
+    <span class="screening-action">Dettagli e prenotazione</span>
+  </button>
+
+  <dialog
+    class="screening-dialog"
+    id={dialogId}
+    aria-labelledby={`${dialogId}-title`}
+    data-terminal-dialog
+  >
+    <button class="dialog-close" type="button" aria-label="Chiudi dettagli">&times;</button>
+    <div class="dialog-content">
+      <Image
+        class="dialog-poster"
+        src={poster}
+        alt={`Immagine del film ${event.title}`}
+        loading="lazy"
+      />
+      <div class="dialog-copy">
+        <p class="eyebrow">{event.day}</p>
+        <h2 id={`${dialogId}-title`}>{event.title}</h2>
+        <p class="event-meta">Porte {event.doors} · Proiezione {event.screening}</p>
+        <p>{site.venue}<br />{site.address}</p>
+        <p>Ingresso gratuito fino a esaurimento posti.</p>
+        <nav class="dialog-actions" aria-label={`Azioni per ${event.title}`}>
+          <a
+            class="button button-primary"
+            href={site.bookingFormUrl ?? "/programma/"}
+            target={site.bookingFormUrl ? "_blank" : undefined}
+            rel={site.bookingFormUrl ? "noreferrer" : undefined}
+          >Prenota un posto</a>
+          <a class="button button-secondary" href="/programma/">Consulta il programma</a>
+        </nav>
+      </div>
+    </div>
+  </dialog>
+</li>
+
+<script>
+  import { initializeTerminalDialogs } from "../scripts/terminalDialogs";
+
+  initializeTerminalDialogs();
+</script>

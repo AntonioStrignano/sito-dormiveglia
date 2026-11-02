@@ -1,0 +1,388 @@
+---
+import { Image } from "astro:assets";
+import JuryPreviewCard from "./JuryPreviewCard.astro";
+
+interface PreviewItem {
+  id: string;
+  title: string;
+  details: string;
+  href: string;
+  linkLabel: string;
+  image?: import("astro").ImageMetadata;
+  imageAlt?: string;
+  placeholderLabel?: string;
+  external?: boolean;
+  variant?: "jury" | "short";
+}
+
+interface Props {
+  id: string;
+  eyebrow: string;
+  title: string;
+  items: PreviewItem[];
+  mode?: "grid" | "scroll" | "responsive";
+}
+
+const { id, eyebrow, title, items, mode = "scroll" } = Astro.props;
+const isCarousel = mode !== "grid";
+const isResponsive = mode === "responsive";
+---
+
+<section
+  id={id}
+  class="preview-carousel"
+  aria-labelledby={`${id}-title`}
+  data-carousel-autoplay={isCarousel ? "" : undefined}
+  data-responsive-carousel={isResponsive ? "" : undefined}
+>
+  <header class="preview-carousel-header">
+    <div>
+      <p class="eyebrow">{eyebrow}</p>
+      <h3 id={`${id}-title`}>{title}</h3>
+    </div>
+    {isCarousel && (
+      <div class="preview-carousel-controls" aria-label={`Controlli carosello: ${title}`}>
+        <button
+          class="preview-carousel-control"
+          type="button"
+          aria-label={`Schede precedenti: ${title}`}
+          aria-controls={`${id}-viewport`}
+          data-carousel-previous
+        >&#8592;</button>
+        <button
+          class="preview-carousel-control"
+          type="button"
+          aria-label={`Schede successive: ${title}`}
+          aria-controls={`${id}-viewport`}
+          data-carousel-next
+        >&#8594;</button>
+      </div>
+    )}
+  </header>
+  {isCarousel && (
+    <div class="preview-carousel-viewport" id={`${id}-viewport`} tabindex="0">
+      <ul class="preview-card-list preview-carousel-track" data-carousel-track aria-label={`${title}, ${items.length} schede`}>
+        {items.map((item) => (
+          item.variant === "jury" ? (
+            <JuryPreviewCard item={item} dialogId={`${id}-dialog-${item.id}`} isClone />
+          ) : (
+          <li class="preview-carousel-slide" data-carousel-clone aria-hidden="true" inert>
+            <a
+              class="preview-card preview-card-link"
+              href={item.href}
+              target={item.external ? "_blank" : undefined}
+              rel={item.external ? "noreferrer" : undefined}
+              tabindex="-1"
+            >
+              {item.image ? (
+                <Image
+                  class:list={[
+                    "preview-image",
+                    { "preview-image--jury": item.variant === "jury", "preview-image--short": item.variant === "short" },
+                  ]}
+                  src={item.image}
+                  alt=""
+                  loading="lazy"
+                />
+              ) : (
+                <span class="preview-image preview-image-placeholder">{item.placeholderLabel}</span>
+              )}
+              <span class="preview-card-copy">
+                <span class:list={["preview-card-title", { "preview-card-title--jury": item.variant === "jury" }]}>{item.title}</span>
+                <span class:list={["preview-card-details", { "preview-card-details--jury": item.variant === "jury" }]}>
+                  {item.variant === "jury" && <span aria-hidden="true">&gt; </span>}{item.details}
+                </span>
+                <span class="preview-card-cta">{item.linkLabel} <span aria-hidden="true">&#8594;</span></span>
+              </span>
+            </a>
+          </li>
+          )
+        ))}
+        {items.map((item) => (
+          item.variant === "jury" ? (
+            <JuryPreviewCard item={item} dialogId={`${id}-dialog-${item.id}`} />
+          ) : (
+          <li class="preview-carousel-slide">
+            <a
+              class="preview-card preview-card-link"
+              href={item.href}
+              target={item.external ? "_blank" : undefined}
+              rel={item.external ? "noreferrer" : undefined}
+            >
+              {item.image ? (
+                <Image
+                  class:list={[
+                    "preview-image",
+                    { "preview-image--jury": item.variant === "jury", "preview-image--short": item.variant === "short" },
+                  ]}
+                  src={item.image}
+                  alt={item.imageAlt ?? item.title}
+                  loading="lazy"
+                />
+              ) : (
+                <span class="preview-image preview-image-placeholder" role="img" aria-label={item.placeholderLabel}>
+                  {item.placeholderLabel}
+                </span>
+              )}
+              <span class="preview-card-copy">
+                <span class:list={["preview-card-title", { "preview-card-title--jury": item.variant === "jury" }]}>{item.title}</span>
+                <span class:list={["preview-card-details", { "preview-card-details--jury": item.variant === "jury" }]}>
+                  {item.variant === "jury" && <span aria-hidden="true">&gt; </span>}{item.details}
+                </span>
+                <span class="preview-card-cta">{item.linkLabel} <span aria-hidden="true">&#8594;</span></span>
+              </span>
+            </a>
+          </li>
+          )
+        ))}
+        {items.map((item) => (
+          item.variant === "jury" ? (
+            <JuryPreviewCard item={item} dialogId={`${id}-dialog-${item.id}`} isClone />
+          ) : (
+          <li class="preview-carousel-slide" data-carousel-clone aria-hidden="true" inert>
+            <a
+              class="preview-card preview-card-link"
+              href={item.href}
+              target={item.external ? "_blank" : undefined}
+              rel={item.external ? "noreferrer" : undefined}
+              tabindex="-1"
+            >
+              {item.image ? (
+                <Image
+                  class:list={[
+                    "preview-image",
+                    { "preview-image--jury": item.variant === "jury", "preview-image--short": item.variant === "short" },
+                  ]}
+                  src={item.image}
+                  alt=""
+                  loading="lazy"
+                />
+              ) : (
+                <span class="preview-image preview-image-placeholder">{item.placeholderLabel}</span>
+              )}
+              <span class="preview-card-copy">
+                <span class:list={["preview-card-title", { "preview-card-title--jury": item.variant === "jury" }]}>{item.title}</span>
+                <span class:list={["preview-card-details", { "preview-card-details--jury": item.variant === "jury" }]}>
+                  {item.variant === "jury" && <span aria-hidden="true">&gt; </span>}{item.details}
+                </span>
+                <span class="preview-card-cta">{item.linkLabel} <span aria-hidden="true">&#8594;</span></span>
+              </span>
+            </a>
+          </li>
+          )
+        ))}
+      </ul>
+    </div>
+  )}
+  {mode === "grid" && (
+    <ul class:list={["preview-card-list", "preview-card-grid", { "preview-card-grid-responsive": isResponsive }]} aria-label={`${title}, ${items.length} schede`}>
+      {items.map((item) => (
+        <li class="preview-carousel-slide">
+          <a
+            class="preview-card preview-card-link"
+            href={item.href}
+            target={item.external ? "_blank" : undefined}
+            rel={item.external ? "noreferrer" : undefined}
+          >
+            {item.image ? (
+              <Image
+                class:list={[
+                  "preview-image",
+                  { "preview-image--jury": item.variant === "jury", "preview-image--short": item.variant === "short" },
+                ]}
+                src={item.image}
+                alt={item.imageAlt ?? item.title}
+                loading="lazy"
+              />
+            ) : (
+              <span class="preview-image preview-image-placeholder" role="img" aria-label={item.placeholderLabel}>
+                {item.placeholderLabel}
+              </span>
+            )}
+            <span class="preview-card-copy">
+              <span class:list={["preview-card-title", { "preview-card-title--jury": item.variant === "jury" }]}>{item.title}</span>
+              <span class:list={["preview-card-details", { "preview-card-details--jury": item.variant === "jury" }]}>
+                {item.variant === "jury" && <span aria-hidden="true">&gt; </span>}{item.details}
+              </span>
+              <span class="preview-card-cta">{item.linkLabel} <span aria-hidden="true">&#8594;</span></span>
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  )}
+</section>
+
+<script>
+  const previewCarousels = document.querySelectorAll<HTMLElement>("[data-carousel-autoplay]");
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const hoverPointer = window.matchMedia("(hover: hover)");
+  const mobileViewport = window.matchMedia("(max-width: 48rem)");
+  const pixelsPerSecond = 24;
+
+  previewCarousels.forEach((carousel) => {
+    const viewport = carousel.querySelector<HTMLElement>(".preview-carousel-viewport");
+    const track = carousel.querySelector<HTMLElement>("[data-carousel-track]");
+    const previous = carousel.querySelector<HTMLButtonElement>("[data-carousel-previous]");
+    const next = carousel.querySelector<HTMLButtonElement>("[data-carousel-next]");
+
+    if (!viewport || !track || !previous || !next) return;
+
+    let loopDistance = 0;
+    let loopInitialized = false;
+    let playbackTimer = 0;
+    let previousPlaybackTime = 0;
+    let resumeTimer = 0;
+    let isInteracting = false;
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartScrollLeft = 0;
+    let suppressNextClick = false;
+
+    const isResponsiveDesktop = () => carousel.hasAttribute("data-responsive-carousel") && !mobileViewport.matches;
+    const shouldAutoplay = () => !reducedMotion.matches && !isResponsiveDesktop();
+
+    const isPaused = () => (
+      !shouldAutoplay()
+      || (hoverPointer.matches && viewport.matches(":hover"))
+      || isInteracting
+    );
+
+    const normalizeScroll = () => {
+      if (!loopDistance) return;
+      const positionInLoop = viewport.scrollLeft - loopDistance;
+      if (positionInLoop < -0.5 || positionInLoop >= loopDistance - 0.5) {
+        const remainder = ((positionInLoop % loopDistance) + loopDistance) % loopDistance;
+        viewport.scrollLeft = loopDistance + remainder;
+      }
+    };
+
+    const measureLoop = () => {
+      const originalSlides = [...track.querySelectorAll<HTMLElement>(".preview-carousel-slide:not([data-carousel-clone])")];
+      if (!originalSlides.length) return;
+
+      const gap = Number.parseFloat(getComputedStyle(track).columnGap) || 0;
+      loopDistance = originalSlides[originalSlides.length - 1].getBoundingClientRect().right
+        - originalSlides[0].getBoundingClientRect().left
+        + gap;
+
+      if (isResponsiveDesktop()) {
+        viewport.scrollLeft = 0;
+        loopInitialized = false;
+        updateControls();
+        updatePlayback();
+        return;
+      }
+
+      if (!loopInitialized) {
+        viewport.scrollLeft = loopDistance;
+        loopInitialized = true;
+      } else {
+        normalizeScroll();
+      }
+      updateControls();
+      updatePlayback();
+    };
+
+    const updatePlayback = () => {
+      if (isPaused()) {
+        window.clearInterval(playbackTimer);
+        playbackTimer = 0;
+        previousPlaybackTime = 0;
+      } else if (!playbackTimer) {
+        previousPlaybackTime = performance.now();
+        playbackTimer = window.setInterval(() => {
+          const now = performance.now();
+          viewport.scrollLeft += (now - previousPlaybackTime) * pixelsPerSecond / 1000;
+          previousPlaybackTime = now;
+          normalizeScroll();
+        }, 50);
+      }
+    };
+
+    const updateControls = () => {
+      const hasOverflow = viewport.scrollWidth > viewport.clientWidth + 1;
+      previous.disabled = !hasOverflow && viewport.scrollLeft <= 1;
+      next.disabled = !hasOverflow && viewport.scrollLeft >= viewport.scrollWidth - viewport.clientWidth - 1;
+    };
+
+    const pauseAfterInteraction = () => {
+      window.clearTimeout(resumeTimer);
+      isInteracting = true;
+      updatePlayback();
+      resumeTimer = window.setTimeout(() => {
+        isInteracting = false;
+        updatePlayback();
+      }, 1200);
+    };
+
+    const scrollByPage = (direction: -1 | 1) => {
+      if (!loopDistance) return;
+      pauseAfterInteraction();
+      viewport.scrollLeft += direction * viewport.clientWidth * 0.8;
+      normalizeScroll();
+    };
+
+    previous.addEventListener("click", () => scrollByPage(-1));
+    next.addEventListener("click", () => scrollByPage(1));
+    viewport.addEventListener("scroll", normalizeScroll, { passive: true });
+
+    viewport.addEventListener("pointerdown", (event) => {
+      if (event.pointerType !== "mouse") {
+        pauseAfterInteraction();
+        return;
+      }
+      if (event.button !== 0) return;
+      dragStartX = event.clientX;
+      dragStartScrollLeft = viewport.scrollLeft;
+      isDragging = false;
+    });
+
+    viewport.addEventListener("pointermove", (event) => {
+      if (event.pointerType !== "mouse" || !(event.buttons & 1)) return;
+      const distance = event.clientX - dragStartX;
+      if (!isDragging && Math.abs(distance) < 6) return;
+
+      isDragging = true;
+      viewport.setPointerCapture(event.pointerId);
+      viewport.scrollLeft = dragStartScrollLeft - distance;
+      normalizeScroll();
+      event.preventDefault();
+    });
+
+    const finishDragging = (event: PointerEvent) => {
+      if (isDragging) {
+        suppressNextClick = true;
+        window.setTimeout(() => {
+          suppressNextClick = false;
+        }, 0);
+        isDragging = false;
+      }
+      pauseAfterInteraction();
+    };
+
+    viewport.addEventListener("pointerup", finishDragging);
+    viewport.addEventListener("pointercancel", finishDragging);
+    viewport.addEventListener("click", (event) => {
+      if (!suppressNextClick) return;
+      event.preventDefault();
+      event.stopPropagation();
+      suppressNextClick = false;
+    }, true);
+
+    viewport.addEventListener("focusin", updatePlayback);
+    viewport.addEventListener("focusout", updatePlayback);
+    viewport.addEventListener("mouseenter", updatePlayback);
+    viewport.addEventListener("mouseleave", updatePlayback);
+    hoverPointer.addEventListener("change", updatePlayback);
+    reducedMotion.addEventListener("change", updatePlayback);
+    mobileViewport.addEventListener("change", measureLoop);
+    window.addEventListener("resize", measureLoop);
+    viewport.addEventListener("scroll", updateControls, { passive: true });
+
+    const resizeObserver = new ResizeObserver(measureLoop);
+    resizeObserver.observe(viewport);
+    resizeObserver.observe(track);
+    measureLoop();
+  });
+</script>
