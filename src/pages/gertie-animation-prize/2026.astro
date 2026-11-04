@@ -1,0 +1,223 @@
+---
+import { Image } from "astro:assets";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import JuryPreviewCard from "../../components/JuryPreviewCard.astro";
+import ShortFilmOrbit from "../../components/ShortFilmOrbit.astro";
+import { gertie, juryPreviews, shortFilmPreviews } from "../../data/gertie";
+import { program } from "../../data/programma";
+import { site } from "../../data/site";
+import heroArtwork from "../../../Grafiche gertie/Gertie banner.webp";
+
+const night = program.find((event) => event.id === "sabato-14")!;
+const previousEdition = gertie.history[0];
+
+const nightJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ScreeningEvent",
+  name: night.title,
+  startDate: `${night.date}T${night.screening}:00+01:00`,
+  doorTime: night.doors,
+  eventStatus: "https://schema.org/EventScheduled",
+  eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+  isAccessibleForFree: true,
+  inLanguage: "it",
+  location: {
+    "@type": "Place",
+    name: site.venue,
+    address: { "@type": "PostalAddress", streetAddress: "Via S. Francesco 12", addressLocality: "Andria", addressCountry: "IT" },
+  },
+  description: night.details.synopsis,
+};
+
+---
+
+<BaseLayout
+  title="Gertie Animation Prize"
+  description="Gertie Animation Prize, premio dedicato al cinema d'animazione nell'ambito del Dormiveglia Animation Film Fest: giuria, corti selezionati e serata del 14 novembre 2026 ad Andria."
+>
+  <script is:inline>
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      document.documentElement.classList.add("boot-ready");
+    }
+  </script>
+
+  <section class="hero gertie-hero" aria-labelledby="gertie-title">
+    <div class="hero-visual">
+      <Image
+        class="hero-image"
+        src={heroArtwork}
+        alt="Banner illustrato del Gertie Animation Prize."
+        fetchpriority="high"
+      />
+    </div>
+    <div class="hero-copy gertie-hero-copy">
+      <div class="gertie-hero-text">
+        <h1 id="gertie-title" class="sr-only">{gertie.title}, {gertie.edition}</h1>
+        <p class="gertie-hero-date"><span>SAB 14 NOVEMBRE</span> <span>ORE {night.screening}</span></p>
+        <p class="gertie-hero-place"><span>{site.venue}</span> <span>{site.address}</span></p>
+        <p class="gertie-hero-doors">Ingresso gratuito</p>
+        {/* Copy di bozza da confermare. */}
+        <p>Il premio europeo dei corti d'animazione indipendenti.</p>
+        <nav class="hero-actions" aria-label="Azioni principali">
+          <a class="button button-primary" href={site.bookingFormUrl} target="_blank" rel="noreferrer">Prenota un posto</a>
+          <a class="button button-secondary" href="/programma/#sabato-14">Vedi nel programma</a>
+        </nav>
+      </div>
+
+      <button
+        class="gertie-holo"
+        type="button"
+        aria-haspopup="dialog"
+        aria-controls="gertie-dialog"
+        aria-label="Chi è Gertie: apri la scheda del premio"
+        data-terminal-dialog-trigger
+      >
+        <span class="gertie-holo-art">
+          <img class="gertie-holo-image" src="/images/gertie-mascotte.webp" alt="" width="730" height="800" />
+          <span class="gertie-holo-click" aria-hidden="true">
+            <svg viewBox="-4 -4 12 16" shape-rendering="crispEdges">
+              <path class="holo-click-lines" d="M-3 0h2v1h-2z M-2 -2h1v1h-1z M-3 -3h1v1h-1z M0 -3h1v2h-1z" fill="currentColor" />
+              <path
+                class="holo-click-arrow"
+                d="M0 0h1v1h-1z M0 1h2v1h-2z M0 2h3v1h-3z M0 3h4v1h-4z M0 4h5v1h-5z M0 5h6v1h-6z M0 6h7v1h-7z M0 7h5v1h-5z M0 8h2v1h-2z M3 8h2v1h-2z M0 9h1v1h-1z M3 9h2v1h-2z M4 10h2v1h-2z M4 11h2v1h-2z"
+                fill="currentColor"
+                stroke="#000"
+                stroke-width="1.2"
+                paint-order="stroke"
+              />
+            </svg>
+          </span>
+        </span>
+        <span class="gertie-holo-hint" aria-hidden="true">&gt; CHI È GERTIE?</span>
+      </button>
+
+      <dialog
+        class="screening-dialog jury-dialog"
+        id="gertie-dialog"
+        aria-labelledby="gertie-dialog-title"
+        data-terminal-dialog
+      >
+        <button class="dialog-close" type="button" aria-label="Chiudi la scheda di Gertie">&times;</button>
+        <div class="dialog-content jury-dialog-content">
+          <header class="jury-dialog-heading">
+            <img
+              class="jury-dialog-portrait gertie-dialog-portrait"
+              src="/images/gertie-mascotte.webp"
+              alt="Gertie, la mascotte del premio: un dinosauro dal lungo collo."
+              width="730"
+              height="800"
+            />
+            <div class="jury-dialog-identity">
+              <p class="eyebrow" data-dossier-typewriter>Gertie Animation Prize // {gertie.edition}</p>
+              <h2 id="gertie-dialog-title" data-dossier-typewriter>Chi è Gertie</h2>
+              <p class="preview-card-details--jury" data-dossier-typewriter><span aria-hidden="true">&gt; </span>Mascotte e premio</p>
+            </div>
+          </header>
+          <section class="jury-dialog-bio" aria-label="Il premio">
+            <p class="eyebrow" data-dossier-typewriter>LOG // IL PREMIO</p>
+            <p data-dossier-typewriter>Il Gertie Animation Prize è il premio del Dormiveglia per i corti d'animazione indipendenti. Nel 2026 diventa europeo: opere da tutta Europa, una sola serata, un solo vincitore.</p>
+            <p data-dossier-typewriter>Porte alle {night.doors}, proiezione alle {night.screening}. Ingresso gratuito fino a esaurimento posti.</p>
+          </section>
+          <nav class="dialog-actions" aria-label="Link per Gertie">
+            <a class="button button-primary" href={site.bookingFormUrl} target="_blank" rel="noreferrer">Prenota un posto</a>
+            <a class="button button-secondary" href={site.contacts.instagram} target="_blank" rel="noreferrer">Instagram</a>
+          </nav>
+        </div>
+      </dialog>
+    </div>
+  </section>
+
+  <div id="corti" class="content-section gertie-section">
+    <ShortFilmOrbit
+      id="gertie-shorts"
+      title="I corti selezionati"
+      items={shortFilmPreviews}
+    />
+  </div>
+
+  <section id="giuria" class="content-section gertie-section" aria-labelledby="giuria-title" data-jury-boot>
+    <h2 id="giuria-title">La giuria</h2>
+    <p class="boot-line" aria-hidden="true">&gt; <span data-boot-label>GIURIA COMPLETA...</span> <span data-boot-count>{juryPreviews.length}/{juryPreviews.length}</span></p>
+    <ul class="preview-card-list gertie-jury-grid" aria-label={`La giuria, ${juryPreviews.length} schede`}>
+      {juryPreviews.map((item) => (
+        <JuryPreviewCard item={item} dialogId={`gertie-jury-dialog-${item.id}`} />
+      ))}
+    </ul>
+  </section>
+
+  <section id="edition-2025" class="content-section gertie-section" aria-labelledby="edition-2025-title">
+    <div class="gertie-previous">
+      <span class="preview-image preview-image-placeholder gertie-previous-badge" role="img" aria-label="Coccarda del vincitore 2025: immagine in arrivo">
+        Coccarda {previousEdition.year}
+      </span>
+      <div>
+        <h2 id="edition-2025-title">Edizione {previousEdition.year}</h2>
+        <p>Vincitrice: {previousEdition.winner}, “{previousEdition.film}”.</p>
+        <p><a class="button button-secondary" href="/gertie-animation-prize/2025/">Scopri l'edizione</a></p>
+      </div>
+    </div>
+  </section>
+
+  <script type="application/ld+json" set:html={JSON.stringify(nightJsonLd)} />
+</BaseLayout>
+
+<script>
+  import { initializeTerminalDialogs } from "../../scripts/terminalDialogs";
+
+  initializeTerminalDialogs();
+
+  const section = document.querySelector<HTMLElement>("[data-jury-boot]");
+
+  if (section && document.documentElement.classList.contains("boot-ready")) {
+    const cards = [...section.querySelectorAll<HTMLElement>(".gertie-jury-grid > li")];
+    const counter = section.querySelector<HTMLElement>("[data-boot-count]");
+    const label = section.querySelector<HTMLElement>("[data-boot-label]");
+    const total = cards.length;
+    const characterDelay = 20;
+    const cardInterval = 350;
+    const cardDuration = 800;
+    let completed = 0;
+
+    const typeText = (element: HTMLElement) => {
+      const textNode = [...element.childNodes].find((node): node is Text => node.nodeType === Node.TEXT_NODE);
+      if (!textNode) return;
+      const characters = Array.from(textNode.data);
+      textNode.data = "";
+      characters.forEach((character, index) => {
+        window.setTimeout(() => textNode.appendData(character), index * characterDelay);
+      });
+    };
+
+    const turnOn = (card: HTMLElement) => {
+      const lines = [...card.querySelectorAll<HTMLElement>(".preview-card-title, .preview-card-details")];
+      // Nome accessibile fisso: il testo viene scritto carattere per carattere.
+      card.querySelector(".jury-preview-card")?.setAttribute(
+        "aria-label",
+        `${lines.map((line) => line.textContent?.replace(/^>\s*/, "")).join(", ")}. Leggi la bio`,
+      );
+      card.classList.add("is-on");
+      lines.forEach(typeText);
+      window.setTimeout(() => {
+        completed += 1;
+        if (counter) counter.textContent = `${completed}/${total}`;
+        if (completed === total && label) label.textContent = "GIURIA COMPLETA...";
+      }, cardDuration);
+    };
+
+    section.classList.add("is-booting");
+    if (counter) counter.textContent = `0/${total}`;
+    if (label) label.textContent = "CARICO GIURIA...";
+
+    const observer = new IntersectionObserver((entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      observer.disconnect();
+      const order = [...cards];
+      for (let index = order.length - 1; index > 0; index -= 1) {
+        const swap = Math.floor(Math.random() * (index + 1));
+        [order[index], order[swap]] = [order[swap], order[index]];
+      }
+      order.forEach((card, index) => window.setTimeout(() => turnOn(card), index * cardInterval + 500));
+    }, { threshold: 0.3 });
+    observer.observe(section);
+  }
+</script>

@@ -78,7 +78,7 @@ export const program: ProgramEvent[] = [
   },
   {
     id: "sabato-14",
-    pageHref: "/gertie-animation-prize/",
+    pageHref: "/gertie-animation-prize/2026/",
     date: "2026-11-14",
     day: "Sabato 14 novembre",
     title: "Gertie Animation Prize",

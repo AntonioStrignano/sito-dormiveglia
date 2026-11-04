@@ -4,12 +4,11 @@ import ProgramCard from "../components/ProgramCard.astro";
 import type { ImageMetadata } from "astro";
 import { program } from "../data/programma";
 import { site } from "../data/site";
-import valleyPoster from "../../Grafiche dormiveglia/locandine film/Film_Valle incantata.png";
-import lindaPoster from "../../Grafiche dormiveglia/locandine film/Film_ Linda e il Pollo.png";
-import nikukoPoster from "../../Grafiche dormiveglia/locandine film/Film_ Nikuko.png";
-import gertiePoster from "../../Grafiche gertie/Gertie_Storia deadline.webp";
+import valleyPoster from "../../Grafiche dormiveglia/locandine/valleincantanalocandina.jpg";
+import lindaPoster from "../../Grafiche dormiveglia/locandine/lindalocandina.jpg";
+import nikukoPoster from "../../Grafiche dormiveglia/locandine/nikukolocandina.jpg";
+import gertiePoster from "../../Grafiche dormiveglia/locandine/gertielocandina.jpg";
 
-// Locandine provvisorie: sostituire con le versioni verticali definitive.
 const posters: Record<string, ImageMetadata> = {
   "giovedi-12": valleyPoster,
   "venerdi-13": lindaPoster,
@@ -56,14 +55,7 @@ const eventsJsonLd = program.map((event) => ({
     <h2 id="booking-title">Prenotazioni e info pratiche</h2>
     <p>{site.venue} · {site.address}</p>
     <p class="muted">Ingresso 20:00, proiezione 21:00. Ingresso gratuito fino a esaurimento posti.</p>
-    {site.bookingFormUrl ? (
-      <p><a class="button button-primary" href={site.bookingFormUrl} target="_blank" rel="noreferrer">Apri il modulo di prenotazione</a></p>
-    ) : (
-      <p class="placeholder">Il modulo unico per prenotare i posti sarà collegato qui.</p>
-    )}
-    {site.programPdfUrl && (
-      <p><a href={site.programPdfUrl} target="_blank" rel="noreferrer">Scarica il programma PDF</a></p>
-    )}
+    <p><a class="button button-primary" href={site.bookingFormUrl} target="_blank" rel="noreferrer">Apri il modulo di prenotazione</a></p>
   </section>
 
   <script type="application/ld+json" set:html={JSON.stringify(eventsJsonLd)} />

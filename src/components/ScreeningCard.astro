@@ -61,12 +61,7 @@ const { event, poster, dialogId } = Astro.props;
       <div class="screening-dialog-footer">
         <p class="event-meta">{site.venue} · {site.address}<br />Ingresso gratuito fino a esaurimento posti.</p>
         <nav class="dialog-actions" aria-label={`Azioni per ${event.title}`}>
-          <a
-            class="button button-primary"
-            href={site.bookingFormUrl ?? "/programma/"}
-            target={site.bookingFormUrl ? "_blank" : undefined}
-            rel={site.bookingFormUrl ? "noreferrer" : undefined}
-          >Prenota un posto</a>
+          <a class="button button-primary" href={site.bookingFormUrl} target="_blank" rel="noreferrer">Prenota un posto</a>
           <a class="button button-secondary" href={`/programma/#${event.id}`}>Consulta il programma</a>
         </nav>
       </div>

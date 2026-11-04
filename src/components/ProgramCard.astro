@@ -11,28 +11,59 @@ interface Props {
 
 const { event, poster } = Astro.props;
 const { details } = event;
-const dateParts = event.day.match(/^(.*?)(\d+)(.*)$/);
 const titleId = `${event.id}-title`;
+const posterDialogId = `${event.id}-poster-dialog`;
+const posterDialogTitleId = `${posterDialogId}-title`;
 ---
 
 <li class="program-item" id={event.id}>
   <article class="program-card" aria-labelledby={titleId}>
-    <Image
-      class="program-poster"
-      src={poster}
-      alt={`Locandina di ${event.title}`}
-      widths={[272, 544, 768]}
-      sizes="(max-width: 48rem) min(100vw, 24rem), 17rem"
-      loading="lazy"
-    />
+    <button
+      type="button"
+      class="program-poster-trigger"
+      aria-haspopup="dialog"
+      aria-controls={posterDialogId}
+      aria-label={`Apri la locandina di ${event.title}`}
+      data-terminal-dialog-trigger
+    >
+      <Image
+        class="program-poster"
+        src={poster}
+        alt=""
+        widths={[272, 544, 768]}
+        sizes="(max-width: 48rem) min(100vw, 24rem), 17rem"
+        loading="lazy"
+      />
+    </button>
+    <dialog
+      id={posterDialogId}
+      class="screening-dialog poster-dialog"
+      aria-labelledby={posterDialogTitleId}
+      data-terminal-dialog
+    >
+      <button class="dialog-close" type="button" aria-label={`Chiudi la locandina di ${event.title}`}>&times;</button>
+      <div class="poster-dialog-content">
+        <h2 id={posterDialogTitleId} class="sr-only">Locandina di {event.title}</h2>
+        <div class="poster-dialog-viewport">
+          <img
+            class="poster-dialog-image"
+            src={poster.src}
+            width={poster.width}
+            height={poster.height}
+            alt={`Locandina completa di ${event.title}`}
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+        <button class="poster-zoom-toggle" type="button" aria-pressed="false">
+          Ingrandisci
+        </button>
+      </div>
+    </dialog>
     <div class="program-body">
       <header>
         <p class="eyebrow program-day">
-          <time datetime={event.date}>
-            {dateParts ? (
-              <span>{dateParts[1]}<span class="date-number">{dateParts[2]}</span>{dateParts[3]}</span>
-            ) : event.day}
-          </time>
+          <time datetime={event.date}>{event.day}</time>
         </p>
         <h2 id={titleId} class="program-title">{event.title}</h2>
         <p class="event-meta">
@@ -48,7 +79,9 @@ const titleId = `${event.id}-title`;
         </summary>
         <div class="program-more-body">
           <p class="eyebrow">LOG // SINOSSI</p>
-          {details.synopsis.split(/\n\n+/).map((paragraph) => <p>{paragraph}</p>)}
+          <div class="program-synopsis" tabindex="0" aria-label={`Sinossi di ${event.title}`}>
+            {details.synopsis.split(/\n\n+/).map((paragraph) => <p>{paragraph}</p>)}
+          </div>
           <dl class="program-credits">
             {details.credits.map((credit) => (
               <>
@@ -67,13 +100,9 @@ const titleId = `${event.id}-title`;
       </details>
 
       <div class="program-actions">
-        {site.bookingFormUrl ? (
-          <a class="button button-primary" href={site.bookingFormUrl} target="_blank" rel="noreferrer">
-            Prenota un posto<span class="sr-only"> per {event.title}</span>
-          </a>
-        ) : (
-          <p class="muted">Prenotazione online in aggiornamento</p>
-        )}
+        <a class="button button-primary" href={site.bookingFormUrl} target="_blank" rel="noreferrer">
+          Prenota un posto<span class="sr-only"> per {event.title}</span>
+        </a>
         {event.pageHref && (
           <a class="button button-secondary" href={event.pageHref}>Scopri Gertie</a>
         )}
@@ -88,6 +117,30 @@ const titleId = `${event.id}-title`;
 </li>
 
 <script>
+  import { initializeTerminalDialogs } from "../scripts/terminalDialogs";
+
+  initializeTerminalDialogs();
+
+  document.querySelectorAll<HTMLDialogElement>(".poster-dialog").forEach((dialog) => {
+    if (dialog.dataset.zoomInitialized) return;
+    dialog.dataset.zoomInitialized = "true";
+
+    const zoomToggle = dialog.querySelector<HTMLButtonElement>(".poster-zoom-toggle");
+    const posterViewport = dialog.querySelector<HTMLElement>(".poster-dialog-viewport");
+    zoomToggle?.addEventListener("click", () => {
+      const zoomed = dialog.classList.toggle("is-zoomed");
+      zoomToggle.setAttribute("aria-pressed", String(zoomed));
+      zoomToggle.textContent = zoomed ? "Adatta allo schermo" : "Ingrandisci";
+      posterViewport?.scrollTo({ top: 0, left: 0 });
+    });
+
+    dialog.addEventListener("close", () => {
+      dialog.classList.remove("is-zoomed");
+      zoomToggle?.setAttribute("aria-pressed", "false");
+      if (zoomToggle) zoomToggle.textContent = "Ingrandisci";
+    });
+  });
+
   const desktop = window.matchMedia("(min-width: 48rem)");
   const sync = () => {
     document.querySelectorAll<HTMLDetailsElement>("[data-program-more]").forEach((el) => {

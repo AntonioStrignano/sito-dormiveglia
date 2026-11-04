@@ -31,17 +31,13 @@ export interface GertiePreviewItem {
 export const gertie = {
   title: "Gertie Animation Prize",
   edition: "Seconda edizione 2026",
-  deadline: "25 settembre 2026",
-  isClosed: true,
-  regulationUrl: null as string | null,
-  applicationUrl: null as string | null,
   history: [
     {
       year: 2025,
-      poster: null as string | null,
-      winner: null as string | null,
-      mentions: null as string | null,
-      link: null as string | null,
+      winner: "Sara Priorelli",
+      film: "My Good Boy",
+      // Placeholder: sostituire con il link al corto vincitore.
+      link: "/gertie-animation-prize/2025/",
     },
   ],
 };
@@ -168,7 +164,7 @@ export const shortFilmPreviews: GertiePreviewItem[] = shortFilmDetails.map((film
   details: film.creator,
   synopsis: film.synopsis,
   authorLinks: film.authorLinks,
-  href: "/gertie-animation-prize/",
+  href: "/gertie-animation-prize/2026/",
   linkLabel: "Scopri Gertie",
   image: shortFilmImages[index],
   imageAlt: `Immagine dal corto ${film.title}.`,

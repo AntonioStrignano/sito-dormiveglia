@@ -78,12 +78,7 @@ const screenings = program.filter((event) => event.kind === "Proiezione");
         </p>
       </div>
       <nav class="hero-actions" aria-label="Azioni principali">
-        <a
-          class="button button-primary"
-          href={site.bookingFormUrl ?? "/programma/"}
-          target={site.bookingFormUrl ? "_blank" : undefined}
-          rel={site.bookingFormUrl ? "noreferrer" : undefined}
-        >
+        <a class="button button-primary" href={site.bookingFormUrl} target="_blank" rel="noreferrer">
           <span class="sr-only">Prenota un posto</span>
           <span class="typewriter-wrap"><span aria-hidden="true">Prenota un posto</span></span>
         </a>
@@ -109,12 +104,7 @@ const screenings = program.filter((event) => event.kind === "Proiezione");
     </ul>
     <nav class="screening-actions" aria-label="Azioni sul programma">
       <a class="button button-secondary" href="/programma/">Consulta il programma</a>
-      <a
-        class="button button-primary"
-        href={site.bookingFormUrl ?? "/programma/"}
-        target={site.bookingFormUrl ? "_blank" : undefined}
-        rel={site.bookingFormUrl ? "noreferrer" : undefined}
-      >Prenota un posto</a>
+      <a class="button button-primary" href={site.bookingFormUrl} target="_blank" rel="noreferrer">Prenota un posto</a>
     </nav>
   </section>
 
@@ -132,8 +122,8 @@ const screenings = program.filter((event) => event.kind === "Proiezione");
         <p>Una serata dedicata ai corti d'animazione in selezione.</p>
       </div>
       <nav class="gertie-actions" aria-label="Esplora Gertie">
-        <a class="button button-primary" href="/gertie-animation-prize/">Scopri Gertie</a>
-        <a class="button button-secondary" href="/gertie-animation-prize/#edition-2025">Edizione 2025</a>
+        <a class="button button-primary" href={site.bookingFormUrl} target="_blank" rel="noreferrer">Prenota un posto</a>
+        <a class="button button-secondary" href="/gertie-animation-prize/2026/">Scopri Gertie</a>
       </nav>
     </div>
   </section>

@@ -1,0 +1,33 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { gertie } from "../../data/gertie";
+
+const edition = gertie.history[0];
+---
+
+<BaseLayout
+  title="Gertie Animation Prize 2025"
+  description="Gertie Animation Prize, prima edizione 2025: la vincitrice del premio dedicato al cinema d'animazione indipendente."
+>
+  <header>
+    <p class="eyebrow">{gertie.title}</p>
+    <h1>Edizione {edition.year}</h1>
+    <p>La prima edizione del premio.</p>
+  </header>
+
+  <section class="content-section gertie-section" aria-labelledby="winner-title">
+    <div class="gertie-previous">
+      <span class="preview-image preview-image-placeholder gertie-previous-badge" role="img" aria-label="Coccarda del vincitore 2025: immagine in arrivo">
+        Coccarda {edition.year}
+      </span>
+      <div>
+        <p class="eyebrow">Vincitrice</p>
+        <h2 id="winner-title">{edition.winner}</h2>
+        <p>Con il cortometraggio “{edition.film}”.</p>
+        <p><a class="button button-secondary" href={edition.link}>Guarda il corto</a></p>
+      </div>
+    </div>
+  </section>
+
+  <p class="gertie-section"><a href="/gertie-animation-prize/2026/">Vai all'edizione 2026</a></p>
+</BaseLayout>

@@ -1,0 +1,313 @@
+---
+import ShortFilmPreviewCard from "./ShortFilmPreviewCard.astro";
+import type { GertiePreviewItem } from "../data/gertie";
+
+interface Props {
+  id: string;
+  eyebrow?: string;
+  title: string;
+  items: GertiePreviewItem[];
+}
+
+const { id, eyebrow, title, items } = Astro.props;
+---
+
+<section id={id} class="orbit" aria-labelledby={`${id}-title`} data-orbit>
+  <header class="orbit-header">
+    <div>
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+      <h2 id={`${id}-title`}>{title}</h2>
+    </div>
+    <div class="orbit-controls">
+      <button class="preview-carousel-control" type="button" aria-label="Corto precedente" data-orbit-previous>&#8592;</button>
+      <button class="preview-carousel-control" type="button" aria-label="Corto successivo" data-orbit-next>&#8594;</button>
+      <button
+        class="preview-carousel-control"
+        type="button"
+        aria-label="Metti in pausa la rotazione"
+        aria-pressed="false"
+        data-orbit-toggle
+      >||</button>
+    </div>
+  </header>
+
+  <div
+    class="orbit-stage"
+    role="group"
+    aria-roledescription="carosello"
+    aria-label={`${title}, ${items.length} schede`}
+    data-orbit-stage
+  >
+    <ul class="preview-card-list orbit-ring" data-orbit-ring>
+      {items.map((item) => (
+        <ShortFilmPreviewCard item={item} dialogId={`${id}-dialog-${item.id}`} />
+      ))}
+    </ul>
+  </div>
+  <input
+    class="orbit-slider"
+    type="range"
+    min="0"
+    max={items.length * 100}
+    step="1"
+    value="0"
+    aria-label="Scorri i corti selezionati"
+    data-orbit-slider
+  />
+  <p class="orbit-readout" aria-hidden="true">&gt; <span data-orbit-name></span></p>
+</section>
+
+<script>
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const hoverPointer = window.matchMedia("(hover: hover)");
+  const cardsPerSecond = 0.3;
+  const lockDelay = 2500;
+  const minScale = 0.75;
+
+  document.querySelectorAll<HTMLElement>("[data-orbit]").forEach((orbit) => {
+    const stage = orbit.querySelector<HTMLElement>("[data-orbit-stage]");
+    const ring = orbit.querySelector<HTMLElement>("[data-orbit-ring]");
+    const previous = orbit.querySelector<HTMLButtonElement>("[data-orbit-previous]");
+    const next = orbit.querySelector<HTMLButtonElement>("[data-orbit-next]");
+    const toggle = orbit.querySelector<HTMLButtonElement>("[data-orbit-toggle]");
+    const slider = orbit.querySelector<HTMLInputElement>("[data-orbit-slider]");
+    const readout = orbit.querySelector<HTMLElement>("[data-orbit-name]");
+    if (!stage || !ring || !previous || !next || !toggle || !slider || !readout) return;
+
+    const slides = [...ring.querySelectorAll<HTMLElement>(":scope > li")];
+    const count = slides.length;
+    const step = (Math.PI * 2) / count;
+
+    let current = 0;
+    let target = 0;
+    let radiusX = 0;
+    let radiusY = 0;
+    let renderedAt = NaN;
+    let activeIndex = -1;
+    let wasLocked = false;
+    let lastFrame = performance.now();
+    let userPaused = false;
+    let lastInteraction = -Infinity;
+    let dragging = false;
+    let scrubbing = false;
+    let dragMoved = false;
+    let dragStartX = 0;
+    let dragStartTarget = 0;
+
+    const mod = (value: number) => ((value % count) + count) % count;
+
+    const render = () => {
+      renderedAt = current;
+      const active = mod(Math.round(current));
+
+      slides.forEach((slide, index) => {
+        const angle = (index - current) * step;
+        const depth = (Math.cos(angle) + 1) / 2;
+        const scale = minScale + (1 - minScale) * depth;
+        const x = Math.sin(angle) * radiusX;
+        const y = Math.cos(angle) * radiusY;
+        slide.style.transform = `translate(-50%, -50%) translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) scale(${scale.toFixed(3)})`;
+        slide.style.opacity = (0.55 + 0.45 * depth).toFixed(3);
+        slide.style.filter = `brightness(${(0.5 + 0.5 * depth).toFixed(3)})`;
+        slide.style.zIndex = String(Math.round(depth * 100));
+      });
+
+      if (!scrubbing) slider.value = String(Math.round(mod(current) * 100));
+
+      if (active !== activeIndex) {
+        activeIndex = active;
+        slides.forEach((slide, index) => slide.classList.toggle("is-active", index === active));
+        const title = slides[active].querySelector(".preview-card-title")?.textContent ?? "";
+        const details = slides[active].querySelector(".preview-card-details")?.textContent ?? "";
+        readout.textContent = `${title} // ${details}`;
+        slider.setAttribute("aria-valuetext", title);
+      }
+    };
+
+    const layout = () => {
+      const width = stage.clientWidth;
+      const cardWidth = Math.min(320, Math.max(144, width * 0.4));
+      slides.forEach((slide) => {
+        slide.style.width = `${cardWidth}px`;
+        slide.style.height = "";
+      });
+      const height = Math.max(...slides.map((slide) => slide.offsetHeight));
+
+      // Due schede alla stessa profondità si scambiano di livello: non devono sovrapporsi in quel momento.
+      const half = step / 2;
+      const swapScale = minScale + (1 - minScale) * ((1 + Math.cos(half)) / 2);
+      radiusX = (cardWidth * swapScale * 1.02) / (2 * Math.sin(half));
+      radiusY = height * 0.55;
+
+      slides.forEach((slide) => {
+        slide.style.height = `${height}px`;
+      });
+      stage.style.height = `${Math.round(2 * radiusY + height + 16)}px`;
+      render();
+    };
+
+    const markInteraction = () => {
+      lastInteraction = performance.now();
+    };
+
+    const goTo = (value: number) => {
+      wasLocked = true;
+      target = value;
+    };
+
+    const move = (direction: -1 | 1) => {
+      markInteraction();
+      goTo(Math.round(target) + direction);
+    };
+
+    const rotateTo = (slide: HTMLElement) => {
+      markInteraction();
+      const offset = mod(slides.indexOf(slide) - Math.round(target) + count / 2) - count / 2;
+      goTo(Math.round(target) + offset);
+    };
+
+    const isLocked = () =>
+      userPaused
+      || reducedMotion.matches
+      || performance.now() - lastInteraction < lockDelay
+      || (hoverPointer.matches && stage.matches(":hover"))
+      || stage.querySelector(":focus-visible") !== null
+      || ring.querySelector("dialog[open]") !== null;
+
+    // Rotazione continua; da bloccata si assesta sulla scheda più vicina.
+    const tick = (now: number) => {
+      const elapsed = Math.min(now - lastFrame, 64) / 1000;
+      lastFrame = now;
+
+      if (!dragging && !scrubbing) {
+        const locked = isLocked();
+        if (locked) {
+          if (!wasLocked) target = Math.round(current);
+          current = reducedMotion.matches ? target : current + (target - current) * Math.min(1, elapsed * 8);
+        } else {
+          current += cardsPerSecond * elapsed;
+          target = current;
+        }
+        wasLocked = locked;
+      }
+
+      if (Math.abs(current - renderedAt) > 0.0001 || Number.isNaN(renderedAt)) render();
+      window.requestAnimationFrame(tick);
+    };
+
+    previous.addEventListener("click", () => move(-1));
+    next.addEventListener("click", () => move(1));
+    toggle.addEventListener("click", () => {
+      userPaused = !userPaused;
+      toggle.setAttribute("aria-pressed", String(userPaused));
+      toggle.setAttribute("aria-label", userPaused ? "Riprendi la rotazione" : "Metti in pausa la rotazione");
+      toggle.textContent = userPaused ? ">" : "||";
+    });
+
+    stage.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        move(-1);
+      } else if (event.key === "ArrowRight") {
+        event.preventDefault();
+        move(1);
+      }
+    });
+
+    // Una scheda laterale ruota in primo piano invece di aprire il dialog.
+    ring.addEventListener("click", (event) => {
+      const origin = event.target as HTMLElement;
+      if (origin.closest("dialog")) return;
+      const slide = origin.closest<HTMLElement>(".orbit-ring > li");
+      if (!slide) return;
+
+      const wasDrag = dragMoved;
+      dragMoved = false;
+      if (!wasDrag && slide.classList.contains("is-active")) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+      if (!wasDrag) rotateTo(slide);
+    }, true);
+
+    ring.addEventListener("focusin", (event) => {
+      const origin = event.target as HTMLElement;
+      const slide = origin.closest<HTMLElement>(".orbit-ring > li");
+      if (!slide || slide.classList.contains("is-active") || !origin.matches(":focus-visible")) return;
+      rotateTo(slide);
+    });
+
+    stage.addEventListener("pointerdown", (event) => {
+      if (event.button !== 0 || (event.target as HTMLElement).closest("dialog")) return;
+      dragging = true;
+      dragMoved = false;
+      dragStartX = event.clientX;
+      dragStartTarget = target;
+    });
+
+    stage.addEventListener("pointermove", (event) => {
+      if (!dragging) return;
+      const distance = event.clientX - dragStartX;
+      if (!dragMoved && Math.abs(distance) < 8) return;
+      if (!dragMoved) stage.setPointerCapture(event.pointerId);
+      dragMoved = true;
+      target = dragStartTarget - distance / (stage.clientWidth * 0.22);
+      current = target;
+      render();
+    });
+
+    const endDrag = () => {
+      if (!dragging) return;
+      dragging = false;
+      markInteraction();
+      if (dragMoved) {
+        goTo(Math.round(current));
+        window.setTimeout(() => {
+          dragMoved = false;
+        }, 0);
+      }
+    };
+
+    stage.addEventListener("pointerup", endDrag);
+    stage.addEventListener("pointercancel", endDrag);
+
+    // Il cursore è un giro completo e segue il verso della rotazione.
+    const releaseSlider = () => {
+      if (!scrubbing) return;
+      scrubbing = false;
+      markInteraction();
+      goTo(Math.round(current));
+    };
+
+    slider.addEventListener("pointerdown", () => {
+      scrubbing = true;
+    });
+    slider.addEventListener("input", () => {
+      scrubbing = true;
+      markInteraction();
+      const lapStart = Math.floor(current / count) * count;
+      current = lapStart + Number(slider.value) / 100;
+      target = current;
+      render();
+    });
+    slider.addEventListener("change", releaseSlider);
+    slider.addEventListener("pointerup", releaseSlider);
+    slider.addEventListener("pointercancel", releaseSlider);
+    slider.addEventListener("keydown", (event) => {
+      if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+      event.preventDefault();
+      move(event.key === "ArrowRight" ? 1 : -1);
+    });
+
+    slides.forEach((slide) => {
+      const title = slide.querySelector(".preview-card-title")?.textContent ?? "";
+      const details = slide.querySelector(".preview-card-details")?.textContent ?? "";
+      slide.querySelector(".preview-card")?.setAttribute("aria-label", `${title}, ${details}. Leggi la sinossi`);
+    });
+
+    orbit.classList.add("is-orbit");
+    layout();
+    new ResizeObserver(layout).observe(stage);
+    window.requestAnimationFrame(tick);
+  });
+</script>

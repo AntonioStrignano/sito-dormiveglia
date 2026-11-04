@@ -62,7 +62,7 @@ const { item, dialogId, isClone = false } = Astro.props;
           <p data-dossier-typewriter>{item.synopsis}</p>
         </section>
         <nav class="dialog-actions" aria-label={`Link per ${item.title}`}>
-          <a class="button button-primary" href="/gertie-animation-prize/">Scopri Gertie</a>
+          <a class="button button-primary" href="/gertie-animation-prize/2026/">Scopri Gertie</a>
           {item.authorLinks?.map((authorLink) => (
             <a class="button button-secondary" href={authorLink.href} target="_blank" rel="noreferrer">
               {authorLink.label}

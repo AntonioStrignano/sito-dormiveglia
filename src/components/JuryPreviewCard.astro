@@ -69,7 +69,7 @@ const instagramHandle = new URL(item.href).pathname.split("/").filter(Boolean)[0
           {item.bio?.split("\n\n").map((paragraph) => <p data-dossier-typewriter>{paragraph}</p>)}
         </section>
         <nav class="dialog-actions" aria-label={`Link per ${item.title}`}>
-          <a class="button button-primary" href="/gertie-animation-prize/">Scopri Gertie</a>
+          <a class="button button-primary" href="/gertie-animation-prize/2026/">Scopri Gertie</a>
           <a class="button button-secondary" href={item.href} target="_blank" rel="noreferrer">
             Instagram @{instagramHandle}
           </a>
