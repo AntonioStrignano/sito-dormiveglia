@@ -1,0 +1,68 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { site } from "../data/site";
+
+const { owner, contacts } = site;
+---
+
+<BaseLayout
+  title="Privacy"
+  description="Informativa sul trattamento dei dati personali per le prenotazioni e la navigazione del sito del Dormiveglia Animation Film Fest."
+>
+  <div class="legal-page">
+    <p class="eyebrow">Informativa ai sensi degli artt. 13-14 del Regolamento UE 2016/679</p>
+    <h1>Privacy</h1>
+    <p>Ultimo aggiornamento: 4 novembre 2026.</p>
+    <p class="placeholder">Testo da far rivedere al titolare prima della pubblicazione definitiva.</p>
+
+    <h2>Titolare del trattamento</h2>
+    <p>
+      {owner.name}, C.F. {owner.taxCode}, con sede in {owner.locality}.<br />
+      Referente privacy: <a href={`mailto:${owner.email}`}>{owner.email}</a>.
+    </p>
+
+    <h2>Prenotazioni tramite modulo</h2>
+    <p>Per prenotare un posto alle serate usiamo un modulo Google. Raccogliamo:</p>
+    <ul>
+      <li>indirizzo email;</li>
+      <li>nome e cognome;</li>
+      <li>il tuo consenso al trattamento dei dati.</li>
+    </ul>
+    <p><strong>Finalità:</strong> gestire le prenotazioni e comunicare con te per l'evento a cui ti sei iscritto/a.</p>
+    <p><strong>Base giuridica:</strong> il tuo consenso (art. 6, par. 1, lett. a, GDPR). Puoi revocarlo in ogni momento scrivendo all'indirizzo del referente privacy, senza effetti sul trattamento già avvenuto.</p>
+    <p><strong>Conferimento:</strong> facoltativo, ma senza questi dati non possiamo registrare la prenotazione.</p>
+
+    <h2>Conservazione</h2>
+    <p>
+      I dati del modulo sono cancellati, comprese le copie su Google Drive e sul foglio di calcolo collegato,
+      entro 30 giorni dalla fine del festival (15 novembre 2026). Dopo la cancellazione conserviamo solo
+      il numero complessivo delle prenotazioni, in forma aggregata e non riferibile a persone.
+    </p>
+
+    <h2>Destinatari dei dati</h2>
+    <ul>
+      <li>Google, fornitore del modulo e dello spazio di archiviazione, che può trattare i dati anche fuori dallo Spazio economico europeo con le garanzie previste dalla normativa.</li>
+      <li>Le persone del collettivo incaricate di gestire le prenotazioni.</li>
+    </ul>
+    <p>I dati non sono diffusi né venduti.</p>
+
+    <h2>Navigazione del sito</h2>
+    <ul>
+      <li><strong>Hosting:</strong> il sito è ospitato da Netlify, che può registrare dati tecnici di connessione (come l'indirizzo IP) per erogare il servizio e garantirne la sicurezza.</li>
+      <li><strong>Statistiche:</strong> usiamo GoatCounter, che conta le visite in forma aggregata, senza cookie e senza profilare i visitatori.</li>
+      <li><strong>Cookie:</strong> il sito non usa cookie di profilazione. Vedi la <a href="/cookie/">cookie policy</a>.</li>
+      <li><strong>Link esterni:</strong> Instagram, Google Maps e i trailer sono servizi di terzi, che si aprono fuori dal nostro sito con le loro regole sulla privacy.</li>
+    </ul>
+
+    <h2>I tuoi diritti</h2>
+    <p>
+      Puoi chiedere l'accesso ai tuoi dati, la rettifica, la cancellazione, la limitazione del trattamento
+      e l'opposizione, scrivendo a <a href={`mailto:${owner.email}`}>{owner.email}</a>.
+      Hai inoltre il diritto di proporre reclamo al Garante per la protezione dei dati personali
+      (<a href="https://www.garanteprivacy.it" target="_blank" rel="noreferrer">garanteprivacy.it</a>).
+    </p>
+
+    <h2>Contatti</h2>
+    <p>Per qualsiasi domanda sul sito: <a href={`mailto:${contacts.festivalEmail}`}>{contacts.festivalEmail}</a>.</p>
+  </div>
+</BaseLayout>

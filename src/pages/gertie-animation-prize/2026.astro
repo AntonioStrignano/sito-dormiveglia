@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import JuryPreviewCard from "../../components/JuryPreviewCard.astro";
+import CreditButton from "../../components/CreditButton.astro";
 import ShortFilmOrbit from "../../components/ShortFilmOrbit.astro";
 import { gertie, juryPreviews, shortFilmPreviews } from "../../data/gertie";
 import { program } from "../../data/programma";
@@ -49,6 +50,7 @@ const nightJsonLd = {
         alt="Banner illustrato del Gertie Animation Prize."
         fetchpriority="high"
       />
+      <CreditButton creditId="hero-gertie" />
     </div>
     <div class="hero-copy gertie-hero-copy">
       <div class="gertie-hero-text">

@@ -1,0 +1,34 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { site } from "../data/site";
+---
+
+<BaseLayout
+  title="Accessibilità"
+  description="Dichiarazione di accessibilità del sito e della sede del Dormiveglia Animation Film Fest."
+>
+  <div class="legal-page">
+    <h1>Accessibilità</h1>
+    <p>Ultimo aggiornamento: 4 novembre 2026.</p>
+
+    <h2>Il sito</h2>
+    <p>
+      Lavoriamo perché il sito sia fruibile da tutte e tutti: contenuti in HTML, navigazione da tastiera,
+      link per saltare al contenuto, testi alternativi sulle immagini e rispetto della preferenza
+      per le animazioni ridotte. Non abbiamo ancora svolto una verifica formale di conformità.
+    </p>
+
+    <h2>La sede</h2>
+    <ul>
+      <li>È presente una rampa per carrozzine.</li>
+      <li>C'è un bagno accessibile a persone con disabilità.</li>
+    </ul>
+
+    <h2>Segnalazioni</h2>
+    <p>
+      Se incontri un ostacolo o hai bisogno di supporto per partecipare, scrivi a
+      <a href={`mailto:${site.contacts.festivalEmail}`}>{site.contacts.festivalEmail}</a>.
+      Rispondiamo il prima possibile.
+    </p>
+  </div>
+</BaseLayout>

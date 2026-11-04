@@ -1,0 +1,52 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { site } from "../data/site";
+---
+
+<BaseLayout
+  title="Cookie"
+  description="Informazioni sui cookie e sugli strumenti di statistica usati dal sito del Dormiveglia Animation Film Fest."
+>
+  <div class="legal-page">
+    <h1>Cookie</h1>
+    <p>Ultimo aggiornamento: 4 novembre 2026.</p>
+
+    <h2>In breve</h2>
+    <p>
+      Il sito non usa cookie di profilazione né di terze parti per scopi pubblicitari,
+      quindi non mostra un banner di consenso.
+    </p>
+
+    <h2>Strumenti usati</h2>
+    <table>
+      <thead>
+        <tr><th scope="col">Strumento</th><th scope="col">Scopo</th><th scope="col">Cookie</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Netlify (hosting)</td>
+          <td>Erogazione del sito</td>
+          <td>Nessuno</td>
+        </tr>
+        <tr>
+          <td>GoatCounter</td>
+          <td>Statistiche aggregate sulle visite</td>
+          <td>Nessuno</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Servizi esterni</h2>
+    <p>
+      I link verso Instagram, Google Maps, Google Moduli e i trailer portano a siti di terzi,
+      che possono usare i propri cookie secondo le loro informative. Sul nostro sito non incorporiamo
+      contenuti di questi servizi.
+    </p>
+
+    <h2>Contatti</h2>
+    <p>
+      Per domande scrivi a <a href={`mailto:${site.owner.email}`}>{site.owner.email}</a>.
+      Maggiori informazioni nella <a href="/privacy/">privacy policy</a>.
+    </p>
+  </div>
+</BaseLayout>

@@ -25,19 +25,43 @@ const isCurrent = (href: string) =>
         ))}
       </ul>
     </nav>
-    <details class="mobile-nav">
-      <summary aria-label="Apri navigazione">Menu</summary>
-      <nav aria-label="Navigazione principale">
-        <ul class="nav-list">
-          {navigation.map((item) => (
-            <li>
-              <a href={item.href} aria-label={item.ariaLabel} aria-current={isCurrent(item.href) ? "page" : undefined}>
-                {item.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    </details>
+    <div class="header-actions">
+      <a
+        class="button button-primary nav-cta"
+        href={site.bookingFormUrl}
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Prenota un posto (si apre in una nuova scheda)"
+      >
+        Prenota<span class="nav-cta-extra"> un posto</span>
+      </a>
+      <details class="mobile-nav">
+        <summary aria-label="Apri navigazione">Menu</summary>
+        <nav aria-label="Navigazione principale">
+          <ul class="nav-list">
+            {navigation.map((item) => (
+              <li>
+                <a href={item.href} aria-label={item.ariaLabel} aria-current={isCurrent(item.href) ? "page" : undefined}>
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </details>
+    </div>
   </div>
 </header>
+
+<script>
+  const mobileNav = document.querySelector<HTMLDetailsElement>(".mobile-nav");
+
+  mobileNav?.addEventListener("click", (event) => {
+    if ((event.target as HTMLElement).closest("nav a")) mobileNav.open = false;
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape" || !mobileNav?.open) return;
+    mobileNav.open = false;
+    mobileNav.querySelector("summary")?.focus();
+  });
+</script>

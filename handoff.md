@@ -6,7 +6,7 @@ Progetto Astro statico in italiano, con anteprima locale e hosting scelto su Net
 
 Pagine: Home, Programma, Gertie Animation Prize (`/2026/` e `/2025/`), Contatti (`/contatti/`; il vecchio `/info/` reindirizza) e Archivio placeholder (`/archivio/`, non linkato nel menu per ora). Nella pagina Programma la grafica precede i contenuti testuali, che restano trascritti in HTML; placeholder visibili per i dati e i link non ancora forniti.
 
-Pagina Contatti: foto della facciata a sinistra e informazioni pratiche a destra su desktop; su mobile i dati e le CTA precedono la foto. Accessibilità e contatti sono affiancati da tablet in su, con divisori e senza card. Sede e orari (porte 20:00, proiezioni 21:00), ingresso gratuito con prenotazione consigliata e circa 40 posti per serata. CTA “Indicazioni” con icona pixel-art per il link Google Maps e “Prenota un posto”; email festival `info@dormivegliafest.it`, email collettivo `collettivokapow@gmail.com`, Instagram, rampa per carrozzine e bagno accessibile. Foto della facciata 16:9 in `public/images/Ingresso -.png`; evitare embed Google Maps.
+Pagina Contatti: foto della facciata a sinistra e informazioni pratiche a destra su desktop; su mobile i dati e le CTA precedono la foto. Accessibilità e contatti sono affiancati da tablet in su, con divisori e senza card. Sede e orari (porte 20:00, proiezioni 21:00), ingresso gratuito con prenotazione consigliata e circa 40 posti per serata. CTA “Indicazioni” con icona pixel-art per il link Google Maps e “Prenota un posto”; email festival `info@dormiveglia.it`, email collettivo `collettivokapow@gmail.com`, Instagram, rampa per carrozzine e bagno accessibile. Foto della facciata 16:9 in `public/images/Ingresso -.png`; evitare embed Google Maps.
 
 Homepage: chiusa per il momento.
 
@@ -15,6 +15,15 @@ Pagina Gertie 2026 (`/gertie-animation-prize/2026/`, file `src/pages/gertie-anim
 Pagina Programma: timeline di 4 card (`src/components/ProgramCard.astro`) con locandina 4:5 a sinistra e info a destra. Usa le quattro JPG definitive da `Grafiche dormiveglia/locandine/`; Home mantiene le immagini precedenti. Le locandine sono trigger da tastiera per un dialog nativo alto quasi full-screen e largo quanto la locandina adattata su desktop (su mobile resta quasi full-width), con animazione dall’alto e zoom in-place; chiusura con Escape, pulsante o backdrop. Nella card la locandina si centra e si adatta all’altezza senza crop né deformazioni; su desktop ampio la colonna arriva a 29rem, su mobile resta sopra i contenuti. La sinossi resta in un box autonomo che cresce col testo, senza scrollbar forzata. La data completa è in Italipixel con corpo maggiore. CTA: “Prenota un posto” ha fondo verde accent e testo nero; le secondarie restano nere con testo/bordo verdi. Da tablet in su le info sono sempre aperte; su mobile stanno dietro `[+] Altre info` (`<details>`). Le card hanno `scroll-margin-top: 7rem` per restare visibili sotto la navigazione sticky quando si raggiungono tramite ancora. Copy Gertie definitivo inserito; tre trailer collegati tramite `trailerUrl` in `programma.ts` e mostrati come CTA secondaria, accanto alla prenotazione. Gertie mantiene il link alla propria pagina. I dialog film in homepage puntano alla card corrispondente tramite ancora (`/programma/#<id>`). JSON-LD `ScreeningEvent` per serata. Il link di prenotazione `site.bookingFormUrl` è sempre valorizzato: niente più fallback `null` nel codice.
 
 Homepage: data dell'hero in Italipixel. Rimossa l'etichetta "In aggiornamento" dalla giuria, i cui profili sono completi. Le anteprime Gertie restano entro il contenitore di pagina: su desktop la giuria è una griglia a 4 colonne e i corti sono una griglia 4x2 con immagini inset di 8px; su mobile entrambe diventano caroselli scrollabili. Il dialog giuria ha altezza fissa nel viewport, intestazione e azioni restano ferme, e la bio usa lo spazio residuo senza limite `max-height` aggiuntivo; lo scroll segue ogni carattere digitato quando il testo supera lo spazio visibile. CTA dei dialog riordinate: "Scopri Gertie" è primaria, Instagram secondaria e mostra il tag ricavato dall'URL del profilo.
+
+## Header, footer, legale, SEO
+
+- Header: CTA "Prenota un posto" (`nav-cta`, sempre visibile; su mobile solo "Prenota" accanto a Menu); il menu mobile si chiude al click su un link e con Escape.
+- Footer: CTA "Ci vediamo in sala?", colonne sede/esplora/contatti, riga legale con C.F. e link. Dati titolare (`owner`) e `legalLinks` in `src/data/site.ts`.
+- Pagine legali: `/privacy/`, `/cookie/`, `/note-legali/`, `/accessibilita/`, `404`. Nessun banner cookie: GoatCounter (senza cookie) in `BaseLayout`, account `dormivegliafest`. Conservazione dati del form: cancellazione entro 30 giorni dalla fine del festival, si tiene solo il conteggio. Sede mostrata solo come comune; testi da far rivedere al titolare.
+- Crediti grafica: pulsante "?" (`src/components/CreditButton.astro`) su hero home, banner Gertie in home, hero Gertie, foto sede e le quattro locandine del programma (nessun credito su foto giuria e corti, per scelta); dati placeholder in `src/data/credits.ts`, riusati dalla pagina note legali. Da compilare con il listone. La foto della sede (`public/images/Ingresso -.png`) viene da Andriaviva.it (`https://img.andriaviva.it/library/media/dsc05911(1).jpg`), non è del collettivo: credito inserito, ma i diritti restano di terzi, quindi chiedere l'autorizzazione o sostituirla con una foto propria.
+- SEO: canonical e Open Graph in `BaseLayout` (immagine OG provvisoria: foto profilo), sitemap con `@astrojs/sitemap` (esclude `/archivio/`), `public/robots.txt`, `netlify.toml` con header di sicurezza e CSP.
+- Da fare a mano: linkare `https://dormivegliafest.it/privacy/` nel Google Form; nominare chi cancella le risposte.
 
 ## Piano di bonifica
 
@@ -31,6 +40,7 @@ Piano in `docs/piano-bonifica.md` (fasi 0-9). Hosting scelto: Netlify, non GitHu
 - `docs/grafiche-necessarie.md`: elenco di grafiche e loghi da fornire (misure e formati).
 - `docs/gertie-info-richieste.md`: informazioni da fornire per la pagina Gertie.
 - `docs/cose-da-chiedere.md`: lista operativa di informazioni e documenti da chiedere.
+- `docs/tutto-da-chiedere.md`: elenco unico e aggiornato di tutto ciò che resta da chiedere (crediti, legale, film, Gertie, grafiche, hosting); da usare come riferimento principale. Già depennato ciò che è nel sito (dati film, giuria, corti, vincitrice 2025, mascotte).
 
 ## Da completare
 

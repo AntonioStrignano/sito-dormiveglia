@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
 import type { ImageMetadata } from "astro";
 import ScreeningCard from "../components/ScreeningCard.astro";
+import CreditButton from "../components/CreditButton.astro";
 import PreviewCarousel from "../components/PreviewCarousel.astro";
 import { juryPreviews, shortFilmPreviews } from "../data/gertie";
 import { program } from "../data/programma";
@@ -40,6 +41,7 @@ const screenings = program.filter((event) => event.kind === "Proiezione");
         alt="Un viandante attraversa un paesaggio digitale notturno."
         fetchpriority="high"
       />
+      <CreditButton creditId="hero-home" />
     </div>
     <div class="hero-copy">
       <h1 id="home-title" class="hero-title">
@@ -115,6 +117,7 @@ const screenings = program.filter((event) => event.kind === "Proiezione");
       alt="Banner illustrato del Gertie Animation Film Prize."
       loading="lazy"
     />
+    <CreditButton creditId="hero-gertie" />
     <div class="gertie-teaser">
       <div>
         <p class="eyebrow">Sabato 14 novembre · 21:00</p>

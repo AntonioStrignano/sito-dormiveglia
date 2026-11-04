@@ -1,0 +1,46 @@
+---
+import { credits } from "../data/credits";
+
+interface Props {
+  creditId: keyof typeof credits | string;
+}
+
+const credit = credits[Astro.props.creditId];
+const dialogId = `credit-${credit.id}`;
+const handle = new URL(credit.instagramUrl).pathname.split("/").filter(Boolean)[0];
+---
+
+<button
+  class="credit-button"
+  type="button"
+  aria-haspopup="dialog"
+  aria-controls={dialogId}
+  aria-label={`Crediti: ${credit.work}`}
+  data-terminal-dialog-trigger
+>
+  <span aria-hidden="true">?</span>
+</button>
+
+<dialog
+  class="screening-dialog credit-dialog"
+  id={dialogId}
+  aria-labelledby={`${dialogId}-title`}
+  data-terminal-dialog
+>
+  <button class="dialog-close" type="button" aria-label="Chiudi i crediti">&times;</button>
+  <div class="credit-dialog-content">
+    <p class="eyebrow">Crediti grafica</p>
+    <h2 id={`${dialogId}-title`}>{credit.work}</h2>
+    <p class="credit-author">{credit.author}</p>
+    <p class="credit-role">{credit.role}</p>
+    <a class="button button-secondary" href={credit.instagramUrl} target="_blank" rel="noreferrer">
+      {credit.linkLabel ?? (handle ? `Instagram @${handle}` : "Profilo Instagram")}
+    </a>
+  </div>
+</dialog>
+
+<script>
+  import { initializeTerminalDialogs } from "../scripts/terminalDialogs";
+
+  initializeTerminalDialogs();
+</script>

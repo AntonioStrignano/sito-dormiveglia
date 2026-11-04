@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { site } from "../data/site";
+import CreditButton from "../components/CreditButton.astro";
 ---
 
 <BaseLayout
@@ -71,6 +72,7 @@ import { site } from "../data/site";
           loading="lazy"
           decoding="async"
         />
+        <CreditButton creditId="foto-sede" />
         <figcaption>Le frecce nell’immagine indicano l’ingresso della sede.</figcaption>
       </figure>
     </div>

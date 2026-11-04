@@ -459,6 +459,13 @@ html.typewriter-ready .typewriter-wrap.is-typed [data-typewriter] {
   }
 }
 
+.program-poster-frame {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  align-self: stretch;
+}
+
 .program-poster-trigger {
   display: flex;
   width: 100%;
@@ -877,9 +884,15 @@ html.typewriter-ready .typewriter-wrap.is-typed [data-typewriter] {
 }
 
 .gertie-feature {
+  position: relative;
   width: 100vw;
   margin-top: clamp(3rem, 8vw, 6rem);
   margin-left: calc(50% - 50vw);
+}
+
+.gertie-feature .credit-button {
+  top: 0.5rem;
+  bottom: auto;
 }
 
 .gertie-banner-image {
@@ -1386,16 +1399,212 @@ html.typewriter-ready .typewriter-wrap.is-typed [data-typewriter] {
 }
 
 .site-footer-inner {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding-block: 1.5rem;
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 2.5rem);
+  padding-block: clamp(1.5rem, 4vw, 2.5rem);
 }
 
 .site-footer p {
   margin: 0;
+}
+
+.footer-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding-bottom: clamp(1.5rem, 4vw, 2.5rem);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.footer-cta h2 {
+  margin-bottom: 0.5rem;
+}
+
+.footer-cta p + p {
+  margin-top: 0.35rem;
+}
+
+.footer-cta-note {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.footer-columns {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.footer-columns h3 {
+  margin: 0 0 0.5rem;
+  color: var(--color-accent);
+  font-size: 0.95rem;
+  text-transform: uppercase;
+}
+
+.footer-columns p {
+  color: var(--color-muted);
+}
+
+.footer-columns ul,
+.footer-legal ul {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer-columns a,
+.footer-legal a {
+  overflow-wrap: anywhere;
+}
+
+.footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--color-line);
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.footer-legal ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.25rem;
+}
+
+@media (min-width: 48rem) {
+  .footer-columns {
+    grid-template-columns: 1.4fr 1fr 1.2fr;
+  }
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-cta {
+  min-height: 2.5rem;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.95rem;
+}
+
+.credit-button {
+  position: absolute;
+  z-index: 2;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  display: grid;
+  width: 2.5rem;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 2px solid var(--color-accent);
+  background: var(--color-background);
+  color: var(--color-accent);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.credit-button:hover,
+.credit-button:focus-visible {
+  background: var(--color-accent);
+  color: var(--color-background);
+}
+
+.credit-button:focus-visible {
+  outline: 3px solid var(--color-text);
+  outline-offset: 3px;
+}
+
+.hero-visual,
+.contacts-page .venue-photo {
+  position: relative;
+}
+
+.contacts-page .venue-photo .credit-button {
+  top: 0.5rem;
+  bottom: auto;
+}
+
+.screening-dialog.credit-dialog {
+  width: min(24rem, calc(100vw - 2rem));
+}
+
+.credit-dialog-content {
+  padding: 2rem 1.5rem 1.5rem;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.screening-dialog[open].is-open .credit-dialog-content {
+  opacity: 1;
+  transition-delay: 100ms;
+}
+
+.credit-dialog-content h2 {
+  padding-right: 2.5rem;
+  font-size: 1.35rem;
+}
+
+.credit-dialog-content p {
+  margin: 0 0 0.5rem;
+}
+
+.credit-author {
+  font-weight: 700;
+}
+
+.credit-role {
+  margin-bottom: 1.25rem !important;
+  color: var(--color-muted);
+}
+
+.legal-page {
+  max-width: 48rem;
+}
+
+.legal-page h1 {
+  max-width: none;
+  font-size: clamp(2rem, 6vw, 3.25rem);
+}
+
+.legal-page h2 {
+  margin-top: 2rem;
+  font-size: clamp(1.25rem, 3vw, 1.6rem);
+}
+
+.legal-page li + li {
+  margin-top: 0.35rem;
+}
+
+.legal-page table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.legal-page th,
+.legal-page td {
+  padding: 0.6rem 0.5rem;
+  border: 1px solid var(--color-line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.legal-page .placeholder {
+  margin-block: 1rem;
+}
+
+.not-found-actions {
+  margin-top: 1.5rem;
 }
 
 .contacts-page .venue-photo {
@@ -1537,6 +1746,14 @@ html.typewriter-ready .typewriter-wrap.is-typed [data-typewriter] {
     position: relative;
   }
 
+  .nav-cta-extra {
+    display: none;
+  }
+
+  .header-actions {
+    gap: 0.75rem;
+  }
+
   .mobile-nav summary {
     cursor: pointer;
     color: var(--color-text);
@@ -1606,7 +1823,7 @@ html.typewriter-ready .typewriter-wrap.is-typed [data-typewriter] {
     font-size: 1.2rem;
   }
 
-  .program-poster-trigger {
+  .program-poster-frame {
     width: min(100%, 24rem);
     height: auto;
     aspect-ratio: 4 / 5;

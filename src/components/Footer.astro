@@ -1,13 +1,54 @@
 ---
-import { site } from "../data/site";
+import { legalLinks, navigation, site } from "../data/site";
 ---
 
 <footer class="site-footer">
   <div class="site-footer-inner">
-    <p>{site.name} · {site.year}</p>
-    <ul class="social-list">
-      <li><a href={site.contacts.instagram} target="_blank" rel="noreferrer">Instagram Dormiveglia</a></li>
-      <li><a href={site.contacts.collectiveInstagram} target="_blank" rel="noreferrer">Instagram KA-POW!</a></li>
-    </ul>
+    <section class="footer-cta" aria-labelledby="footer-cta-title">
+      <div>
+        <h2 id="footer-cta-title">Ci vediamo in sala?</h2>
+        <p>Dal 12 al 15 novembre, ingresso gratuito. I posti sono circa 40 a sera: prenota il tuo.</p>
+        <p class="footer-cta-note">Porte alle 20:00, proiezioni alle 21:00.</p>
+      </div>
+      <a class="button button-primary" href={site.bookingFormUrl} target="_blank" rel="noreferrer" aria-label="Prenota un posto (si apre in una nuova scheda)">
+        Prenota un posto
+      </a>
+    </section>
+
+    <div class="footer-columns">
+      <section aria-labelledby="footer-venue-title">
+        <h3 id="footer-venue-title">{site.name}</h3>
+        <p>{site.edition} · {site.dates}</p>
+        <p>{site.venue}<br />{site.address}</p>
+      </section>
+      <nav aria-labelledby="footer-links-title">
+        <h3 id="footer-links-title">Esplora</h3>
+        <ul>
+          {navigation.map((item) => (
+            <li><a href={item.href}>{item.ariaLabel ?? item.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+      <section aria-labelledby="footer-contacts-title">
+        <h3 id="footer-contacts-title">Contatti</h3>
+        <ul>
+          <li><a href={`mailto:${site.contacts.festivalEmail}`}>{site.contacts.festivalEmail}</a></li>
+          <li><a href={`mailto:${site.contacts.collectiveEmail}`}>{site.contacts.collectiveEmail}</a></li>
+          <li><a href={site.contacts.instagram} target="_blank" rel="noreferrer">Instagram Dormiveglia</a></li>
+          <li><a href={site.contacts.collectiveInstagram} target="_blank" rel="noreferrer">Instagram KA-POW!</a></li>
+        </ul>
+      </section>
+    </div>
+
+    <div class="footer-legal">
+      <p>© {site.year} {site.owner.name} · C.F. {site.owner.taxCode}</p>
+      <nav aria-label="Informazioni legali">
+        <ul>
+          {legalLinks.map((item) => (
+            <li><a href={item.href}>{item.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+    </div>
   </div>
 </footer>
