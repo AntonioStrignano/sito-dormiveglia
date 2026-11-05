@@ -128,10 +128,10 @@ img {
   text-decoration: none;
 }
 
-.brand img {
-  width: 2.75rem;
-  aspect-ratio: 1;
-  object-fit: cover;
+.brand-logo {
+  display: block;
+  width: 12rem;
+  height: auto;
 }
 
 .nav-list {
@@ -1475,6 +1475,7 @@ html.typewriter-ready .typewriter-wrap.is-typed [data-typewriter] {
 }
 
 .nav-cta {
+  gap: 0.25rem;
   min-height: 2.5rem;
   padding: 0.4rem 0.9rem;
   font-size: 0.95rem;
@@ -1665,6 +1666,10 @@ html.typewriter-ready .typewriter-wrap.is-typed [data-typewriter] {
 
   .nav-cta-extra {
     display: none;
+  }
+
+  .brand-logo {
+    width: 8rem;
   }
 
   .header-actions {
@@ -2503,16 +2508,16 @@ html.boot-ready [data-jury-boot] .gertie-jury-grid > li:not(.is-on) .jury-previe
 
 /* Il banner desktop contiene già logo, data e luogo: il testo HTML resta solo per gli screen reader. */
 @media (min-width: 48.0625rem) {
-  .hero-visual {
+  .hero:not(.gertie-hero) .hero-visual {
     height: auto;
     aspect-ratio: 4 / 1;
   }
 
-  .hero-image {
+  .hero:not(.gertie-hero) .hero-image {
     object-position: center;
   }
 
-  .hero-copy > :not(.hero-actions) {
+  .hero:not(.gertie-hero) .hero-copy > :not(.hero-actions) {
     position: absolute;
     width: 1px;
     height: 1px;

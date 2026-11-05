@@ -1,5 +1,7 @@
 ---
+import { Image } from "astro:assets";
 import { navigation, site } from "../data/site";
+import festivalLogo from "../../Grafiche dormiveglia/loghi_screenshot/solo_logo.png";
 
 const currentPath = Astro.url.pathname;
 const isCurrent = (href: string) =>
@@ -11,8 +13,7 @@ const isCurrent = (href: string) =>
 <header class="site-header">
   <div class="site-header-inner">
     <a class="brand" href="/" aria-label={`${site.name}, homepage`}>
-      <img src="/images/dormiveglia-profile.webp" alt="" width="44" height="44" />
-      <span>Dormiveglia</span>
+      <Image class="brand-logo" src={festivalLogo} alt="" />
     </a>
     <nav class="desktop-nav" aria-label="Navigazione principale">
       <ul class="nav-list">
@@ -33,7 +34,7 @@ const isCurrent = (href: string) =>
         rel="noreferrer"
         aria-label="Prenota un posto (si apre in una nuova scheda)"
       >
-        Prenota<span class="nav-cta-extra"> un posto</span>
+        Prenota{" "}<span class="nav-cta-extra">un posto</span>
       </a>
       <details class="mobile-nav">
         <summary aria-label="Apri navigazione">Menu</summary>
