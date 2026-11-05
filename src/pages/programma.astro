@@ -51,12 +51,5 @@ const eventsJsonLd = program.map((event) => ({
     </ol>
   </section>
 
-  <section class="content-section" aria-labelledby="booking-title">
-    <h2 id="booking-title">Prenotazioni e info pratiche</h2>
-    <p>{site.venue} · {site.address}</p>
-    <p class="muted">Ingresso 20:00, proiezione 21:00. Ingresso gratuito fino a esaurimento posti.</p>
-    <p><a class="button button-primary" href={site.bookingFormUrl} target="_blank" rel="noreferrer">Apri il modulo di prenotazione</a></p>
-  </section>
-
   <script type="application/ld+json" set:html={JSON.stringify(eventsJsonLd)} />
 </BaseLayout>

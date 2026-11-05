@@ -8,7 +8,7 @@ const { owner } = site;
 
 <BaseLayout
   title="Note legali e crediti"
-  description="Titolare del sito, diritti sulle opere, crediti grafici e fotografici e licenze del Dormiveglia Animation Film Fest."
+  description="Titolare del sito, diritti sulle opere, crediti grafici e licenze del Dormiveglia Animation Film Fest."
 >
   <div class="legal-page">
     <h1>Note legali e crediti</h1>
@@ -26,29 +26,25 @@ const { owner } = site;
       Ne è vietata la riproduzione o il riuso senza autorizzazione.
     </p>
 
-    <h2>Crediti grafici e fotografici</h2>
-    <p>Su ogni immagine principale trovi anche il pulsante «?» con i crediti.</p>
+    <h2>Crediti grafici</h2>
     <ul>
-      {creditList.map((credit) => (
-        <li>
-          <strong>{credit.work}</strong>: {credit.author}, {credit.role}
-          (<a href={credit.instagramUrl} target="_blank" rel="noreferrer">{credit.linkLabel ?? "Instagram"}</a>).
-        </li>
-      ))}
+      {creditList.map((credit) => {
+        const handle = new URL(credit.instagramUrl).pathname.split("/").filter(Boolean)[0];
+        const label = credit.linkLabel ?? `Instagram @${handle}`;
+        return (
+          <li>
+            <strong>{credit.work}</strong>: {credit.author}
+            (<a href={credit.instagramUrl} target="_blank" rel="noreferrer">{label}</a>).
+          </li>
+        );
+      })}
     </ul>
-    <p class="placeholder">Elenco in aggiornamento: nomi e profili segnati tra parentesi quadre sono placeholder.</p>
 
     <h2>Materiali dei film</h2>
     <p>
       Locandine, trailer e sinossi dei film in programma appartengono ai rispettivi titolari
       e sono usati per promuovere le proiezioni. Le schede indicano la fonte.
     </p>
-
-    <h2>Font e licenze</h2>
-    <ul>
-      <li>Pixel Operator Mono: licenza CC0.</li>
-      <li>Italipixel: uso non commerciale secondo la licenza dell'autore.</li>
-    </ul>
 
     <h2>Segnalazioni</h2>
     <p>

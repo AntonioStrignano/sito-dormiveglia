@@ -10,6 +10,9 @@ interface Props {
 
 const { item, dialogId, isClone = false } = Astro.props;
 const instagramHandle = new URL(item.href).pathname.split("/").filter(Boolean)[0];
+const primaryAction = item.primaryAction ?? { label: "Scopri Gertie", href: "/gertie-animation-prize/2026/" };
+const secondaryLink = item.authorLink ?? { label: `Instagram @${instagramHandle}`, href: item.href };
+const publicImage = item.publicImage;
 ---
 
 <li
@@ -28,6 +31,8 @@ const instagramHandle = new URL(item.href).pathname.split("/").filter(Boolean)[0
   >
     {item.image ? (
       <Image class="preview-image preview-image--jury" src={item.image} alt="" loading="lazy" />
+    ) : publicImage ? (
+      <img class="preview-image preview-image--jury" src={publicImage.src} width={publicImage.width} height={publicImage.height} alt="" loading="lazy" />
     ) : (
       <span class="preview-image preview-image-placeholder" role="img" aria-label={item.placeholderLabel}>
         {item.placeholderLabel}
@@ -36,7 +41,7 @@ const instagramHandle = new URL(item.href).pathname.split("/").filter(Boolean)[0
     <span class="preview-card-copy">
       <span class="preview-card-title preview-card-title--jury">{item.title}</span>
       <span class="preview-card-details preview-card-details--jury"><span aria-hidden="true">&gt; </span>{item.details}</span>
-      <span class="preview-card-cta">Leggi la bio <span aria-hidden="true">&#8594;</span></span>
+      <span class="preview-card-cta">{item.cardCta ?? "Leggi la bio"} <span aria-hidden="true">&#8594;</span></span>
     </span>
   </button>
 
@@ -58,20 +63,35 @@ const instagramHandle = new URL(item.href).pathname.split("/").filter(Boolean)[0
               loading="lazy"
             />
           )}
+          {publicImage && (
+            <img
+              class="jury-dialog-portrait"
+              src={publicImage.src}
+              width={publicImage.width}
+              height={publicImage.height}
+              alt={item.imageAlt ?? item.title}
+              loading="lazy"
+            />
+          )}
           <div class="jury-dialog-identity">
-            <p class="eyebrow" data-dossier-typewriter>Profilo giuria // Gertie 2026</p>
+            <p class="eyebrow" data-dossier-typewriter>{item.dialogEyebrow ?? "Profilo giuria // Gertie 2026"}</p>
             <h2 id={`${dialogId}-title`} data-dossier-typewriter>{item.title}</h2>
             <p class="preview-card-details--jury" data-dossier-typewriter><span aria-hidden="true">&gt; </span>{item.details}</p>
           </div>
         </header>
         <section class="jury-dialog-bio" aria-label={`Biografia di ${item.title}`}>
-          <p class="eyebrow" data-dossier-typewriter>LOG // BIOGRAFIA</p>
+          <p class="eyebrow" data-dossier-typewriter>{item.dialogEyebrow ? "LOG // SINOSSI" : "LOG // BIOGRAFIA"}</p>
           {item.bio?.split("\n\n").map((paragraph) => <p data-dossier-typewriter>{paragraph}</p>)}
         </section>
         <nav class="dialog-actions" aria-label={`Link per ${item.title}`}>
-          <a class="button button-primary" href="/gertie-animation-prize/2026/">Scopri Gertie</a>
-          <a class="button button-secondary" href={item.href} target="_blank" rel="noreferrer">
-            Instagram @{instagramHandle}
+          <a
+            class="button button-primary"
+            href={primaryAction.href}
+            target={primaryAction.external ? "_blank" : undefined}
+            rel={primaryAction.external ? "noreferrer" : undefined}
+          >{primaryAction.label}</a>
+          <a class="button button-secondary" href={secondaryLink.href} target="_blank" rel="noreferrer">
+            {secondaryLink.label}
           </a>
         </nav>
       </div>

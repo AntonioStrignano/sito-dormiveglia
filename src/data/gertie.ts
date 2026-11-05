@@ -24,8 +24,13 @@ export interface GertiePreviewItem {
   external?: boolean;
   variant?: "jury" | "short";
   image?: ImageMetadata;
+  publicImage?: { src: string; width: number; height: number };
   imageAlt?: string;
   placeholderLabel?: string;
+  dialogEyebrow?: string;
+  cardCta?: string;
+  primaryAction?: { label: string; href: string; external?: boolean };
+  authorLink?: { label: string; href: string };
 }
 
 export const gertie = {
@@ -36,10 +41,25 @@ export const gertie = {
       year: 2025,
       winner: "Sara Priorelli",
       film: "My Good Boy",
-      // Placeholder: sostituire con il link al corto vincitore.
-      link: "/gertie-animation-prize/2025/",
     },
   ],
+};
+
+export const winnerPreview: GertiePreviewItem = {
+  id: "my-good-boy",
+  title: "My Good Boy",
+  details: "2025 · Sara Priorelli",
+  bio: "Un corto che, con uno sguardo profondo e sensibile, racconta la giornata di una donna impegnata a prendersi cura del suo cane sovrappeso, una routine fatta di affetto, abitudine e dipendenza reciproca.\n\nUn racconto intimo, tenero e inquieto allo stesso tempo, capace di parlare di amore, controllo e fragilità con grande forza visiva.\n\n“My Good Boy” si aggiudica così il primo Gertie Animation Prize, il riconoscimento del Dormiveglia Animation Film Fest dedicato all’animazione indipendente e alle nuove voci del cinema animato contemporaneo.",
+  href: "https://www.youtube.com/watch?v=Jxrq3XGVmys",
+  linkLabel: "Guarda il trailer",
+  external: true,
+  variant: "jury",
+  publicImage: { src: "/images/gertie-2025-winner.webp", width: 1080, height: 1350 },
+  imageAlt: "Post Instagram di Dormiveglia per “My Good Boy” di Sara Priorelli, vincitore del Gertie Animation Prize 2025.",
+  dialogEyebrow: "Vincitore // Gertie 2025",
+  cardCta: "Leggi la scheda",
+  primaryAction: { label: "Guarda il trailer", href: "https://www.youtube.com/watch?v=Jxrq3XGVmys", external: true },
+  authorLink: { label: "Instagram @prosarapi", href: "https://www.instagram.com/prosarapi/" },
 };
 
 export const juryPreviews: GertiePreviewItem[] = [

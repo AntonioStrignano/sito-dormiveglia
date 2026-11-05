@@ -3,7 +3,6 @@ import { Image } from "astro:assets";
 import type { ImageMetadata } from "astro";
 import type { ProgramEvent } from "../data/programma";
 import { site } from "../data/site";
-import CreditButton from "./CreditButton.astro";
 
 interface Props {
   event: ProgramEvent;
@@ -37,7 +36,6 @@ const posterDialogTitleId = `${posterDialogId}-title`;
         loading="lazy"
       />
     </button>
-    <CreditButton creditId={`locandina-${event.id}`} />
     </div>
     <dialog
       id={posterDialogId}

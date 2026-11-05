@@ -1,14 +1,14 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { Image } from "astro:assets";
+import { Image, getImage } from "astro:assets";
 import type { ImageMetadata } from "astro";
 import ScreeningCard from "../components/ScreeningCard.astro";
-import CreditButton from "../components/CreditButton.astro";
 import PreviewCarousel from "../components/PreviewCarousel.astro";
 import { juryPreviews, shortFilmPreviews } from "../data/gertie";
 import { program } from "../data/programma";
 import { site } from "../data/site";
 import heroArtwork from "../../Grafiche dormiveglia/heros/AndriaSmart_ Locandina Dormiveglia 26.png";
+import heroDesktopArtwork from "../../Grafiche dormiveglia/main_hero_desktop.png";
 import festivalLogo from "../../Grafiche dormiveglia/loghi_screenshot/solo_logo.png";
 import gertieBanner from "../../Grafiche gertie/Gertie banner.webp";
 import valleyPoster from "../../Grafiche dormiveglia/locandine film/Film_Valle incantata.png";
@@ -21,6 +21,7 @@ const moviePosters: Record<string, ImageMetadata> = {
   "La fortuna di Nikuko": nikukoPoster,
 };
 const screenings = program.filter((event) => event.kind === "Proiezione");
+const heroDesktop = await getImage({ src: heroDesktopArtwork, format: "webp", width: 1600 });
 ---
 
 <BaseLayout
@@ -35,13 +36,15 @@ const screenings = program.filter((event) => event.kind === "Proiezione");
 
   <section class="hero" aria-labelledby="home-title">
     <div class="hero-visual">
-      <Image
-        class="hero-image"
-        src={heroArtwork}
-        alt="Un viandante attraversa un paesaggio digitale notturno."
-        fetchpriority="high"
-      />
-      <CreditButton creditId="hero-home" />
+      <picture>
+        <source media="(min-width: 48.0625rem)" srcset={heroDesktop.src} width={heroDesktopArtwork.width} height={heroDesktopArtwork.height} />
+        <Image
+          class="hero-image"
+          src={heroArtwork}
+          alt="Un viandante attraversa un paesaggio digitale notturno."
+          fetchpriority="high"
+        />
+      </picture>
     </div>
     <div class="hero-copy">
       <h1 id="home-title" class="hero-title">
@@ -117,7 +120,6 @@ const screenings = program.filter((event) => event.kind === "Proiezione");
       alt="Banner illustrato del Gertie Animation Film Prize."
       loading="lazy"
     />
-    <CreditButton creditId="hero-gertie" />
     <div class="gertie-teaser">
       <div>
         <p class="eyebrow">Sabato 14 novembre · 21:00</p>
@@ -145,20 +147,6 @@ const screenings = program.filter((event) => event.kind === "Proiezione");
       items={shortFilmPreviews}
       mode="responsive"
     />
-  </section>
-
-  <section class="content-section instagram-teaser" aria-labelledby="instagram-title">
-    <div>
-      <p class="eyebrow">Dal festival</p>
-      <h2 id="instagram-title">Dormiveglia su Instagram</h2>
-      <p class="muted">L'anteprima del feed arriverà qui. Intanto trovi tutti i post sul profilo del festival.</p>
-    </div>
-    <a
-      class="button button-secondary"
-      href={site.contacts.instagram}
-      target="_blank"
-      rel="noreferrer"
-    >Apri @dormivegliafest</a>
   </section>
 </BaseLayout>
 

@@ -2,15 +2,13 @@
 import { Image } from "astro:assets";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import JuryPreviewCard from "../../components/JuryPreviewCard.astro";
-import CreditButton from "../../components/CreditButton.astro";
 import ShortFilmOrbit from "../../components/ShortFilmOrbit.astro";
-import { gertie, juryPreviews, shortFilmPreviews } from "../../data/gertie";
+import { gertie, juryPreviews, shortFilmPreviews, winnerPreview } from "../../data/gertie";
 import { program } from "../../data/programma";
 import { site } from "../../data/site";
 import heroArtwork from "../../../Grafiche gertie/Gertie banner.webp";
 
 const night = program.find((event) => event.id === "sabato-14")!;
-const previousEdition = gertie.history[0];
 
 const nightJsonLd = {
   "@context": "https://schema.org",
@@ -50,7 +48,6 @@ const nightJsonLd = {
         alt="Banner illustrato del Gertie Animation Prize."
         fetchpriority="high"
       />
-      <CreditButton creditId="hero-gertie" />
     </div>
     <div class="hero-copy gertie-hero-copy">
       <div class="gertie-hero-text">
@@ -147,17 +144,11 @@ const nightJsonLd = {
     </ul>
   </section>
 
-  <section id="edition-2025" class="content-section gertie-section" aria-labelledby="edition-2025-title">
-    <div class="gertie-previous">
-      <span class="preview-image preview-image-placeholder gertie-previous-badge" role="img" aria-label="Coccarda del vincitore 2025: immagine in arrivo">
-        Coccarda {previousEdition.year}
-      </span>
-      <div>
-        <h2 id="edition-2025-title">Edizione {previousEdition.year}</h2>
-        <p>Vincitrice: {previousEdition.winner}, “{previousEdition.film}”.</p>
-        <p><a class="button button-secondary" href="/gertie-animation-prize/2025/">Scopri l'edizione</a></p>
-      </div>
-    </div>
+  <section id="edizioni-precedenti" class="content-section gertie-section" aria-labelledby="previous-editions-title">
+    <h2 id="previous-editions-title">Edizioni precedenti</h2>
+    <ul class="preview-card-list gertie-jury-grid" aria-label="Edizioni precedenti, vincitori">
+      <JuryPreviewCard item={winnerPreview} dialogId="gertie-winner-dialog-2025" />
+    </ul>
   </section>
 
   <script type="application/ld+json" set:html={JSON.stringify(nightJsonLd)} />
