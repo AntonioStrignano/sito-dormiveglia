@@ -27,7 +27,7 @@ Ordine: 0, 1, 2, 3 (con 4 in parallelo), 5, 6, 7, 8.
 - Italipixel: solo numeri delle date nel programma (come nella locandina `dormiveglia-program.webp`).
 - Roboto Mono: testo corrente.
 - Tutti in woff2 in `public/fonts`, con `font-display: swap` e preload del font principale.
-- Da verificare prima della pubblicazione: licenze in `Grafiche dormiveglia/pixel_operator (1)/LICENSE.txt` e `Grafiche dormiveglia/italipixel/PLEASE READ!.txt`.
+- Da verificare prima della pubblicazione: licenze in `src/assets/fonts/PixelOperator-LICENSE.txt` e `src/assets/fonts/Italipixel-README.txt`.
 
 ## Dati richiesti per il modal dei film (tutti facoltativi, mostrati solo se compilati)
 

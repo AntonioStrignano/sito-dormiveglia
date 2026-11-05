@@ -4,7 +4,7 @@ Compila i dati disponibili; per quelli mancanti scrivi `da definire`. I percorsi
 
 ## Corti selezionati Gertie
 
-Le immagini numerate sono in `Grafiche dormiveglia/cards corti/` e sono già associate ai rispettivi corti nell'ordine 1–8.
+Le immagini numerate sono in `src/assets/corti/` e sono già associate ai rispettivi corti nell'ordine 1–8.
 
 ### Corto 1
 "La Cattiva Strada" - Giacomo Calderoni (@boyz_jiek)

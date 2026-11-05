@@ -88,8 +88,6 @@ Da raccogliere solo se approvati per la pubblicazione:
 - [ ] Account Netlify collegato al repository.
 - [ ] DNS di `dormivegliafest.it` puntato a Netlify.
 - [ ] Verificare che la casella `info@dormiveglia.it` esista e sia attiva (dominio diverso da quello del sito).
-- [ ] Rimettere "Archivio" nel menu quando avrà contenuti.
-- [ ] Pulizia: eliminare le immagini non più usate in `public/images/` (nessun riferimento nel codice): `gertie-deadline-post.webp`, `gertie-deadline-story.webp`, `gertie-banner.webp`, `gertie-mascotte.jpg`, `gertie ritagliato sfondo nero.jpeg`, `dormiveglia-poster.webp`, `dormiveglia-program.webp`, `kapow-profile.webp`.
 - [ ] Convertire in woff2 i font TTF per ridurre il peso.
 
 ## 9. Altro

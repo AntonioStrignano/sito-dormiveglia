@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Pixel Operator Mono";
-  src: url("../../Grafiche dormiveglia/pixel_operator (1)/PixelOperatorMono.ttf") format("truetype");
+  src: url("../assets/fonts/PixelOperatorMono.ttf") format("truetype");
   font-style: normal;
   font-weight: 400;
   font-display: swap;
@@ -8,7 +8,7 @@
 
 @font-face {
   font-family: "Pixel Operator Mono";
-  src: url("../../Grafiche dormiveglia/pixel_operator (1)/PixelOperatorMono-Bold.ttf") format("truetype");
+  src: url("../assets/fonts/PixelOperatorMono-Bold.ttf") format("truetype");
   font-style: normal;
   font-weight: 700;
   font-display: swap;
@@ -16,7 +16,7 @@
 
 @font-face {
   font-family: "Italipixel";
-  src: url("../../Grafiche dormiveglia/italipixel/Italipixel.ttf") format("truetype");
+  src: url("../assets/fonts/Italipixel.ttf") format("truetype");
   font-style: normal;
   font-weight: 400;
   font-display: swap;

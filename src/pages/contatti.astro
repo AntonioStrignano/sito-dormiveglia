@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
 import { site } from "../data/site";
+import venuePhoto from "../assets/venue/ingresso.png";
 ---
 
 <BaseLayout
@@ -63,13 +65,12 @@ import { site } from "../data/site";
       </div>
 
       <figure class="venue-photo">
-        <img
-          src="/images/Ingresso%20-.png"
+        <Image
+          src={venuePhoto}
           alt="Facciata dell’Andria Food Policy Hub, con frecce che indicano l’ingresso."
-          width="1920"
-          height="1080"
+          widths={[640, 960, 1280]}
+          sizes="(min-width: 64rem) 50vw, 100vw"
           loading="lazy"
-          decoding="async"
         />
         <figcaption>Le frecce nell’immagine indicano l’ingresso della sede.</figcaption>
       </figure>

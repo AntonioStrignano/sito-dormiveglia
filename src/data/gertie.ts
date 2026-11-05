@@ -1,16 +1,16 @@
 import type { ImageMetadata } from "astro";
-import mariaRosariaPortrait from "../../Grafiche dormiveglia/cards giuria/maria rosaria dell'olio.png";
-import saraPriorelliPortrait from "../../Grafiche dormiveglia/cards giuria/sara priorielli.png";
-import adolfoDiMolfettaPortrait from "../../Grafiche dormiveglia/cards giuria/adolfo di molfetta.png";
-import giulioDeTomaPortrait from "../../Grafiche dormiveglia/cards giuria/giulio de toma.png";
-import shortFilmImage01 from "../../Grafiche dormiveglia/cards corti/1.png";
-import shortFilmImage02 from "../../Grafiche dormiveglia/cards corti/2.png";
-import shortFilmImage03 from "../../Grafiche dormiveglia/cards corti/3.png";
-import shortFilmImage04 from "../../Grafiche dormiveglia/cards corti/4.png";
-import shortFilmImage05 from "../../Grafiche dormiveglia/cards corti/5.png";
-import shortFilmImage06 from "../../Grafiche dormiveglia/cards corti/6.png";
-import shortFilmImage07 from "../../Grafiche dormiveglia/cards corti/7.png";
-import shortFilmImage08 from "../../Grafiche dormiveglia/cards corti/8.png";
+import mariaRosariaPortrait from "../assets/giuria/maria-rosaria-dell-olio.png";
+import saraPriorelliPortrait from "../assets/giuria/sara-priorielli.png";
+import adolfoDiMolfettaPortrait from "../assets/giuria/adolfo-di-molfetta.png";
+import giulioDeTomaPortrait from "../assets/giuria/giulio-de-toma.png";
+import shortFilmImage01 from "../assets/corti/1.png";
+import shortFilmImage02 from "../assets/corti/2.png";
+import shortFilmImage03 from "../assets/corti/3.png";
+import shortFilmImage04 from "../assets/corti/4.png";
+import shortFilmImage05 from "../assets/corti/5.png";
+import shortFilmImage06 from "../assets/corti/6.png";
+import shortFilmImage07 from "../assets/corti/7.png";
+import shortFilmImage08 from "../assets/corti/8.png";
 
 export interface GertiePreviewItem {
   id: string;

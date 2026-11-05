@@ -28,7 +28,7 @@ Servono due versioni per ogni hero, servite con `<picture>`. Soggetto nella zona
 
 | # | Asset | Dove | Misure | Formato |
 |---|---|---|---|---|
-| 10 | Locandine definitive (3 film + Gertie) | Pagina Programma | 4:5 · 1080×1350 | JPG, ricevute in `Grafiche dormiveglia/locandine` |
+| 10 | Locandine definitive (3 film + Gertie) | Pagina Programma | 4:5 · 1080×1350 | JPG, ricevute in `src/assets/locandine` |
 | 11 | Still/fotogramma per ciascun film (3) | Modal evento | 16:9 · 1280×720 | WebP |
 
 ## Enti e sponsor
@@ -49,7 +49,7 @@ Enti presenti in locandina: Andria Food Policy Hub, Spazio Terre, Regione Puglia
 
 | # | Asset | Dove | Misure | Formato |
 |---|---|---|---|---|
-| 14 | Foto della facciata con frecce che indicano l'ingresso (ricevuta: `public/images/Ingresso -.png`) | Contatti | 16:9 · 1920×1080 | PNG |
+| 14 | Foto della facciata con frecce che indicano l'ingresso (ricevuta: `src/assets/venue/ingresso.png`) | Contatti | 16:9 · 1920×1080 | PNG |
 
 ## Gertie (storico)
 
