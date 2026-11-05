@@ -9,6 +9,7 @@ import { site } from "../../data/site";
 import heroArtwork from "../../../Grafiche gertie/Gertie banner.webp";
 
 const night = program.find((event) => event.id === "sabato-14")!;
+const bookingAction = { label: "Prenota ora", href: site.bookingFormUrl, external: true };
 
 const nightJsonLd = {
   "@context": "https://schema.org",
@@ -131,6 +132,7 @@ const nightJsonLd = {
       id="gertie-shorts"
       title="I corti selezionati"
       items={shortFilmPreviews}
+      primaryAction={bookingAction}
     />
   </div>
 
@@ -139,7 +141,7 @@ const nightJsonLd = {
     <p class="boot-line" aria-hidden="true">&gt; <span data-boot-label>GIURIA COMPLETA...</span> <span data-boot-count>{juryPreviews.length}/{juryPreviews.length}</span></p>
     <ul class="preview-card-list gertie-jury-grid" aria-label={`La giuria, ${juryPreviews.length} schede`}>
       {juryPreviews.map((item) => (
-        <JuryPreviewCard item={item} dialogId={`gertie-jury-dialog-${item.id}`} />
+        <JuryPreviewCard item={item} dialogId={`gertie-jury-dialog-${item.id}`} primaryAction={bookingAction} />
       ))}
     </ul>
   </section>
@@ -147,7 +149,7 @@ const nightJsonLd = {
   <section id="edizioni-precedenti" class="content-section gertie-section" aria-labelledby="previous-editions-title">
     <h2 id="previous-editions-title">Edizioni precedenti</h2>
     <ul class="preview-card-list gertie-jury-grid" aria-label="Edizioni precedenti, vincitori">
-      <JuryPreviewCard item={winnerPreview} dialogId="gertie-winner-dialog-2025" />
+      <JuryPreviewCard item={winnerPreview} dialogId="gertie-winner-dialog-2025" primaryAction={bookingAction} />
     </ul>
   </section>
 

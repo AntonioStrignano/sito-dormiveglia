@@ -1,15 +1,16 @@
 ---
 import ShortFilmPreviewCard from "./ShortFilmPreviewCard.astro";
-import type { GertiePreviewItem } from "../data/gertie";
+import type { GertiePreviewItem, GertiePrimaryAction } from "../data/gertie";
 
 interface Props {
   id: string;
   eyebrow?: string;
   title: string;
   items: GertiePreviewItem[];
+  primaryAction?: GertiePrimaryAction;
 }
 
-const { id, eyebrow, title, items } = Astro.props;
+const { id, eyebrow, title, items, primaryAction } = Astro.props;
 ---
 
 <section id={id} class="orbit" aria-labelledby={`${id}-title`} data-orbit>
@@ -40,7 +41,7 @@ const { id, eyebrow, title, items } = Astro.props;
   >
     <ul class="preview-card-list orbit-ring" data-orbit-ring>
       {items.map((item) => (
-        <ShortFilmPreviewCard item={item} dialogId={`${id}-dialog-${item.id}`} />
+        <ShortFilmPreviewCard item={item} dialogId={`${id}-dialog-${item.id}`} primaryAction={primaryAction} />
       ))}
     </ul>
   </div>

@@ -29,8 +29,14 @@ export interface GertiePreviewItem {
   placeholderLabel?: string;
   dialogEyebrow?: string;
   cardCta?: string;
-  primaryAction?: { label: string; href: string; external?: boolean };
+  primaryAction?: GertiePrimaryAction;
   authorLink?: { label: string; href: string };
+}
+
+export interface GertiePrimaryAction {
+  label: string;
+  href: string;
+  external?: boolean;
 }
 
 export const gertie = {
