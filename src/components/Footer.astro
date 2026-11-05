@@ -17,6 +17,9 @@ import { legalLinks, navigation, site } from "../data/site";
 
     <div class="footer-columns">
       <section aria-labelledby="footer-venue-title">
+        <a class="footer-logo" href="/" aria-label={`${site.name}, homepage`}>
+          <img src="/images/dormiveglia-profile.webp" alt="" width="1080" height="1080" loading="lazy" />
+        </a>
         <h3 id="footer-venue-title">{site.name}</h3>
         <p>{site.edition} · {site.dates}</p>
         <p>{site.venue}<br />{site.address}</p>
