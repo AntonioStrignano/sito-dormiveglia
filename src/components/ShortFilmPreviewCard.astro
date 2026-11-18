@@ -38,11 +38,10 @@ const action = item.primaryAction ?? primaryAction;
       {item.award && <span class={featured ? "award-label" : "sr-only"}>{item.award.label}</span>}
       <span class="preview-card-title">{item.title}</span>
       <span class="preview-card-details">{item.details}</span>
+      {featured && item.award && <span class="award-introduction">{item.award.introduction}</span>}
       <span class="preview-card-cta">Leggi la scheda <span aria-hidden="true">&#8594;</span></span>
     </span>
   </button>
-
-  {featured && item.award && <p class="award-introduction">{item.award.introduction}</p>}
 
   {!isClone && (
     <dialog

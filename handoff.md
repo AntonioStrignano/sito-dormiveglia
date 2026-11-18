@@ -1,5 +1,15 @@
 # Handoff
 
+## Copy breve dentro le card — 18 novembre 2026
+
+- Ultima indicazione di Antonio: complimenti/motivazione brevi DENTRO le card premiati, in corpo più piccolo (0.9rem), sotto titolo/autore e prima di Leggi la scheda. Applicato al componente condiviso, quindi home, hub Gertie e pagina2026 coerenti.
+- Card con immagine, fasce e apertura dialog conservate; sinossi, bio e link completi restano nei dialog. Questa disposizione sostituisce la precedente richiesta di commenti esterni. Build 11 pagine superata; Chromium a 390/1440 px su home, hub e pagina2026: due copy brevi interni alle card, nessun commento esterno, immagini presenti, dialog apribili e nessun overflow.
+
+## Card premiati anche in homepage — 18 novembre 2026
+
+- Corretto il blocco dei due premiati NELLA HOMEPAGE: sostituita la presentazione solo testuale con `AwardResult`, cioè le stesse card con immagine, fascia e dialog usate nell'hub e nella pagina2026. Due colonne desktop, una mobile.
+- Fuori dalle card soltanto complimenti/motivazione; sinossi, bio e video nei dialog. ID prefissati `home-award` distinti dai dialog della selezione sottostante. Build 11 pagine superata; test Chromium sulla route `/` a 390 e 1440 px: due immagini caricate, due card apribili, bio e video corretti nei dialog, commenti fuori, nessun ID duplicato o overflow. Screenshot verificato `home-premiati-cards-1440.png` in `/tmp/dormiveglia-validation/`; nessun errore editor nella homepage.
+
 ## Email credito web — 18 novembre 2026
 
 - Aggiunta su richiesta di Antonio `a.strignano@yahoo.it` come link `mailto:` accanto a Design e sviluppo web — Antonio Strignano, solo nelle note legali. Modello crediti con campo email opzionale, link degli altri autori invariati. Build 11 pagine superata; verificato un unico mailto corretto nel credito e conservazione dei collegamenti preesistenti; diff senza errori whitespace.

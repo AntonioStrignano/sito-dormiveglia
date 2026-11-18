@@ -4,6 +4,7 @@ import { Image } from "astro:assets";
 import HeroArtwork from "../components/HeroArtwork.astro";
 import type { ImageMetadata } from "astro";
 import ScreeningCard from "../components/ScreeningCard.astro";
+import AwardResult from "../components/AwardResult.astro";
 import PreviewCarousel from "../components/PreviewCarousel.astro";
 import { awardedFilms, juryPreviews, shortFilmPreviews } from "../data/gertie";
 import { program } from "../data/programma";
@@ -112,16 +113,11 @@ const screenings = program.filter((event) => event.kind === "Proiezione");
       <div>
         <p class="eyebrow">I riconoscimenti // 2026</p>
         <h2 id="gertie-teaser-title">Gertie Animation Prize</h2>
-        <div class="gertie-teaser-awards">
+        <ul class="preview-card-list award-results gertie-teaser-awards">
           {awardedFilms.map((film) => (
-            <section aria-labelledby={`home-award-${film.id}`}>
-              <p class="eyebrow">{film.award?.label}</p>
-              <h3 id={`home-award-${film.id}`}>{film.title}</h3>
-              <p>{film.details}</p>
-              <p>{film.award?.introduction}</p>
-            </section>
+            <AwardResult item={film} idPrefix="home-award" />
           ))}
-        </div>
+        </ul>
       </div>
       <nav class="gertie-actions" aria-label="Esplora Gertie">
         <a class="button button-primary" href="/gertie-animation-prize/2026/#premi">I premiati</a>
