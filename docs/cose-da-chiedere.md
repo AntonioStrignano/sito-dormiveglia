@@ -5,7 +5,7 @@ Lista operativa da inoltrare ai referenti. Le informazioni non ancora disponibil
 ## Festival e sede
 
 - [x] Capienza indicativa: circa 40 posti per serata; prenotazione consigliata.
-- [x] Email ufficiali: festival `info@dormiveglia.it`; collettivo KA-POW! `collettivokapow@gmail.com`.
+- [x] Email ufficiali: festival `info@dormivegliafest.it`; collettivo KA-POW! `collettivokapow@gmail.com`.
 - [x] Indicazioni per raggiungere Andria Food Policy Hub, Via S. Francesco 12; link Google Maps fornito.
 - [x] Informazioni pratiche sull'accessibilità: rampa per carrozzine e bagno accessibile.
 - [ ] Breve presentazione del collettivo KA-POW!.
@@ -61,7 +61,7 @@ Per ogni voce: nome e cognome, definizione del lavoro e link al profilo Instagra
 
 - [ ] Immagine Open Graph 1200×630 per le anteprime social (ora è la foto profilo).
 - [ ] Account Netlify collegato al repository e DNS di `dormivegliafest.it`.
-- [ ] Verificare che la casella `info@dormiveglia.it` esista e sia attiva (dominio diverso da quello del sito).
+- [ ] Verificare che la casella `info@dormivegliafest.it` esista e sia attiva.
 
 ## Sponsor e trasparenza
 

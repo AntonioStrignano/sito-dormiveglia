@@ -87,7 +87,7 @@ Da raccogliere solo se approvati per la pubblicazione:
 
 - [ ] Account Netlify collegato al repository.
 - [ ] DNS di `dormivegliafest.it` puntato a Netlify.
-- [ ] Verificare che la casella `info@dormiveglia.it` esista e sia attiva (dominio diverso da quello del sito).
+- [ ] Verificare che la casella `info@dormivegliafest.it` esista e sia attiva.
 - [ ] Convertire in woff2 i font TTF per ridurre il peso.
 
 ## 9. Altro
@@ -98,7 +98,7 @@ Da raccogliere solo se approvati per la pubblicazione:
 ## Già fatto, da non richiedere di nuovo
 
 - Sede, indirizzo, link Google Maps, capienza (circa 40 posti), accessibilità (rampa e bagno).
-- Email: festival `info@dormiveglia.it`, collettivo `collettivokapow@gmail.com`.
+- Email: festival `info@dormivegliafest.it`, collettivo `collettivokapow@gmail.com`.
 - Dati del titolare: Collettivo KA-POW! APS, C.F. 90123480726, Andria (BT).
 - Modulo Google: URL inserito; campi (email, nome, cognome, consenso) e conservazione definiti.
 - Trailer dei tre film, locandine nei formati disponibili, dominio, GoatCounter, analitica senza banner.

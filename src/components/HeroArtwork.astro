@@ -1,0 +1,137 @@
+---
+import { Image, getImage } from "astro:assets";
+import mobileArtwork from "../assets/hero/hero-mobile.png";
+import desktopArtwork from "../assets/hero/hero-desktop.png";
+import finalArtwork from "../assets/hero/hero-see-you-next-year.jpg";
+
+const desktop = await getImage({ src: desktopArtwork, format: "webp", width: 1600 });
+---
+
+<div class="hero-visual hero-slideshow" data-hero-slideshow data-active="first">
+  <picture class="hero-slide hero-slide--first" data-hero-first>
+    <Image class="hero-image" src={finalArtwork} alt="Il protagonista del Dormiveglia saluta: SEE YOU NEXT YEAR?" widths={[640, 960, 1440]} sizes="(min-width: 48.0625rem) 40vw, 100vw" loading="eager" fetchpriority="high" />
+  </picture>
+  <picture class="hero-slide hero-slide--last" data-hero-last aria-hidden="true">
+    <source media="(min-width: 48.0625rem)" srcset={desktop.src} width={desktopArtwork.width} height={desktopArtwork.height} />
+    <Image class="hero-image" src={mobileArtwork} alt="Un viandante attraversa un paesaggio digitale notturno." loading="eager" data-hero-secondary-image />
+  </picture>
+  <button class="hero-slideshow-control" type="button" aria-label="Metti in pausa le immagini" aria-pressed="false" title="Metti in pausa le immagini" data-hero-pause hidden>
+    <span class="hero-pause-symbol" aria-hidden="true">||</span>
+    <span class="hero-play-symbol" aria-hidden="true">&#9654;</span>
+  </button>
+</div>
+
+<script>
+  const slideshow = document.querySelector<HTMLElement>("[data-hero-slideshow]");
+  const first = slideshow?.querySelector<HTMLElement>("[data-hero-first]");
+  const last = slideshow?.querySelector<HTMLElement>("[data-hero-last]");
+  const image = slideshow?.querySelector<HTMLImageElement>("[data-hero-secondary-image]");
+  const pause = slideshow?.querySelector<HTMLButtonElement>("[data-hero-pause]");
+
+  if (slideshow && first && last && image && pause) {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let timer: number | undefined;
+    let userPaused = false;
+    let visible = false;
+
+    const show = (finale: boolean) => {
+      slideshow.dataset.active = finale ? "last" : "first";
+      first.setAttribute("aria-hidden", String(finale));
+      last.setAttribute("aria-hidden", String(!finale));
+    };
+
+    const sync = () => {
+      window.clearInterval(timer);
+      timer = undefined;
+      pause.hidden = reducedMotion.matches;
+      if (reducedMotion.matches) show(false);
+      if (!reducedMotion.matches && !userPaused && visible && !document.hidden && image.complete && image.naturalWidth > 0) {
+        timer = window.setInterval(() => show(slideshow.dataset.active !== "last"), 2000);
+      }
+    };
+
+    pause.addEventListener("click", () => {
+      userPaused = !userPaused;
+      pause.setAttribute("aria-pressed", String(userPaused));
+      const label = userPaused ? "Riprendi le immagini" : "Metti in pausa le immagini";
+      pause.setAttribute("aria-label", label);
+      pause.title = label;
+      sync();
+    });
+    new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      sync();
+    }).observe(slideshow);
+    image.addEventListener("load", sync);
+    reducedMotion.addEventListener("change", sync);
+    document.addEventListener("visibilitychange", sync);
+    sync();
+  }
+</script>
+
+<style>
+  .hero-slideshow {
+    position: relative;
+  }
+
+  .hero-slide {
+    display: block;
+    height: 100%;
+    background: var(--color-background);
+  }
+
+  .hero-slide--last {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 500ms ease;
+    pointer-events: none;
+  }
+
+  [data-active="last"] .hero-slide--last {
+    opacity: 1;
+  }
+
+  .hero-slideshow :global(.hero-image) {
+    height: 100%;
+    aspect-ratio: auto;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  .hero-slideshow-control {
+    position: absolute;
+    right: 0.75rem;
+    bottom: 0.5rem;
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    place-items: center;
+    border: 1px solid var(--color-accent);
+    background: var(--color-background);
+    color: var(--color-accent);
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .hero-slideshow-control[hidden],
+  .hero-play-symbol,
+  [aria-pressed="true"] .hero-pause-symbol {
+    display: none;
+  }
+
+  [aria-pressed="true"] .hero-play-symbol {
+    display: inline;
+  }
+
+  .hero-slideshow-control:focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-slide--last {
+      transition: none;
+    }
+  }
+</style>

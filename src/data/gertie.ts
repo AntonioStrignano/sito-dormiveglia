@@ -18,6 +18,12 @@ export interface GertiePreviewItem {
   details: string;
   bio?: string;
   synopsis?: string;
+  award?: {
+    kind: "winner" | "mention";
+    label: string;
+    badge: string;
+    introduction: string;
+  };
   authorLinks?: { label: string; href: string }[];
   href: string;
   linkLabel: string;
@@ -130,7 +136,7 @@ const shortFilmImages = [
   shortFilmImage08,
 ];
 
-const shortFilmDetails = [
+const shortFilmDetails: (Pick<GertiePreviewItem, "title" | "synopsis" | "authorLinks" | "bio" | "award" | "primaryAction"> & { creator: string })[] = [
   {
     title: "La Cattiva Strada",
     creator: "Giacomo Calderoni",
@@ -157,13 +163,29 @@ const shortFilmDetails = [
   },
   {
     title: "Le Case di Achille",
-    creator: "Nespy 5euro",
+    creator: "Nespy5euro",
+    primaryAction: { label: "Guarda il corto", href: "https://www.youtube.com/watch?v=vzH6gg35nsQ", external: true },
+    award: {
+      kind: "winner",
+      label: "Vincitore Gertie Animation Prize 2026",
+      badge: "GAP 2026",
+      introduction: "Complimenti a Nespy per il suo corto semplicemente sorprendente che ci dimostra come l'immaginazione di un bambino non ha confini.",
+    },
+    bio: "Nespy5euro viene dal Messico ed è un artista multidisciplinare e animatore sperimentale alla ricerca costante del brutto e delle cose che causano repulsione. Gli piace mordere le cipolle e osservare i cani fare i bisogni, oltre che mescolare digitale e analogico e realizzare video musicali animati e supporti visivi per i suoi musicisti preferiti.",
     synopsis: "Questo cortometraggio è nato in modo spontaneo, in un solo pomeriggio. Un giorno d’estate, mentre io e mio nipote Achille cercavamo rifugio dal caldo, lui ha iniziato a raccontarmi una dopo l’altra le sue infinite storie fantastiche. Ho deciso di registrarlo, lasciando che la sua immaginazione scorresse libera.",
     authorLinks: [{ label: "Instagram @nespy5euro", href: "https://www.instagram.com/nespy5euro/" }],
   },
   {
     title: "Sotto i Pini",
     creator: "Noctu Animation",
+    primaryAction: { label: "Guarda il teaser", href: "https://www.youtube.com/watch?v=bq7P1Zi-Ub0", external: true },
+    award: {
+      kind: "mention",
+      label: "Menzione d'Onore Collettivo KA-POW!",
+      badge: "Menzione KA-POW!",
+      introduction: "I membri del Collettivo hanno premiato la spettacolarità, la cura nei dettagli e il concept del cortometraggio.",
+    },
+    bio: "Noctū è un collettivo artistico fondato da Simone Pratola, Francesca Sofia Rosso e Martina Generali, vincitori del Cristal for a Graduation Film al Festival di Annecy 2023 con “La notte”, cortometraggio di diploma al CSC di Torino. Nasce nel 2026 da una lunga amicizia come un progetto di cinema di animazione autoriale rivolto a tutti.",
     synopsis: "Tra lo starnazzare dei gabbiani e il frusciare delle fronde della pineta si muove qualcosa. Sotto l’ombra dei pini si materializzano le vite delle persone che hanno vissuto la storia antica d’Italia. I loro destini, le loro fortune, le loro tragedie.",
     authorLinks: [{ label: "Instagram @noctu.animation", href: "https://www.instagram.com/noctu.animation/" }],
   },
@@ -189,10 +211,15 @@ export const shortFilmPreviews: GertiePreviewItem[] = shortFilmDetails.map((film
   title: film.title,
   details: film.creator,
   synopsis: film.synopsis,
+  award: film.award,
+  bio: film.bio,
   authorLinks: film.authorLinks,
+  primaryAction: film.primaryAction,
   href: "/gertie-animation-prize/2026/",
   linkLabel: "Scopri Gertie",
   image: shortFilmImages[index],
   imageAlt: `Immagine dal corto ${film.title}.`,
   variant: "short",
 }));
+
+export const awardedFilms = shortFilmPreviews.filter((film) => film.award);

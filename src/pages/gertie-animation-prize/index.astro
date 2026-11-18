@@ -1,0 +1,43 @@
+---
+import { Image } from "astro:assets";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import AwardResult from "../../components/AwardResult.astro";
+import JuryPreviewCard from "../../components/JuryPreviewCard.astro";
+import { awardedFilms, winnerPreview } from "../../data/gertie";
+import artwork from "../../assets/gertie/banner.webp";
+---
+
+<BaseLayout title="Gertie Animation Prize: archivio" description="Le edizioni del Gertie Animation Prize: vincitori e riconoscimenti del premio Dormiveglia per il cinema d'animazione indipendente.">
+  <div class="archive-page gertie-archive-page">
+    <header class="archive-heading">
+      <p class="eyebrow">Dormiveglia Animation Film Fest</p>
+      <h1>Gertie Animation Prize</h1>
+      <nav class="archive-years" aria-label="Edizioni del Gertie Animation Prize">
+        <a href="#gertie-2026">2026</a>
+        <a href="#gertie-2025">2025</a>
+      </nav>
+    </header>
+    <Image class="archive-banner" src={artwork} alt="Gertie Animation Prize, il premio del Dormiveglia." />
+    <section id="gertie-2026" class="archive-edition archive-edition--gertie" aria-labelledby="gertie-2026-title">
+      <header>
+        <p class="eyebrow">Seconda edizione</p>
+        <h2 id="gertie-2026-title">2026</h2>
+        <a class="button button-primary" href="/gertie-animation-prize/2026/">L'edizione 2026 <span aria-hidden="true">&#8594;</span></a>
+      </header>
+      <ul class="preview-card-list award-results">
+        {awardedFilms.map((item) => (
+          <AwardResult item={item} idPrefix="archivio-premio-2026" />
+        ))}
+      </ul>
+    </section>
+    <section id="gertie-2025" class="archive-edition archive-edition--gertie" aria-labelledby="gertie-2025-title">
+      <header>
+        <p class="eyebrow">Prima edizione</p>
+        <h2 id="gertie-2025-title">2025</h2>
+      </header>
+      <ul class="preview-card-list gertie-jury-grid">
+        <JuryPreviewCard item={winnerPreview} dialogId="archive-winner-2025" />
+      </ul>
+    </section>
+  </div>
+</BaseLayout>

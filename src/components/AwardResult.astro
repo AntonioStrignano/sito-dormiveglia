@@ -1,0 +1,13 @@
+---
+import ShortFilmPreviewCard from "./ShortFilmPreviewCard.astro";
+import type { GertiePreviewItem } from "../data/gertie";
+
+interface Props {
+  item: GertiePreviewItem;
+  idPrefix: string;
+}
+
+const { item, idPrefix } = Astro.props;
+---
+
+<ShortFilmPreviewCard item={item} dialogId={`${idPrefix}-${item.id}-dialog`} featured />

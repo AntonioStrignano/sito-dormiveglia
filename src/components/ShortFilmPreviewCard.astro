@@ -7,9 +7,11 @@ interface Props {
   dialogId: string;
   isClone?: boolean;
   primaryAction?: GertiePrimaryAction;
+  featured?: boolean;
 }
 
-const { item, dialogId, isClone = false, primaryAction = { label: "Scopri Gertie", href: "/gertie-animation-prize/2026/" } } = Astro.props;
+const { item, dialogId, isClone = false, featured = false, primaryAction = { label: "Risultati Gertie", href: "/gertie-animation-prize/2026/#premi" } } = Astro.props;
+const action = item.primaryAction ?? primaryAction;
 ---
 
 <li
@@ -26,13 +28,21 @@ const { item, dialogId, isClone = false, primaryAction = { label: "Scopri Gertie
     data-terminal-dialog-trigger={!isClone ? "" : undefined}
     tabindex={isClone ? -1 : undefined}
   >
-    {item.image && <Image class="preview-image preview-image--short" src={item.image} alt="" loading="lazy" />}
+    <span class="short-film-artwork">
+      {item.image && <Image class="preview-image preview-image--short" src={item.image} alt="" loading="lazy" />}
+      {item.award && (
+        <span class:list={["award-ribbon", `award-ribbon--${item.award.kind}`]} aria-hidden="true">{item.award.badge}</span>
+      )}
+    </span>
     <span class="preview-card-copy">
+      {item.award && <span class={featured ? "award-label" : "sr-only"}>{item.award.label}</span>}
       <span class="preview-card-title">{item.title}</span>
       <span class="preview-card-details">{item.details}</span>
-      <span class="preview-card-cta">Leggi la sinossi <span aria-hidden="true">&#8594;</span></span>
+      <span class="preview-card-cta">Leggi la scheda <span aria-hidden="true">&#8594;</span></span>
     </span>
   </button>
+
+  {featured && item.award && <p class="award-introduction">{item.award.introduction}</p>}
 
   {!isClone && (
     <dialog
@@ -53,22 +63,34 @@ const { item, dialogId, isClone = false, primaryAction = { label: "Scopri Gertie
             />
           )}
           <div class="jury-dialog-identity">
-            <p class="eyebrow" data-dossier-typewriter>Corto selezionato // Gertie 2026</p>
+            <p class="eyebrow">{item.award?.label ?? "Corto selezionato // Gertie 2026"}</p>
             <h2 id={`${dialogId}-title`} data-dossier-typewriter>{item.title}</h2>
             <p data-dossier-typewriter>{item.details}</p>
           </div>
         </header>
-        <section class="jury-dialog-bio screening-dialog-details" aria-label={`Sinossi di ${item.title}`}>
+        <section class="jury-dialog-bio screening-dialog-details" aria-label={`Scheda di ${item.title}`}>
+          {item.award && (
+            <>
+              <p class="eyebrow">{item.award.kind === "winner" ? "Presentazione" : "Motivazione della menzione"}</p>
+              <p>{item.award.introduction}</p>
+            </>
+          )}
           <p class="eyebrow" data-dossier-typewriter>LOG // SINOSSI</p>
           <p data-dossier-typewriter>{item.synopsis}</p>
+          {item.bio && (
+            <>
+              <p class="eyebrow">{item.award?.kind === "mention" ? "Il collettivo" : "L'autore"}</p>
+              <p>{item.bio}</p>
+            </>
+          )}
         </section>
         <nav class="dialog-actions" aria-label={`Link per ${item.title}`}>
           <a
             class="button button-primary"
-            href={primaryAction.href}
-            target={primaryAction.external ? "_blank" : undefined}
-            rel={primaryAction.external ? "noreferrer" : undefined}
-          >{primaryAction.label}</a>
+            href={action.href}
+            target={action.external ? "_blank" : undefined}
+            rel={action.external ? "noreferrer" : undefined}
+          >{action.label}</a>
           {item.authorLinks?.map((authorLink) => (
             <a class="button button-secondary" href={authorLink.href} target="_blank" rel="noreferrer">
               {authorLink.label}

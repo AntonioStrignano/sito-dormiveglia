@@ -3,13 +3,14 @@ import { Image } from "astro:assets";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import JuryPreviewCard from "../../components/JuryPreviewCard.astro";
 import ShortFilmOrbit from "../../components/ShortFilmOrbit.astro";
-import { gertie, juryPreviews, shortFilmPreviews, winnerPreview } from "../../data/gertie";
+import AwardResult from "../../components/AwardResult.astro";
+import { awardedFilms, gertie, juryPreviews, shortFilmPreviews, winnerPreview } from "../../data/gertie";
 import { program } from "../../data/programma";
 import { site } from "../../data/site";
 import heroArtwork from "../../assets/gertie/banner.webp";
 
 const night = program.find((event) => event.id === "sabato-14")!;
-const bookingAction = { label: "Prenota ora", href: site.bookingFormUrl, external: true };
+const resultsAction = { label: "Archivio Gertie", href: "/gertie-animation-prize/" };
 
 const nightJsonLd = {
   "@context": "https://schema.org",
@@ -32,8 +33,8 @@ const nightJsonLd = {
 ---
 
 <BaseLayout
-  title="Gertie Animation Prize"
-  description="Gertie Animation Prize, premio dedicato al cinema d'animazione nell'ambito del Dormiveglia Animation Film Fest: giuria, corti selezionati e serata del 14 novembre 2026 ad Andria."
+  title="Gertie Animation Prize 2026: i premiati"
+  description="Le Case di Achille di Nespy5euro vince il Gertie Animation Prize 2026. Menzione d'Onore Collettivo KA-POW! a Sotto i Pini di Noctu Animation."
 >
   <script is:inline>
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -55,11 +56,10 @@ const nightJsonLd = {
         <h1 id="gertie-title" class="sr-only">{gertie.title}, {gertie.edition}</h1>
         <p class="gertie-hero-date"><span>SAB 14 NOVEMBRE</span> <span>ORE {night.screening}</span></p>
         <p class="gertie-hero-place"><span>{site.venue}</span> <span>{site.address}</span></p>
-        <p class="gertie-hero-doors">Ingresso gratuito</p>
-        {/* Copy di bozza da confermare. */}
-        <p>Il premio europeo dei corti d'animazione indipendenti.</p>
+        <p class="gertie-hero-doors">Edizione conclusa</p>
+        <p>“Le Case di Achille” di Nespy5euro vince il Gertie Animation Prize 2026.</p>
         <nav class="hero-actions" aria-label="Azioni principali">
-          <a class="button button-primary" href={site.bookingFormUrl} target="_blank" rel="noreferrer">Prenota un posto</a>
+          <a class="button button-primary" href="#premi">I premiati</a>
           <a class="button button-secondary" href="/programma/#sabato-14">Vedi nel programma</a>
         </nav>
       </div>
@@ -92,34 +92,37 @@ const nightJsonLd = {
       </button>
 
       <dialog
-        class="screening-dialog jury-dialog"
+        class="screening-dialog jury-dialog gertie-info-dialog"
         id="gertie-dialog"
         aria-labelledby="gertie-dialog-title"
         data-terminal-dialog
+        data-adaptive-dialog
       >
         <button class="dialog-close" type="button" aria-label="Chiudi la scheda di Gertie">&times;</button>
-        <div class="dialog-content jury-dialog-content">
-          <header class="jury-dialog-heading">
-            <img
-              class="jury-dialog-portrait gertie-dialog-portrait"
-              src="/images/gertie-mascotte.webp"
-              alt="Gertie, la mascotte del premio: un dinosauro dal lungo collo."
-              width="730"
-              height="800"
-            />
-            <div class="jury-dialog-identity">
-              <p class="eyebrow" data-dossier-typewriter>Gertie Animation Prize // {gertie.edition}</p>
-              <h2 id="gertie-dialog-title" data-dossier-typewriter>Chi è Gertie</h2>
-              <p class="preview-card-details--jury" data-dossier-typewriter><span aria-hidden="true">&gt; </span>Mascotte e premio</p>
-            </div>
-          </header>
-          <section class="jury-dialog-bio" aria-label="Il premio">
-            <p class="eyebrow" data-dossier-typewriter>LOG // IL PREMIO</p>
-            <p data-dossier-typewriter>Il Gertie Animation Prize è il premio del Dormiveglia per i corti d'animazione indipendenti. Nel 2026 diventa europeo: opere da tutta Europa, una sola serata, un solo vincitore.</p>
-            <p data-dossier-typewriter>Porte alle {night.doors}, proiezione alle {night.screening}. Ingresso gratuito fino a esaurimento posti.</p>
-          </section>
+        <div class="dialog-content jury-dialog-content gertie-dialog-shell">
+          <div class="gertie-dialog-scroll" data-dialog-scroll>
+            <header class="jury-dialog-heading">
+              <img
+                class="jury-dialog-portrait gertie-dialog-portrait"
+                src="/images/gertie-mascotte.webp"
+                alt="Gertie, la mascotte del premio: un dinosauro dal lungo collo."
+                width="730"
+                height="800"
+              />
+              <div class="jury-dialog-identity">
+                <p class="eyebrow" data-dossier-typewriter>Gertie Animation Prize // {gertie.edition}</p>
+                <h2 id="gertie-dialog-title" data-dossier-typewriter>Chi è Gertie</h2>
+                <p class="preview-card-details--jury" data-dossier-typewriter><span aria-hidden="true">&gt; </span>Mascotte e premio</p>
+              </div>
+            </header>
+            <section class="jury-dialog-bio" aria-label="Il premio">
+              <p class="eyebrow" data-dossier-typewriter>LOG // IL PREMIO</p>
+              <p data-dossier-typewriter>Il Gertie Animation Prize è il premio del Dormiveglia per i corti d'animazione indipendenti. Nel 2026 è diventato europeo, con opere da tutta Europa in selezione.</p>
+              <p data-dossier-typewriter>La seconda edizione si è tenuta il 14 novembre 2026 ad Andria. Il premio è andato a “Le Case di Achille” di Nespy5euro; “Sotto i Pini” di Noctu Animation ha ricevuto la Menzione d'Onore Collettivo KA-POW!.</p>
+            </section>
+          </div>
           <nav class="dialog-actions" aria-label="Link per Gertie">
-            <a class="button button-primary" href={site.bookingFormUrl} target="_blank" rel="noreferrer">Prenota un posto</a>
+            <a class="button button-primary" href="/gertie-animation-prize/">Archivio Gertie</a>
             <a class="button button-secondary" href={site.contacts.instagram} target="_blank" rel="noreferrer">Instagram</a>
           </nav>
         </div>
@@ -127,12 +130,22 @@ const nightJsonLd = {
     </div>
   </section>
 
+  <section id="premi" class="content-section gertie-section" aria-labelledby="premi-title">
+    <p class="eyebrow">Gertie Animation Prize // 2026</p>
+    <h2 id="premi-title">I premiati</h2>
+    <ul class="preview-card-list award-results">
+      {awardedFilms.map((item) => (
+        <AwardResult item={item} idPrefix="premio-2026" />
+      ))}
+    </ul>
+  </section>
+
   <div id="corti" class="content-section gertie-section">
     <ShortFilmOrbit
       id="gertie-shorts"
       title="I corti selezionati"
       items={shortFilmPreviews}
-      primaryAction={bookingAction}
+      primaryAction={resultsAction}
     />
   </div>
 
@@ -141,7 +154,7 @@ const nightJsonLd = {
     <p class="boot-line" aria-hidden="true">&gt; <span data-boot-label>GIURIA COMPLETA...</span> <span data-boot-count>{juryPreviews.length}/{juryPreviews.length}</span></p>
     <ul class="preview-card-list gertie-jury-grid" aria-label={`La giuria, ${juryPreviews.length} schede`}>
       {juryPreviews.map((item) => (
-        <JuryPreviewCard item={item} dialogId={`gertie-jury-dialog-${item.id}`} primaryAction={bookingAction} />
+        <JuryPreviewCard item={item} dialogId={`gertie-jury-dialog-${item.id}`} primaryAction={resultsAction} />
       ))}
     </ul>
   </section>
@@ -149,7 +162,7 @@ const nightJsonLd = {
   <section id="edizioni-precedenti" class="content-section gertie-section" aria-labelledby="previous-editions-title">
     <h2 id="previous-editions-title">Edizioni precedenti</h2>
     <ul class="preview-card-list gertie-jury-grid" aria-label="Edizioni precedenti, vincitori">
-      <JuryPreviewCard item={winnerPreview} dialogId="gertie-winner-dialog-2025" primaryAction={bookingAction} />
+      <JuryPreviewCard item={winnerPreview} dialogId="gertie-winner-dialog-2025" />
     </ul>
   </section>
 

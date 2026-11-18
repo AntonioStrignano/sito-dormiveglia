@@ -2,11 +2,24 @@ export interface Credit {
   id: string;
   work: string;
   author: string;
-  instagramUrl: string;
+  instagramUrl?: string;
+  email?: string;
   linkLabel?: string;
 }
 
 export const credits: Record<string, Credit> = {
+  "sito-web": {
+    id: "sito-web",
+    work: "Design e sviluppo web",
+    author: "Antonio Strignano",
+    email: "a.strignano@yahoo.it",
+  },
+  "identita-grafica": {
+    id: "identita-grafica",
+    work: "Identità grafica",
+    author: "Savi Lomuscio",
+    instagramUrl: "https://www.instagram.com/basil_of_the_nimh/",
+  },
   "hero-home": {
     id: "hero-home",
     work: "Locandina principale dell'evento",

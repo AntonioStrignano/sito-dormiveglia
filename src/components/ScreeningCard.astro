@@ -30,7 +30,7 @@ const { event, poster, dialogId } = Astro.props;
     <span class="eyebrow">{event.day}</span>
     <span class="screening-title">{event.title}</span>
     <span class="event-meta">Porte {event.doors} · Proiezione {event.screening}</span>
-    <span class="screening-action">Dettagli e prenotazione</span>
+    <span class="screening-action">Dettagli della proiezione</span>
   </button>
 
   <dialog
@@ -59,10 +59,10 @@ const { event, poster, dialogId } = Astro.props;
         <p data-dossier-typewriter>{event.details.synopsis}</p>
       </section>
       <div class="screening-dialog-footer">
-        <p class="event-meta">{site.venue} · {site.address}<br />Ingresso gratuito fino a esaurimento posti.</p>
+        <p class="event-meta">{site.venue} · {site.address}<br />Proiezione dell'edizione 2026.</p>
         <nav class="dialog-actions" aria-label={`Azioni per ${event.title}`}>
-          <a class="button button-primary" href={site.bookingFormUrl} target="_blank" rel="noreferrer">Prenota un posto</a>
-          <a class="button button-secondary" href={`/programma/#${event.id}`}>Consulta il programma</a>
+          <a class="button button-primary" href={`/programma/#${event.id}`}>Consulta il programma</a>
+          {event.details.trailerUrl && <a class="button button-secondary" href={event.details.trailerUrl} target="_blank" rel="noreferrer">Guarda il trailer</a>}
         </nav>
       </div>
     </div>

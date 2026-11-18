@@ -8,7 +8,7 @@ const { owner } = site;
 
 <BaseLayout
   title="Note legali e crediti"
-  description="Titolare del sito, diritti sulle opere, crediti grafici e licenze del Dormiveglia Animation Film Fest."
+  description="Titolare del sito, diritti sulle opere e crediti del Dormiveglia Animation Film Fest."
 >
   <div class="legal-page">
     <h1>Note legali e crediti</h1>
@@ -26,15 +26,16 @@ const { owner } = site;
       Ne è vietata la riproduzione o il riuso senza autorizzazione.
     </p>
 
-    <h2>Crediti grafici</h2>
+    <h2>Crediti</h2>
     <ul>
       {creditList.map((credit) => {
-        const handle = new URL(credit.instagramUrl).pathname.split("/").filter(Boolean)[0];
+        const handle = credit.instagramUrl ? new URL(credit.instagramUrl).pathname.split("/").filter(Boolean)[0] : undefined;
         const label = credit.linkLabel ?? `Instagram @${handle}`;
         return (
           <li>
             <strong>{credit.work}</strong>: {credit.author}
-            (<a href={credit.instagramUrl} target="_blank" rel="noreferrer">{label}</a>).
+            {credit.instagramUrl && <> (<a href={credit.instagramUrl} target="_blank" rel="noreferrer">{label}</a>)</>}
+            {credit.email && <> (<a href={`mailto:${credit.email}`}>{credit.email}</a>)</>}.
           </li>
         );
       })}

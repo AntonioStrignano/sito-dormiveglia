@@ -2,7 +2,6 @@
 import { Image } from "astro:assets";
 import type { ImageMetadata } from "astro";
 import type { ProgramEvent } from "../data/programma";
-import { site } from "../data/site";
 
 interface Props {
   event: ProgramEvent;
@@ -102,11 +101,8 @@ const posterDialogTitleId = `${posterDialogId}-title`;
       </details>
 
       <div class="program-actions">
-        <a class="button button-primary" href={site.bookingFormUrl} target="_blank" rel="noreferrer">
-          Prenota un posto<span class="sr-only"> per {event.title}</span>
-        </a>
         {event.pageHref && (
-          <a class="button button-secondary" href={event.pageHref}>Scopri Gertie</a>
+          <a class="button button-primary" href={`${event.pageHref}#premi`}>I premiati Gertie</a>
         )}
         {details.trailerUrl && (
           <a class="button button-secondary" href={details.trailerUrl} target="_blank" rel="noreferrer">

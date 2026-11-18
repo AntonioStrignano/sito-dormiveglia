@@ -1,14 +1,13 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { Image, getImage } from "astro:assets";
+import { Image } from "astro:assets";
+import HeroArtwork from "../components/HeroArtwork.astro";
 import type { ImageMetadata } from "astro";
 import ScreeningCard from "../components/ScreeningCard.astro";
 import PreviewCarousel from "../components/PreviewCarousel.astro";
-import { juryPreviews, shortFilmPreviews } from "../data/gertie";
+import { awardedFilms, juryPreviews, shortFilmPreviews } from "../data/gertie";
 import { program } from "../data/programma";
 import { site } from "../data/site";
-import heroArtwork from "../assets/hero/hero-mobile.png";
-import heroDesktopArtwork from "../assets/hero/hero-desktop.png";
 import festivalLogo from "../assets/logo/logo.png";
 import gertieBanner from "../assets/gertie/banner.webp";
 import valleyPoster from "../assets/locandine-home/valle-incantata.png";
@@ -21,12 +20,11 @@ const moviePosters: Record<string, ImageMetadata> = {
   "La fortuna di Nikuko": nikukoPoster,
 };
 const screenings = program.filter((event) => event.kind === "Proiezione");
-const heroDesktop = await getImage({ src: heroDesktopArtwork, format: "webp", width: 1600 });
 ---
 
 <BaseLayout
   title="Dormiveglia Animation Film Fest | Andria, 12-15 novembre 2026"
-  description="Dormiveglia Animation Film Fest, seconda edizione, dal 12 al 15 novembre 2026 ad Andria."
+  description="La seconda edizione del Dormiveglia Animation Film Fest si è conclusa: scopri i premiati Gertie 2026, il programma e i recap del festival ad Andria."
 >
   <script is:inline>
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -35,17 +33,7 @@ const heroDesktop = await getImage({ src: heroDesktopArtwork, format: "webp", wi
   </script>
 
   <section class="hero" aria-labelledby="home-title">
-    <div class="hero-visual">
-      <picture>
-        <source media="(min-width: 48.0625rem)" srcset={heroDesktop.src} width={heroDesktopArtwork.width} height={heroDesktopArtwork.height} />
-        <Image
-          class="hero-image"
-          src={heroArtwork}
-          alt="Un viandante attraversa un paesaggio digitale notturno."
-          fetchpriority="high"
-        />
-      </picture>
-    </div>
+    <HeroArtwork />
     <div class="hero-copy">
       <h1 id="home-title" class="hero-title">
         <Image
@@ -78,14 +66,14 @@ const heroDesktop = await getImage({ src: heroDesktopArtwork, format: "webp", wi
           <span class="typewriter-wrap"><span data-typewriter aria-hidden="true">{site.address}</span></span>
         </p>
         <p>
-          <span class="sr-only">Ingresso gratuito fino a esaurimento posti.</span>
-          <span class="typewriter-wrap"><span data-typewriter aria-hidden="true">Ingresso gratuito fino a esaurimento posti.</span></span>
+          <span class="sr-only">Edizione conclusa. Grazie a chi c'era.</span>
+          <span class="typewriter-wrap"><span data-typewriter aria-hidden="true">Edizione conclusa. Grazie a chi c'era.</span></span>
         </p>
       </div>
       <nav class="hero-actions" aria-label="Azioni principali">
-        <a class="button button-primary" href={site.bookingFormUrl} target="_blank" rel="noreferrer">
-          <span class="sr-only">Prenota un posto</span>
-          <span class="typewriter-wrap"><span aria-hidden="true">Prenota un posto</span></span>
+        <a class="button button-primary" href="/gertie-animation-prize/2026/#premi">
+          <span class="sr-only">I premiati Gertie</span>
+          <span class="typewriter-wrap"><span aria-hidden="true">I premiati Gertie</span></span>
         </a>
         <a class="button button-secondary" href="/programma/">
           <span class="sr-only">Programma</span>
@@ -109,7 +97,7 @@ const heroDesktop = await getImage({ src: heroDesktopArtwork, format: "webp", wi
     </ul>
     <nav class="screening-actions" aria-label="Azioni sul programma">
       <a class="button button-secondary" href="/programma/">Consulta il programma</a>
-      <a class="button button-primary" href={site.bookingFormUrl} target="_blank" rel="noreferrer">Prenota un posto</a>
+      <a class="button button-primary" href="/archivio/">Rivivi il festival</a>
     </nav>
   </section>
 
@@ -122,13 +110,22 @@ const heroDesktop = await getImage({ src: heroDesktopArtwork, format: "webp", wi
     />
     <div class="gertie-teaser">
       <div>
-        <p class="eyebrow">Sabato 14 novembre · 21:00</p>
+        <p class="eyebrow">I riconoscimenti // 2026</p>
         <h2 id="gertie-teaser-title">Gertie Animation Prize</h2>
-        <p>Una serata dedicata ai corti d'animazione in selezione.</p>
+        <div class="gertie-teaser-awards">
+          {awardedFilms.map((film) => (
+            <section aria-labelledby={`home-award-${film.id}`}>
+              <p class="eyebrow">{film.award?.label}</p>
+              <h3 id={`home-award-${film.id}`}>{film.title}</h3>
+              <p>{film.details}</p>
+              <p>{film.award?.introduction}</p>
+            </section>
+          ))}
+        </div>
       </div>
       <nav class="gertie-actions" aria-label="Esplora Gertie">
-        <a class="button button-primary" href={site.bookingFormUrl} target="_blank" rel="noreferrer">Prenota un posto</a>
-        <a class="button button-secondary" href="/gertie-animation-prize/2026/">Scopri Gertie</a>
+        <a class="button button-primary" href="/gertie-animation-prize/2026/#premi">I premiati</a>
+        <a class="button button-secondary" href="/gertie-animation-prize/">Archivio Gertie</a>
       </nav>
     </div>
   </section>

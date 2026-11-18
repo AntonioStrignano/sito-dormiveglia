@@ -3,6 +3,7 @@ export function initializeTerminalDialogs() {
   const triggers = document.querySelectorAll<HTMLButtonElement>("[data-terminal-dialog-trigger]");
   const typewriterTimers = new WeakMap<HTMLDialogElement, number>();
   const bioScrollFrames = new WeakMap<HTMLDialogElement, number>();
+  const dialogTriggers = new WeakMap<HTMLDialogElement, HTMLButtonElement>();
 
   const resetTypewriter = (dialog: HTMLDialogElement) => {
     const timer = typewriterTimers.get(dialog);
@@ -23,6 +24,12 @@ export function initializeTerminalDialogs() {
       element.removeAttribute("aria-label");
       delete element.dataset.originalText;
     });
+  };
+
+  const measureAdaptiveDialog = (dialog: HTMLDialogElement) => {
+    if (!dialog.hasAttribute("data-adaptive-dialog")) return;
+    dialog.style.removeProperty("--dialog-natural-height");
+    dialog.style.setProperty("--dialog-natural-height", `${dialog.offsetHeight}px`);
   };
 
   const startTypewriter = (dialog: HTMLDialogElement) => {
@@ -53,7 +60,7 @@ export function initializeTerminalDialogs() {
       const line = lines[lineIndex];
       line.textNode.appendData(line.characters[characterIndex]);
       if (line.textNode.parentElement?.closest(".jury-dialog-bio") && !bioScrollFrames.has(dialog)) {
-        const bio = dialog.querySelector<HTMLElement>(".jury-dialog-bio");
+        const bio = dialog.querySelector<HTMLElement>("[data-dialog-scroll], .jury-dialog-bio");
         if (bio) {
           bioScrollFrames.set(dialog, window.requestAnimationFrame(() => {
             bio.scrollTop = bio.scrollHeight;
@@ -109,7 +116,18 @@ export function initializeTerminalDialogs() {
       closeTimer = undefined;
       resetTypewriter(dialog);
       dialog.classList.remove("is-open");
+      dialog.style.removeProperty("--dialog-natural-height");
+      dialogTriggers.get(dialog)?.focus({ preventScroll: true });
+      dialogTriggers.delete(dialog);
     });
+
+    if (dialog.hasAttribute("data-adaptive-dialog")) {
+      window.addEventListener("resize", () => {
+        if (!dialog.open || closeTimer !== undefined) return;
+        resetTypewriter(dialog);
+        measureAdaptiveDialog(dialog);
+      });
+    }
   });
 
   triggers.forEach((trigger) => {
@@ -121,8 +139,11 @@ export function initializeTerminalDialogs() {
     if (!(dialog instanceof HTMLDialogElement)) return;
 
     trigger.addEventListener("click", () => {
+      dialogTriggers.set(dialog, trigger);
       resetTypewriter(dialog);
       dialog.showModal();
+      measureAdaptiveDialog(dialog);
+      dialog.querySelector<HTMLElement>("[data-dialog-scroll]")?.scrollTo(0, 0);
       dialog.classList.add("is-open");
       startTypewriter(dialog);
     });

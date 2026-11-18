@@ -1,12 +1,72 @@
 # Handoff
 
+## Email credito web — 18 novembre 2026
+
+- Aggiunta su richiesta di Antonio `a.strignano@yahoo.it` come link `mailto:` accanto a Design e sviluppo web — Antonio Strignano, solo nelle note legali. Modello crediti con campo email opzionale, link degli altri autori invariati. Build 11 pagine superata; verificato un unico mailto corretto nel credito e conservazione dei collegamenti preesistenti; diff senza errori whitespace.
+- Nessuna pubblicazione avviata: la valutazione positiva dell'utente non è una richiesta di deploy.
+
+## Correzione presentazione premiati — 18 novembre 2026
+
+- Indicazione corretta da Antonio: i premiati DEVONO restare card apribili con dialog, non schede editoriali complete in pagina. Fuori dalla card restano solo i complimenti al vincitore e la motivazione della menzione; sinossi, bio e link nei dialog.
+- `AwardResult.astro` riusa nuovamente `ShortFilmPreviewCard` per hub e pagina2026, con card affiancate desktop/impilate mobile e commento sotto ciascuna card. Conservati fasce diagonali, testo completo nei dialog e azioni Guarda il corto / Guarda il teaser. Hero e dialog della mascotte non modificati.
+- Questa correzione prevale sulla presentazione editoriale descritta nelle sezioni precedenti. Build superata; test Chromium a 390 e 1440 px su hub e pagina2026: due card e due dialog, soltanto commenti visibili fuori, bio e video corretti nei dialog, nessun overflow.
+
+## Revisione hero e premi — 18 novembre 2026
+
+### Stato finale
+
+- Revisione completata: hero animata desktop/mobile con nuova immagine iniziale, altezza desktop 4:1 invariata e bande nere; menzione diagonale; video dei due premiati; copy integrale direttamente nelle pagine Gertie; CTA edizione2026 come pulsanti; solo dialog dinosaurino adattivo con footer fermo.
+- Verifica: build 11 pagine, nessun errore editor in `src`; suite Chromium/WebKit su sette pagine e cinque viewport superata. Verificati tempi 2000/500 ms su mobile/desktop, pausa/reduced-motion/noJS, prima immagine corretta, bande nere tramite pixel, assenza layout shift/overflow e integrità del testo della fascia menzione.
+- Dialog: altezza da 812 a 621 px a 390×844; in landscape corpo scorrevole e footer fermo. Test animazione completa, altezza stabile durante typewriter, resize/orientamento, testo200%, chiusura e focus superati su entrambi i motori. Attendere transizioni/evento close nei test per evitare screenshot intermedi vuoti o controlli focus prematuri; nessuna prova su iPhone fisico.
+- Link interni/ancore verificati; video YouTube esterni senza embed o richieste anticipate. Screenshot finali in `/tmp/dormiveglia-validation/` (hero-first/last con larghezza, dialog-complete, premi-integrali). Anteprima build sempre su `http://127.0.0.1:4322/`. Nessun deploy o commit.
+
+### Registro intermedio
+
+- Implementazione approvata. Hero aggiornata: prima SEE YOU NEXT YEAR?, poi illustrazione precedente su mobile / banner largo precedente su desktop. Loop su entrambi, 2000 ms / dissolvenza 500 ms, pausa e reduced-motion; dimensioni dei contenitori conservate, immagini intere con sfondo nero e bande laterali dove necessario.
+- Nuova immagine iniziale anche senza JS/reduced-motion; il timer attende il caricamento della seconda. Verifica build e browser della revisione da completare.
+- Build hero superata. Menzione KA-POW! ora diagonale nelle card condivise (home/selezione/risultati). Azioni video nei dati e nei dialog: Le Case di Achille → Guarda il corto (`vzH6gg35nsQ`); Sotto i Pini → Guarda il teaser (`bq7P1Zi-Ub0`). Link autori e azioni degli altri corti conservati; niente embed.
+- Build/video verificati su home e pagina 2026. Sezioni premi di hub e pagina2026 ora usano `AwardResult.astro`: presentazione/motivazione, sinossi e bio integrali, immagini e CTA video/Instagram direttamente leggibili in pagina (non un grande pulsante). Selezione e dialog dei corti conservati.
+- Home: presentazione del vincitore e motivazione della menzione riportate integralmente nel teaser. CTA a edizione2026/premi dall'hub e archivio generale rese veri pulsanti del sistema esistente. Verifica build/layout del blocco da eseguire.
+- Build copy/editoriale superata. Dialog del solo dinosaurino marcato `data-adaptive-dialog`: altezza naturale con limite viewport, corpo scorrevole separato da azioni ferme. Controller misura il box completo prima del typewriter per evitare crescita a ogni carattere, ricalcola su resize e conserva ripristino focus/Escape/backdrop. Nessun nuovo comportamento dimensionale per corti/giuria/film.
+- Misura iniziale prima del fix: 812 px a 390×844, 343 px a 667×375. Verifica comparativa e regressione browser da completare.
+- Prima verifica dialog superata: 621 px a 390×844, 343 px in landscape con solo corpo scorrevole; posizione footer stabile in entrambi i casi. Nessun errore editor in `src`. Test temporanei esistenti aggiornati alle nuove aspettative (desktop animato, prima immagine nuova, copy in pagina e video), senza aggiungere dipendenze al progetto.
+- Questa sezione prevale sui riepiloghi della consegna precedente sotto. Fascia menzione, video, copy più integrale, pulsante edizione e dialog mascotte sono i prossimi interventi approvati; nessuna modifica prevista per crediti o archivio generale oltre alla CTA.
+
+## Aggiornamento post-festival — 18 novembre 2026
+
+- Completato: risultati Gertie con schede integrali e riconoscimenti, archivio festival 2025/2026, storico Gertie separato, crediti solo nelle note legali, dialog mobile e hero mobile alternata (2000 ms / dissolvenza 500 ms). Questa sezione prevale sulle descrizioni pre-evento sotto.
+- Verifica finale: `npm run build` riuscita, 11 pagine; nessun errore editor in `src`, `git diff --check` pulito. Chromium e WebKit: sette pagine, dialog in 320×568 / 375×667 / 390×844 / 667×375 / 1440×900, chiusura e ritorno focus; film e locandine verificati. Hero: tempi, pausa, reduced-motion, desktop statico e assenza layout shift verificati. Nessun overflow, ID duplicato, link interno/ancora/immagine non valido o prenotazione attiva nelle superfici controllate; nessuna richiesta Instagram/Facebook.
+- Verifica aggiuntiva WebKit con typewriter completo a 320×568 superata. Screenshot dei due fotogrammi, banner Gertie caricato, dialog e archivio in `/tmp/dormiveglia-validation/`. Nessuna prova su iPhone fisico; WebKit è emulazione browser desktop con viewport mobile.
+- Anteprima finale attiva: `http://127.0.0.1:4322/`. Nessun deploy, commit o spostamento in sottodominio eseguito. Copertine recap e ulteriori foto/video possono essere aggiunti in seguito senza bloccare la raccolta attuale.
+
+### Registro delle modifiche e verifiche intermedie
+
+- Dati premi centralizzati nelle schede corti: “Le Case di Achille” di Nespy5euro vince il GAP 2026; “Sotto i Pini” di Noctu Animation riceve la Menzione d'Onore Collettivo KA-POW!. Presentazione/motivazione e bio provengono dal copy fornito da Antonio; sinossi esistenti conservate.
+- Hero mobile integrata in `HeroArtwork.astro`: cambio ogni 2 secondi, dissolvenza 500 ms, pausa e reduced-motion; desktop invariato. Asset aggiuntivo fornito come `src/assets/hero/hero-see-you-next-year.jpg` (1439×900); originale mobile 1125×900. Riquadro stabile 4:3 e immagini intere senza crop su mobile.
+- Modifiche preesistenti in docs/cose-da-chiedere.md, docs/tutto-da-chiedere.md, src/data/site.ts e questo handoff: conservarle.
+- Prima build dei dati premi superata. Ora aggiunti sezione risultati 2026, fasce su tutte le card condivise e dettagli completi dei premiati; CTA Gertie orientate ai risultati e allo storico (hub in preparazione).
+- Dialog mobile: altezza limitata da dvh, contenuto interamente scorrevole e immagine mascotte con altezza proporzionata esplicita, senza alterare la posizione della X. Verifica build/browser del blocco da eseguire.
+- Build risultati/card superata. Creati `/archivio/` con i sei recap ricevuti (2026: giorni 1–4; 2025: giorno 1 e recap generale) e `/gertie-animation-prize/` con storico dei premi 2026 e 2025. Menu aggiornato preservando i dati titolare già modificati dall'utente.
+- Crediti solo nelle note legali: Design e sviluppo web — Antonio Strignano; Identità grafica — Savi Lomuscio. Link credito opzionale; attribuzioni specifiche conservate.
+- Archivio festival indipendente in `src/data/archivio.ts`: resta sul dominio principale. Nel futuro snapshot annuale escludere `src/pages/archivio.astro` e il dataset/asset usati solo da quella pagina; ricollegare menu al dominio principale e verificare sitemap. Nessuna migrazione/sottodominio eseguita ora.
+- Nessun embed o risorsa remota Instagram: copertine non fornite, recap presentati come link editoriali. Browser di test installati solo in `/tmp/dormiveglia-validation`, senza cambiare dipendenze del progetto.
+- Verifica archivi/crediti superata: build 11 pagine, sei URL esatti, nessun iframe e credito Antonio senza link fittizio.
+- Rimosse CTA prenotazioni da header/footer/home/programma/dialog film/contatti; mantenuti dati storici e obblighi privacy del modulo. Home ora annuncia entrambi i premi; footer e contatti puntano all'archivio. Slider sospeso fuori viewport/tab nascosta, su desktop e con reduced-motion. Verifica build/browser del blocco da eseguire.
+- Build hero/post-evento superata (11 pagine); nuova hero ottimizzata WebP circa 81 kB. Corretto il tipo del timer browser (`number`, non `NodeJS.Timeout`) segnalato dall'editor. Anteprima da avviare con cwd esplicita nella sottocartella progetto.
+- Archivi impaginati con sezioni annuali non incorniciate, indice per anno e righe recap con link esterni; griglia risultati Gertie e vincitore 2025 responsive. Nessun placeholder o miniatura inventata.
+- Anteprima della build attiva su `http://127.0.0.1:4322/` tramite `npm --prefix /Users/antonio/Desktop/kapow/sito-dormiveglia/sito-dormiveglia run preview -- --host 127.0.0.1 --port 4322`. I terminali async partono dalla cartella esterna: usare `--prefix`.
+- Controlli browser temporanei preparati in `/tmp/dormiveglia-validation/check.mjs` per Chromium/WebKit, dialog in cinque viewport, timer hero, collegamenti/crediti e screenshot. Non sono dipendenze o file di test aggiunti al progetto. Esecuzione da completare.
+- Prima prova browser ha rilevato overflow orizzontale causato dalle nuove etichette premio `sr-only` nei caroselli: aggiunto containing block locale (`position: relative`) alle card, senza mascherare overflow del body o cambiare il motore carosello. Ripetere la verifica.
+- Chromium: passate 7 pagine e 25 aperture dialog in cinque viewport, più film e locandina; nessun overflow, ID duplicato o CTA prenotazione. Hero: verificati cicli 2000 ms, transizione 500 ms, pausa e stabilità del layout. Adeguato il test reduced-motion all'evento asincrono della media query; ripetizione Chromium/WebKit da completare.
+- Verifica Chromium completata anche per reduced-motion/desktop/assenza richieste social. In WebKit rilevata mancata restituzione nativa del focus al trigger dopo chiusura: controller dialog aggiornato per memorizzare il pulsante di apertura e ripristinarvi esplicitamente il focus senza scroll. Ripetere stesso controllo sui due motori.
+
 ## Stato
 
 Progetto Astro statico in italiano, con anteprima locale e hosting scelto su Netlify. Build verificata con `npm run build`. Server di sviluppo avviato su `http://localhost:4321/`. Palette corrente: fondo nero e testo verde fluorescente. Reticolo verde al 10% con passo 64px sul body: fisso da tablet/desktop, scorrevole su mobile fino a 48rem. Header e footer restano nero pieno senza griglia; card opache su `--color-surface` (`#0B1710`). Nessuna ombra decorativa su testo, bordi o pulsanti; restano gli outline di focus accessibili e la gerarchia di bordo della CTA primaria. CTA primaria verde con testo nero; CTA secondarie nere con testo/bordo verdi.
 
 Pagine: Home, Programma, Gertie Animation Prize (`/2026/`; la pagina `/2025/` è stata rimossa), Contatti (`/contatti/`). Nessuna pagina Archivio per ora. Nella pagina Programma la grafica precede i contenuti testuali, che restano trascritti in HTML; placeholder visibili per i dati e i link non ancora forniti.
 
-Pagina Contatti: foto della facciata a sinistra e informazioni pratiche a destra su desktop; su mobile i dati e le CTA precedono la foto. Accessibilità e contatti sono affiancati da tablet in su, con divisori e senza card. Sede e orari (porte 20:00, proiezioni 21:00), ingresso gratuito con prenotazione consigliata e circa 40 posti per serata. CTA “Indicazioni” con icona pixel-art per il link Google Maps e “Prenota un posto”; email festival `info@dormiveglia.it`, email collettivo `collettivokapow@gmail.com`, Instagram, rampa per carrozzine e bagno accessibile. Foto della facciata 16:9 in `src/assets/venue/ingresso.png`; evitare embed Google Maps.
+Pagina Contatti: foto della facciata a sinistra e informazioni pratiche a destra su desktop; su mobile i dati e le CTA precedono la foto. Accessibilità e contatti sono affiancati da tablet in su, con divisori e senza card. Sede e orari (porte 20:00, proiezioni 21:00), ingresso gratuito con prenotazione consigliata e circa 40 posti per serata. CTA “Indicazioni” con icona pixel-art per il link Google Maps e “Prenota un posto”; email festival `info@dormivegliafest.it`, email collettivo `collettivokapow@gmail.com`, Instagram, rampa per carrozzine e bagno accessibile. Foto della facciata 16:9 in `src/assets/venue/ingresso.png`; evitare embed Google Maps.
 
 Homepage: chiusa per il momento. In `/programma/` rimossa la CTA finale di prenotazione (restano quelle sulle locandine). Hero: da 48,06rem in su `<picture>` con il banner `src/assets/hero/hero-desktop.png` (4:1, contiene già logo, data e luogo; il testo HTML della hero resta solo per screen reader, restano visibili le CTA); su mobile resta l'hero attuale (illustrazione + logo e testi in HTML).
 
