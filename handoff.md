@@ -1,5 +1,10 @@
 # Handoff
 
+## Altezza uniforme card premiati — 18 novembre 2026
+
+- Griglia premiati con righe uniformi e card estese all'altezza disponibile: entrambe seguono la card più alta, anche quando impilate su mobile, senza altezza pixel fissa. Applicato su home, hub Gertie e pagina2026 tramite `.award-results`.
+- Copy breve interno, immagini e dialog invariati. Build 11 pagine superata. Misure Chromium a 390/1440 px: altezze identiche per ogni coppia su home, hub e pagina2026, anche dopo caricamento immagini/font; nessun overflow orizzontale.
+
 ## Copy breve dentro le card — 18 novembre 2026
 
 - Ultima indicazione di Antonio: complimenti/motivazione brevi DENTRO le card premiati, in corpo più piccolo (0.9rem), sotto titolo/autore e prima di Leggi la scheda. Applicato al componente condiviso, quindi home, hub Gertie e pagina2026 coerenti.
